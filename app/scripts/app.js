@@ -17,8 +17,13 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'door3.css'
-  ])
+    'door3.css',
+    'LocalStorageModule'
+  ]).config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+      .setPrefix('agentUIApp')
+      .setNotify(true, true);
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
