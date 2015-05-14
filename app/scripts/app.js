@@ -16,19 +16,23 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'door3.css'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        css: 'styles/login.css'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
-      })
-      .otherwise({
+      }).when('/main', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      }).otherwise({
         redirectTo: '/'
       });
   });
