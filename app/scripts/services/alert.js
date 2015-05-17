@@ -17,9 +17,7 @@
     get: get
   },
   alerts = [];
-  add('danger','Oh snap! Change a few things up and try submitting again.');
-  add('success','Well done! You successfully read this important alert message.');
-
+  
   return service;
 
   function add(type, msg ,tout) {

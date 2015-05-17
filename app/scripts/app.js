@@ -29,7 +29,9 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
     .setPrefix('agentUIApp')
     .setStorageType('localStorage')
     .setNotify(true, true);
-}).config(function ($routeProvider) {
+});
+
+angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/login.html',
@@ -47,3 +49,7 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
     });
 });
 
+
+angular.module('agentUiApp').config(function ($httpProvider) {
+    $httpProvider.interceptors.push('AuthInterceptor');
+});
