@@ -22,9 +22,9 @@ angular
   ]).config(function (localStorageServiceProvider) {
     localStorageServiceProvider
       .setPrefix('agentUIApp')
+      .setStorageType('localStorage')
       .setNotify(true, true);
-  })
-  .config(function ($routeProvider) {
+  }).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
@@ -41,3 +41,4 @@ angular
         redirectTo: '/'
       });
   });
+
