@@ -17,6 +17,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.bootstrap',
     'door3.css',
     'LocalStorageModule'
   ]);
@@ -32,15 +33,15 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/login.html',
-      controller: 'LoginCtrl',
+      controller: 'LoginController',
       css: 'styles/login.css'
     })
     .when('/about', {
       templateUrl: 'views/about.html',
-      controller: 'AboutCtrl'
+      controller: 'AboutController'
     }).when('/main', {
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainController'
     }).otherwise({
       redirectTo: '/'
     });

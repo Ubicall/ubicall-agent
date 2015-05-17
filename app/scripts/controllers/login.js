@@ -1,5 +1,7 @@
+'use strict';
+
 angular.module('agentUiApp')
-  .controller('LoginCtrl', ['$scope', '$animate', Auth, function ($scope, $animate) {
+  .controller('LoginController', ['$scope', '$animate', Auth, function ($scope, $animate) {
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
@@ -11,6 +13,11 @@ angular.module('agentUiApp')
     $scope.submit = function () {
       // show success message
       $scope.showMessage = true;
+      Auth.login($scope.email, $scope.password).then(function success() {
+
+      }, function error() {
+
+      });
     };
 
   }])
