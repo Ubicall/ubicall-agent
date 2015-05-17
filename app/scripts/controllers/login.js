@@ -1,21 +1,21 @@
 angular.module('agentUiApp')
-.controller('LoginCtrl', ['$scope', '$animate', function($scope, $animate) {
+  .controller('LoginCtrl', ['$scope', '$animate', Auth, function ($scope, $animate) {
 
-  // hide error messages until 'submit' event
-  $scope.submitted = false;
+    // hide error messages until 'submit' event
+    $scope.submitted = false;
 
-  // hide success message
-  $scope.showMessage = false;
+    // hide success message
+    $scope.showMessage = false;
 
-  // method called from shakeThat directive
-  $scope.submit = function() {
-    // show success message
-    $scope.showMessage = true;
-  };
+    // method called from shakeThat directive
+    $scope.submit = function () {
+      // show success message
+      $scope.showMessage = true;
+    };
 
-}])
+  }])
 
-  .directive('shakeThat', ['$animate', function($animate) {
+  .directive('shakeThat', ['$animate', function ($animate) {
 
     return {
       require: '^form',
@@ -23,13 +23,13 @@ angular.module('agentUiApp')
         submit: '&',
         submitted: '='
       },
-      link: function(scope, element, attrs, form) {
+      link: function (scope, element, attrs, form) {
 
         // listen on submit event
-        element.on('submit', function() {
+        element.on('submit', function () {
 
           // tell angular to update scope
-          scope.$apply(function() {
+          scope.$apply(function () {
 
             // everything ok -> call submit fn from controller
             if (form.$valid) return scope.submit();
@@ -38,7 +38,7 @@ angular.module('agentUiApp')
             scope.submitted = true;
 
             // shake that form
-            $animate.addClass(element, 'shake', function() {
+            $animate.addClass(element, 'shake', function () {
               $animate.removeClass(element, 'shake');
             });
 
