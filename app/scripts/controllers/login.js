@@ -1,36 +1,30 @@
 'use strict';
 
 angular.module('agentUiApp')
-  .controller('LoginController', ['$scope', '$animate', Auth, function ($scope, $animate) {
+.controller('LoginController', function ($scope, $animate, Auth ,alertService) {
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
 
-    // hide success message
-    $scope.showMessage = false;
-
     // method called from shakeThat directive
     $scope.submit = function () {
-      // show success message
-      $scope.showMessage = true;
       Auth.login($scope.email, $scope.password).then(function success() {
-
+        alertService.add('success' , "you logged in ")
       }, function error() {
-
+        alertService.add('danger' , "crednetial problem found")
       });
     };
 
-  }])
+  })
+.directive('shakeThat', ['$animate', function ($animate) {
 
-  .directive('shakeThat', ['$animate', function ($animate) {
-
-    return {
-      require: '^form',
-      scope: {
-        submit: '&',
-        submitted: '='
-      },
-      link: function (scope, element, attrs, form) {
+  return {
+    require: '^form',
+    scope: {
+      submit: '&',
+      submitted: '='
+    },
+    link: function (scope, element, attrs, form) {
 
         // listen on submit event
         element.on('submit', function () {

@@ -8,13 +8,13 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('Auth', function ($http, $q, AuthToken) {
+  .factory('Auth', function ($http, $q, AuthToken ,API_BASE) {
     var userInfo;
 
-    function login(userName, password, API_BASE) {
+    function login(userName, password) {
       var deferred = $q.defer();
 
-      $http.post("API_BASE/login", {
+      $http.post(API_BASE+"/login", {
         userName: userName,
         password: password
       }).then(function (result) {
