@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agentUiApp')
-.controller('LoginController', function ($scope, $animate, Auth ,alertService) {
+.controller('LoginController', function ($scope, $animate, $location, Auth, alertService) {
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
@@ -9,7 +9,8 @@ angular.module('agentUiApp')
     // method called from shakeThat directive
     $scope.submit = function () {
       Auth.login($scope.email, $scope.password).then(function success() {
-        alertService.add('success' , "you logged in ")
+        alertService.add('success' , "you logged in ");
+        $location.path('/main');
       }, function error() {
         alertService.add('danger' , "crednetial problem found")
       });

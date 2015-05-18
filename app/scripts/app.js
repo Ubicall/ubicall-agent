@@ -36,21 +36,49 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     .when('/', {
       templateUrl: 'views/login.html',
       controller: 'LoginController',
-      css: 'styles/login.css'
+      css: 'styles/login.css',
+      resolve: {
+        factory: function ($q, $location, Auth, alertService) {
+          // don't load login if user already login 'logout first'
+          Auth.isLoggedIn().then(function () {
+            $q.defer().reject();
+            alertService.add('info', "you already logged in ");
+            $location.path("/main");
+          }, function () {
+            return true;
+          });
+        }
+      }
     })
     .when('/about', {
       templateUrl: 'views/about.html',
-      controller: 'AboutController'
+      controller: 'AboutController',
+      resolve: {
+        factory: checkRouting
+      }
     }).when('/main', {
       templateUrl: 'views/main.html',
       controller: 'MainController',
-      css:"styles/main.css",
+      css: "styles/main.css",
+      resolve: {
+        factory: checkRouting
+      }
     }).otherwise({
       redirectTo: '/'
     });
 });
 
+var checkRouting = function ($q, $location, alertService, Auth) {
+  Auth.isLoggedIn().then(function yes() {
+    return true;
+  }, function not() {
+    $q.defer().reject();
+    alertService.add('danger', "unauthorized log in first ");
+    $location.path("/login");
+  });
+};
+
 
 angular.module('agentUiApp').config(function ($httpProvider) {
-    $httpProvider.interceptors.push('AuthInterceptor');
+  $httpProvider.interceptors.push('AuthInterceptor');
 });

@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .factory('AuthToken', function (localStorageService) {
-    var tokenKey = 'user-token';
+    var tokenKey = 'access_token';
     var cachedToken;
     return {
       isAuthenticated: isAuthenticated,

@@ -17,15 +17,16 @@
     get: get
   },
   alerts = [];
-  
+
   return service;
 
   function add(type, msg ,tout) {
     var that = this;
     tout = tout || 6000 ; //6 seconds
-    $timeout(function(){ 
-      closeAlert(that); 
-    }, tout); 
+    type = type || 'success';
+    $timeout(function(){
+      closeAlert(that);
+    }, tout);
     return alerts.push({
       type: type,
       msg: msg,
