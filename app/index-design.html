@@ -1,0 +1,289 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Ubicall Agent</title>
+	<meta name="description" content="">
+	<link rel="icon" href="favicon.ico" />
+	<meta name="viewport" content="width=device-width">
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<!-- build:css(.) styles/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"  />
+	<link rel="stylesheet" href="styles/ubi.css">
+	<!-- endbuild -->
+</head>
+<body ng-app="agentUiApp">
+
+	<!-- Header -->
+
+	<div id="header">
+		<div ng-controller="AlertController">
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+		</div>
+		<div class="container">
+
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Dashboard</a></li>
+							<li><a href="#">Admin</a></li>
+							<li><a href="#">Monitoring</a></li>
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-circle online"></i> Waleed Samy <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+								</ul>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</nav>
+
+		</div>
+	</div>
+
+	<!-- Header End -->
+
+
+
+
+	<!-- Page -->
+
+	<div id="pages">
+
+
+		<!-- Left Page -->
+
+		<div class="col-md-1 left-page">
+
+			<a href="#">
+				<div class="left-menu active">
+					<i class="fa fa-history"></i>
+					<h4>Recent Calls</h4>
+				</div>
+			</a>
+
+			<a href="#">
+				<div class="left-menu">
+					<i class="fa fa-envelope"></i>
+					<span class="badge">8</span>
+					<h4>Voicemails</h4>
+				</div>
+			</a>
+
+			<a href="#">
+				<div class="left-menu">
+					<i class="fa fa-users"></i>
+					<h4>Contacts</h4>
+				</div>
+			</a>
+
+		</div>
+
+		<!-- Left Page End -->
+
+
+
+		<!-- Right Page -->
+
+		<div class="col-md-11 right-page">
+
+
+			<!-- Page Body -->
+
+			<div class="col-md-9 page-body">
+
+				<div class="recent-calls">
+
+					<div id="custom-search-input">
+						<div class="input-group col-md-12">
+							<form>
+								<input type="text" class="form-control" placeholder="Search..." />
+							</form>
+							<span class="input-group-btn">
+								<button class="btn btn-info btn-lg" type="button">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+
+					<h2>Recent Calls</h2>
+
+					<div class="recent-title">
+						<div class="recent-title-01"></div>
+						<div class="recent-title-02">Contact</div>
+						<div class="recent-title-03">Agent</div>
+						<div class="recent-title-04">Via</div>
+						<div class="recent-title-05">When</div>
+						<div class="recent-title-06">Duration</div>
+						<div class="recent-title-07"></div>
+					</div>
+
+					<div class="recent-01">
+						<div class="call-01 cll-current"></div>
+						<div class="call-02">
+							<img src="images/home-pic-04.jpg" alt="" />
+							<div class="call-02-name">Samantha Nedaerk</div>
+							<div class="call-02-title">Call center manager at Ubicall</div>
+						</div>
+						<div class="call-03">Adam Williams</div>
+						<div class="call-04">+2001222898163</div>
+						<div class="call-05">Nov 28, 2015</div>
+						<div class="call-06">00:03:52</div>
+						<div class="call-07"><i class="fa fa-play-circle-o"></i></div>
+					</div>
+
+					<div class="recent-02">
+						<div class="call-01 cll-priv"></div>
+						<div class="call-02">
+							<img src="images/home-pic-04.jpg" alt="" />
+							<div class="call-02-name">Samantha Nedaerk</div>
+							<div class="call-02-title">Call center manager at Ubicall</div>
+						</div>
+						<div class="call-03">Adam Williams</div>
+						<div class="call-04">+2001222898163</div>
+						<div class="call-05">Nov 28, 2015</div>
+						<div class="call-06">00:03:52</div>
+						<div class="call-07"><i class="fa fa-play-circle-o"></i></div>
+					</div>
+
+					<div class="recent-01">
+						<div class="call-01 cll-priv"></div>
+						<div class="call-02">
+							<img src="images/home-pic-04.jpg" alt="" />
+							<div class="call-02-name">Samantha Nedaerk</div>
+							<div class="call-02-title">Call center manager at Ubicall</div>
+						</div>
+						<div class="call-03">Adam Williams</div>
+						<div class="call-04">+2001222898163</div>
+						<div class="call-05">Nov 28, 2015</div>
+						<div class="call-06">00:03:52</div>
+						<div class="call-07"><i class="fa fa-play-circle-o"></i></div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Page Body End -->
+
+
+
+			<!-- Queues -->
+
+			<div class="col-md-3 queues">
+
+				<div id="MainMenu">
+					<div class="list-group panel">
+
+						<a href="#Queue01" class="list-group-item frist-item" data-toggle="collapse" data-parent="#MainMenu">Queue 01 <i class="fa fa-01 fa-caret-down"></i></a>
+						<div class="collapse" id="Queue01">
+							<a href="#" class="list-group-item items-list">Queue 01-01</a>
+							<a href="#" class="list-group-item items-list">Queue 01-02</a>
+							<a href="#" class="list-group-item items-list">Queue 01-03</a>
+							<a href="#" class="list-group-item items-list">Queue 01-04</a>
+							<a href="#" class="list-group-item items-list">Queue 01-05</a>
+							<a href="#" class="list-group-item items-list">Queue 01-06</a>
+						</div>
+
+						<a href="#Queue02" class="list-group-item frist-item" data-toggle="collapse" data-parent="#MainMenu">Queue 02 <i class="fa fa-01 fa-caret-down"></i></a>
+						<div class="collapse" id="Queue02">
+							<a href="#" class="list-group-item items-list">Queue 02-01</a>
+							<a href="#" class="list-group-item items-list">Queue 02-02</a>
+							<a href="#" class="list-group-item items-list">Queue 02-03</a>
+							<a href="#" class="list-group-item items-list">Queue 02-04</a>
+						</div>
+
+						<a href="#Queue03" class="list-group-item frist-item" data-toggle="collapse" data-parent="#MainMenu">Queue 03 <i class="fa fa-01 fa-caret-down"></i></a>
+						<div class="collapse" id="Queue03">
+							<a href="#" class="list-group-item items-list">Queue 03-01</a>
+							<a href="#" class="list-group-item items-list">Queue 03-02</a>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Queues End -->
+
+		</div>
+
+		<!-- Right Page End -->
+
+
+	</div>
+
+	<!-- Page End -->
+
+
+
+
+
+	<!-- Footer -->
+
+	<div class="footer">
+		<div class="container">
+			<p><span class="glyphicon glyphicon-heart"></span> from the sandcti team</p>
+		</div>
+	</div>
+
+	<!-- Footer End -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/angular-touch/angular-touch.js"></script>
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/angular-css/angular-css.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/services/alert.js"></script>
+	<script src="scripts/services/authtoken.js"></script>
+	<script src="scripts/services/authinterceptor.js"></script>
+	<script src="scripts/services/auth.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/about.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+	<script src="scripts/controllers/alert.js"></script>
+	<!-- endbuild -->
+</body>
+</html>
