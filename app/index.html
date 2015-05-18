@@ -2,8 +2,9 @@
 <html class="no-js">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Ubicall Agent</title>
   <meta name="description" content="">
+  <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
@@ -12,7 +13,8 @@
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"  />
+  <link rel="stylesheet" href="styles/ubi.css">
   <!-- endbuild -->
 </head>
 <body ng-app="agentUiApp">
@@ -96,6 +98,7 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
+<script src="scripts/services/alert.js"></script>
 <script src="scripts/services/authtoken.js"></script>
 <script src="scripts/services/authinterceptor.js"></script>
 <script src="scripts/services/auth.js"></script>
@@ -103,8 +106,6 @@
 <script src="scripts/controllers/about.js"></script>
 <script src="scripts/controllers/login.js"></script>
 <script src="scripts/controllers/alert.js"></script>
-
-<script src="scripts/services/alert.js"></script>
 <!-- endbuild -->
 </body>
 </html>

@@ -43,7 +43,8 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       controller: 'AboutController'
     }).when('/main', {
       templateUrl: 'views/main.html',
-      controller: 'MainController'
+      controller: 'MainController',
+      css:"styles/main.css",
     }).otherwise({
       redirectTo: '/'
     });
