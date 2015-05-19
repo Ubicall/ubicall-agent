@@ -14,7 +14,7 @@ angular.module('agentUiApp')
     function login(userName, password) {
       var deferred = $q.defer();
       $http.post(API_BASE + "/login", {
-        userName: userName,
+        username: userName,
         password: password
       }).then(function (result) {
         currentUser = {
