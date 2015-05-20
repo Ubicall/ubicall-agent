@@ -118,20 +118,16 @@
 
 		<div class="col-md-3 queues">
 
-			<div id="MainMenu">
-				<div class="list-group panel">
-					<div ng-click="collapse({{queue.id}})" collapse="false" ng-repeat="queue in queues">
-						<a ng-href="#/queue/{{queue.id}}" class="list-group-item frist-item" >{{queue.name}} 
-						</a>
-						<div ng-repeat="item in queue.items" >
-							<a ng-href="#/queue/{{queue.id}}/{{item.id}}" 
-							class="list-group-item items-list">{{item.name}}</a>
-						</div>	
-					</div>
+			<accordion close-others="oneAtATime">
+				<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
+				<div ng-repeat="item in queue.items" >
+					<a ng-href="#/queue/{{queue.id}}/{{item.id}}" 
+					class="list-group-item items-list">{{item.name}}</a>
+				</div>	
+			</accordion-group>
 
-				</div>
-			</div>
-
-		</div>
+		</accordion>
 
 	</div>
+
+</div>
