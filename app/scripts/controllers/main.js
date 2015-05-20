@@ -18,4 +18,8 @@
  	$scope.user= user;
  	$scope.calls = CallCenter.getAvailablesCalls(user);
  	$scope.queues = CallCenter.getQueues(user);
+
+ 	$scope.collapse=function(id){
+
+ 	};
  });
