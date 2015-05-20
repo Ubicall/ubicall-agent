@@ -1,0 +1,22 @@
+<div class="col-md-9 page-body">
+
+	<div class="recent-calls">
+
+		<div id="custom-search-input">
+			<div class="input-group col-md-12">
+				<form>
+					<input type="text" class="form-control" placeholder="Search..." />
+				</form>
+				<span class="input-group-btn">
+					<button class="btn btn-info btn-lg" type="button">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
+				</span>
+			</div>
+		</div>
+
+		<h2>Recent Calls</h2>
+		<div ng-repeat="call in calls" ng-include="views/sub/sub/call.htm"></div>
+	</div>
+
+</div>
