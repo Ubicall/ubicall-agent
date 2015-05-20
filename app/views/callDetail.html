@@ -69,66 +69,49 @@
 
 	</div>
 
+
+
 	<div class="col-md-11 right-page">
+
 
 		<div class="col-md-9 page-body">
 
-			<div class="recent-calls">
+			<div class="details-calls">
 
-				<div id="custom-search-input">
-					<div class="input-group col-md-12">
-						<form>
-							<input type="text" class="form-control" placeholder="Search..." />
-						</form>
-						<span class="input-group-btn">
-							<button class="btn btn-info btn-lg" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</span>
-					</div>
+				<div class="col-md-4">
+					<img src="{{call.pigImage}}" alt="" />
 				</div>
 
-				<h2>Recent Calls</h2>
-				<div class="recent-title">
-					<div class="recent-title-01"></div>
-					<div class="recent-title-02">Contact</div>
-					<div class="recent-title-03">Agent</div>
-					<div class="recent-title-04">Via</div>
-					<div class="recent-title-05">When</div>
-					<div class="recent-title-06">Duration</div>
-					<div class="recent-title-07"></div>
-				</div>
+				<div class="col-md-8">
 
-				<div ng-repeat="call in calls" class="recent-01">
-					<div class="call-01 cll-current"></div>
-					<div class="call-02">
-						<img src="{{call.image}}" alt="" />
-						<div class="call-02-name">{{call.name}}</div>
-						<div class="call-02-title">{{call.title}}</div>
+					<div class="details-header">
+						<div class="details-name">{{call.fullName}}</div>
+						<div class="details-title">Call center manager at Ubicall</div>
 					</div>
-					<div class="call-03">{{call.fullName}}</div>
-					<div class="call-04">{{call.phone}}</div>
-					<div class="call-05">{{call.date}}</div>
-					<div class="call-06">{{call.time}}</div>
-					<div class="call-07">
-						<i class="fa fa-play-circle-o" ng-click="callDetail(call.queueid,call.callid)"></i></div>
+					<div ng-repeat="(key, value) in Call">
+						<div class="col-md-2">{{key}}</div>
+						<div class="col-md-10 details-fields">{{value}}</div>
 					</div>
+
 				</div>
 
 			</div>
 
-			<div class="col-md-3 queues">
-
-				<accordion close-others="oneAtATime">
-					<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
-					<div ng-repeat="call in queue.calls" >
-						<a ng-click="callDetail(queue.queueid,call.callid)" 
-						class="list-group-item items-list">{{item.name}}</a>
-					</div>	
-				</accordion-group>
-
-			</accordion>
-
 		</div>
 
+
+		<div class="col-md-3 queues">
+
+			<accordion close-others="oneAtATime">
+				<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
+				<div ng-repeat="call in queue.calls" >
+					<a ng-click="callDetail(queue.queueid,call.callid)" 
+					class="list-group-item items-list">{{item.name}}</a>
+				</div>	
+			</accordion-group>
+
+		</accordion>
+
 	</div>
+
+</div>

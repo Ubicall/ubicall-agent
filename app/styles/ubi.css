@@ -39,7 +39,7 @@ ul, li {
   list-style:none;
   margin:0;
   padding:0;
-  outline: none;
+  outline: none;   
 }
 
 /**************************************** Header ****************************************/
@@ -246,6 +246,9 @@ a.list-group-item.items-list:after {
   padding: 20px;
   min-height: 500px;
 }
+
+
+/**************************************** Recent Calls ****************************************/
 
 .recent-calls {
   padding: 0;
@@ -514,6 +517,63 @@ a.list-group-item.items-list:after {
 }
 
 
+/**************************************** Details Calls ****************************************/
+
+.details-calls {
+  padding: 0;
+  margin: 0;
+}
+
+.details-header {
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.details-header .details-name {
+  margin: 0 0 15px 0;
+  padding: 0;
+  text-align: left;
+  line-height: 20px;
+  font-weight: 600;
+  font-size: 30px;
+  color: #039997;
+}
+
+.details-header .details-title {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  line-height: 20px;
+  font-weight: 600;
+  font-size: 20px;
+  color: #777;
+}
+
+.details-calls img {
+  width: 100%;
+  height: auto;
+}
+
+.details-calls .details-fields {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.details-calls .empty {
+  color: #999;
+  font-style: italic;
+}
+
+.details-calls .empty a {
+  color: #999;
+  text-decoration: none;
+}
+
+.details-calls .empty a:hover {
+  color: #555;
+}
+
 /**************************************** Search ****************************************/
 
 #custom-search-input{
@@ -569,6 +629,7 @@ a.list-group-item.items-list:after {
 #custom-search-input .glyphicon-search:hover{
   color: #058584;
 }
+
 
 
 /* Sticky footer styles

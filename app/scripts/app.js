@@ -31,7 +31,7 @@
   .setNotify(true, true);
 });
 
- angular.module('agentUiApp').config(function ($routeProvider) {
+ angular.module('agentUiApp').config(function ($routeProvider,$routeParams) {
   $routeProvider
   .when('/', {
     templateUrl: 'views/login.html',
@@ -63,12 +63,19 @@
     resolve: {
       factory: checkRouting
     }
-  }).otherwise({
+  }).when('/call/:queueid/:callid',{
+    templateUrl: 'views/callDetail.html',
+    controller: 'DetailController',
+    resolve: {
+      factory: checkRouting
+    }
+  })
+  .otherwise({
     redirectTo: '/'
   });
 });
 
- var checkRouting = function ($q, $location, alertService, Auth) {
+var checkRouting = function ($q, $location, alertService, Auth) {
   Auth.isLoggedIn().then(function yes() {
     return true;
   }, function not() {

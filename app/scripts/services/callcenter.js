@@ -9,41 +9,53 @@
  */
  angular.module('agentUiApp')
  .service('CallCenter', function () {
+ 	var calls ;
  	this.getAvailablesCalls = function(user) {
- 		return [
- 		{name:'waleed',image:"images/home-pic-04.jpg",title:'man we',fullName:'waleed samy',
+ 		calls=
+ 		[{callid :1,queueid:1,name:'waleed',image:"images/home-pic-04.jpg",pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
  		phone:'+201069527634',date:'2/1/2013',time:'7:38:05 AM'},
- 		{name:'waleed',image:"images/home-pic-04.jpg",title:'man we',fullName:'waleed samy',
+ 		{callid :2,queueid:2,name:'waleed',image:"images/home-pic-04.jpg",pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
  		phone:'+201069527634',date:'2/1/2013',time:'7:38:05 AM'},
- 		{name:'waleed',image:"images/home-pic-04.jpg",title:'man we',fullName:'waleed samy',
+ 		{callid :3,queueid:3,name:'waleed',image:"images/home-pic-04.jpg",pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
  		phone:'+201069527634',date:'2/1/2013',time:'7:38:05 AM'}
  		];
+
+ 		return calls;
  	};
+
+ 	this.getCallDetail = function(queueid,callid){
+ 		var call =calls.filter(function(item){
+ 			return item.callid===callid && item.queueid===queueid;
+ 		});
+ 		call ={name:'waleed',image:"images/home-pic-04.jpg",pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
+ 		phone:'+201069527634',date:'2/1/2013',time:'7:38:05 AM'};
+ 		return call;
+ 	}
 
  	this.getQueues = function(user){
  		return [
  		{
- 			"id" : 1 ,"name" :"Customer Support", 
- 			"items" : 
+ 			"queueid" : 1 ,"name" :"Customer Support", 
+ 			"calls" : 
  			[
- 			{"id" : 1 , "name" : "custome support 11"},
- 			{"id" : 2, "name" : "custome support 11"}
+ 			{"callid" : 1 , "name" : "custo"},
+ 			{"callid" : 2, "name" : "custome support 11"}
  			]
  		},
  		{
- 			"id" : 2, "name" :"Red",
- 			"items" : 
+ 			"queueid" : 2, "name" :"Red",
+ 			"calls" : 
  			[
- 			{"id" : 1 , "name" : "Red 21"},
- 			{"id" : 2, "name" : "Red 22"}
+ 			{"callid" : 1 , "name" : "Red 21"},
+ 			{"callid" : 2, "name" : "Red 22"}
  			]
  		},
  		{
- 			"id" : 3, "name":"New Customers", 
- 			"items" : 
+ 			"queueid" : 3, "name":"New Customers", 
+ 			"calls" : 
  			[
- 			{"id" : 1 , "name" : "New Customers 31"},
- 			{"id" : 2, "name" : "New Customers 32"}
+ 			{"callid" : 1 , "name" : "New Customers 31"},
+ 			{"callid" : 2, "name" : "New Customers 32"}
  			]
  		}
  		];
