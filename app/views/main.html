@@ -111,24 +111,27 @@
 					<div class="call-05">{{call.date}}</div>
 					<div class="call-06">{{call.time}}</div>
 					<div class="call-07">
-						<i class="fa fa-play-circle-o" ng-click="callDetail(call.queueid,call.callid)"></i></div>
+						<a ng-href="#/call/{{call.queueid}}/{{call.callid}}" >
+							<i class="fa fa-play-circle-o"></i>
+						</a>
 					</div>
 				</div>
-
 			</div>
-
-			<div class="col-md-3 queues">
-
-				<accordion close-others="oneAtATime">
-					<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
-					<div ng-repeat="call in queue.calls" >
-						<a ng-click="callDetail(queue.queueid,call.callid)" 
-						class="list-group-item items-list">{{item.name}}</a>
-					</div>	
-				</accordion-group>
-
-			</accordion>
 
 		</div>
 
+		<div class="col-md-3 queues">
+
+			<accordion close-others="oneAtATime">
+				<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
+				<div ng-repeat="call in queue.calls" >
+					<a ng-href="#/call/{{queue.queueid}}/{{call.callid}}" 
+					class="list-group-item items-list">{{call.name}}</a>
+				</div>	
+			</accordion-group>
+
+		</accordion>
+
 	</div>
+
+</div>

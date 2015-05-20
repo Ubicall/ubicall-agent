@@ -31,7 +31,7 @@
   .setNotify(true, true);
 });
 
- angular.module('agentUiApp').config(function ($routeProvider,$routeParams) {
+ angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
   .when('/', {
     templateUrl: 'views/login.html',

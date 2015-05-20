@@ -18,7 +18,5 @@
  	$scope.user= user;
  	$scope.calls = CallCenter.getAvailablesCalls(user);
  	$scope.queues = CallCenter.getQueues(user);
- 	$scope.callDetail= function(queueid,callid){
- 		$location.path("#/call/"+queue.id+"/"+callid) 
- 	}
+ 	
  });

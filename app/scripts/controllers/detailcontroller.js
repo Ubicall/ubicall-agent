@@ -16,9 +16,7 @@
  	}
  	var user = Auth.currentUser().user;
  	$scope.user= user;
- 	$scope.calls = CallCenter.getCallDetail($routeParams.queueid,$routeParams.callid);
+ 	$scope.call = CallCenter.getCallDetail($routeParams.queueid,$routeParams.callid);
  	$scope.queues = CallCenter.getQueues(user);
- 	$scope.callDetail= function(queueid,callid){
- 		$location.path("#/call/"+queue.id+"/"+callid) 
- 	}
+
  });

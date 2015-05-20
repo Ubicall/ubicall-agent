@@ -24,10 +24,15 @@
  	};
 
  	this.getCallDetail = function(queueid,callid){
- 		var call =calls.filter(function(item){
- 			return item.callid===callid && item.queueid===queueid;
- 		});
- 		call ={name:'waleed',image:"images/home-pic-04.jpg",pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
+ 		var call = [];
+ 		angular.forEach(calls, function(item) {
+ 			if(item.callid===callid && item.queueid===queueid){
+ 				this.push(item);
+ 			}
+ 		}, call);
+
+ 		call ={name:'waleed',image:"images/home-pic-04.jpg",
+ 		pigImage:"images/home-pic-01.jpg",title:'man we',fullName:'waleed samy',
  		phone:'+201069527634',date:'2/1/2013',time:'7:38:05 AM'};
  		return call;
  	}

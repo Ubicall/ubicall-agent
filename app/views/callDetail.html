@@ -88,7 +88,7 @@
 						<div class="details-name">{{call.fullName}}</div>
 						<div class="details-title">Call center manager at Ubicall</div>
 					</div>
-					<div ng-repeat="(key, value) in Call">
+					<div ng-repeat="(key, value) in call">
 						<div class="col-md-2">{{key}}</div>
 						<div class="col-md-10 details-fields">{{value}}</div>
 					</div>
@@ -105,8 +105,8 @@
 			<accordion close-others="oneAtATime">
 				<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
 				<div ng-repeat="call in queue.calls" >
-					<a ng-click="callDetail(queue.queueid,call.callid)" 
-					class="list-group-item items-list">{{item.name}}</a>
+					<a ng-href="#/call/{{queue.queueid}}/{{call.callid}}" 
+					class="list-group-item items-list">{{call.name}}</a>
 				</div>	
 			</accordion-group>
 
