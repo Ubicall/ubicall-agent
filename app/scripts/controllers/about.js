@@ -8,10 +8,12 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('AboutController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('AboutController', function ($scope, $location, Auth) {
+    if (!Auth.currentUser() || !Auth.currentUser().user) {
+      Auth.logout().then(function () {
+        $location.path("/login");
+      })
+    }
+    var user = Auth.currentUser().user;
+    $scope.user = user;
   });

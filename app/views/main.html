@@ -1,137 +1,135 @@
 <div id="header">
-	<div class="container">
+  <div class="container">
 
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
 
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#/main">Dashboard</a></li>
-						<li><a ng-href="#/about">about</a></li>
-						<li><a ng-href="#/help">help</a></li>
-					</ul>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#/main">Dashboard</a></li>
+            <li><a ng-href="#/about">about</a></li>
+            <li><a ng-href="#/help">help</a></li>
+          </ul>
 
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-circle online"></i> {{user.username}}<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#/logout">logout</a></li>
-								<li><a href="#/profile">profile</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-							</ul>
-						</li>
-					</ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li dropdown>
+              <a href="#" dropdown-toggle> {{user.username}} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#/logout">logout</a></li>
+                <li><a href="#/profile">profile</a></li>
+                <li class="divider" role="presentation"></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-				</div>
-			</div>
-		</nav>
-
-	</div>
+  </div>
 </div>
 <div id="pages">
 
-	<div class="col-md-1 left-page">
+  <div class="col-md-1 left-page">
 
-		<a href="#/main">
-			<div class="left-menu active">
-				<i class="fa fa-history"></i>
-				<h4>Recent Calls</h4>
-			</div>
-		</a>
+    <a href="#/main">
+      <div class="left-menu active">
+        <i class="fa fa-history"></i>
+        <h4>Recent Calls</h4>
+      </div>
+    </a>
 
-		<a href="#/history">
-			<div class="left-menu active">
-				<i class="fa fa-history"></i>
-				<h4>Recent Calls</h4>
-			</div>
-		</a>
+    <a href="#/history">
+      <div class="left-menu active">
+        <i class="fa fa-history"></i>
+        <h4>Recent Calls</h4>
+      </div>
+    </a>
 
-		<a href="#/agents">
-			<div class="left-menu">
-				<i class="fa fa-users"></i>
-				<h4>Contacts</h4>
-			</div>
-		</a>
+    <a href="#/agents">
+      <div class="left-menu">
+        <i class="fa fa-users"></i>
+        <h4>Contacts</h4>
+      </div>
+    </a>
 
-	</div>
+  </div>
 
-	<div class="col-md-11 right-page">
+  <div class="col-md-11 right-page">
 
-		<div class="col-md-9 page-body">
+    <div class="col-md-9 page-body">
 
-			<div class="recent-calls">
+      <div class="recent-calls">
 
-				<div id="custom-search-input">
-					<div class="input-group col-md-12">
-						<form>
-							<input type="text" class="form-control" placeholder="Search..." />
-						</form>
+        <div id="custom-search-input">
+          <div class="input-group col-md-12">
+            <form>
+              <input type="text" class="form-control" placeholder="Search..."/>
+            </form>
 						<span class="input-group-btn">
 							<button class="btn btn-info btn-lg" type="button">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
 						</span>
-					</div>
-				</div>
+          </div>
+        </div>
 
-				<h2>Recent Calls</h2>
-				<div class="recent-title">
-					<div class="recent-title-01"></div>
-					<div class="recent-title-02">Contact</div>
-					<div class="recent-title-03">Agent</div>
-					<div class="recent-title-04">Via</div>
-					<div class="recent-title-05">When</div>
-					<div class="recent-title-06">Duration</div>
-					<div class="recent-title-07"></div>
-				</div>
+        <h2>Recent Calls</h2>
 
-				<div ng-repeat="call in calls" class="recent-01">
-					<div class="call-01 cll-current"></div>
-					<div class="call-02">
-						<img src="{{call.image}}" alt="" />
-						<div class="call-02-name">{{call.name}}</div>
-						<div class="call-02-title">{{call.title}}</div>
-					</div>
-					<div class="call-03">{{call.fullName}}</div>
-					<div class="call-04">{{call.phone}}</div>
-					<div class="call-05">{{call.date}}</div>
-					<div class="call-06">{{call.time}}</div>
-					<div class="call-07">
-						<a ng-href="#/call/{{call.queueid}}/{{call.callid}}" >
-							<i class="fa fa-play-circle-o"></i>
-						</a>
-					</div>
-				</div>
-			</div>
+        <div class="recent-title">
+          <div class="recent-title-01"></div>
+          <div class="recent-title-02">Contact</div>
+          <div class="recent-title-03">Agent</div>
+          <div class="recent-title-04">Via</div>
+          <div class="recent-title-05">When</div>
+          <div class="recent-title-06">Duration</div>
+          <div class="recent-title-07"></div>
+        </div>
 
-		</div>
+        <div ng-repeat="call in calls" class="recent-01">
+          <div class="call-01 cll-current"></div>
+          <div class="call-02">
+            <img src="{{call.image}}" alt=""/>
 
-		<div class="col-md-3 queues">
+            <div class="call-02-name">{{call.name}}</div>
+            <div class="call-02-title">{{call.title}}</div>
+          </div>
+          <div class="call-03">{{call.fullName}}</div>
+          <div class="call-04">{{call.phone}}</div>
+          <div class="call-05">{{call.date}}</div>
+          <div class="call-06">{{call.time}}</div>
+          <div class="call-07">
+            <a ng-href="#/call/{{call.queueid}}/{{call.callid}}">
+              <i class="fa fa-play-circle-o"></i>
+            </a>
+          </div>
+        </div>
+      </div>
 
-			<accordion close-others="oneAtATime">
-				<accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
-				<div ng-repeat="call in queue.calls" >
-					<a ng-href="#/call/{{queue.queueid}}/{{call.callid}}" 
-					class="list-group-item items-list">{{call.name}}</a>
-				</div>	
-			</accordion-group>
+    </div>
 
-		</accordion>
+    <div class="col-md-3 queues">
 
-	</div>
+      <accordion close-others="oneAtATime">
+        <accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
+          <div ng-repeat="call in queue.calls">
+            <a ng-href="#/call/{{queue.queueid}}/{{call.callid}}"
+               class="list-group-item items-list">{{call.name}}</a>
+          </div>
+        </accordion-group>
 
-</div>
+      </accordion>
+
+    </div>
+
+  </div>
