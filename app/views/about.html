@@ -1,1 +1,82 @@
-<p>This is the about view.</p>
+<div id="header">
+  <div class="container">
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+          <ul class="nav navbar-nav">
+            <li><a href="#/main">Dashboard</a></li>
+            <li class="active"><a ng-href="#/about">about</a></li>
+            <li><a ng-href="#/help">help</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li dropdown>
+              <a href="#" dropdown-toggle> {{user.username}} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#/logout">logout</a></li>
+                <li><a href="#/profile">profile</a></li>
+                <li class="divider" role="presentation"></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</div>
+<div id="pages">
+
+  <div class="col-md-1 left-page">
+
+    <a href="#/main">
+      <div class="left-menu active">
+        <i class="fa fa-history"></i>
+        <h4>Recent Calls</h4>
+      </div>
+    </a>
+
+    <a href="#/history">
+      <div class="left-menu active">
+        <i class="fa fa-history"></i>
+        <h4>Recent Calls</h4>
+      </div>
+    </a>
+
+    <a href="#/agents">
+      <div class="left-menu">
+        <i class="fa fa-users"></i>
+        <h4>Contacts</h4>
+      </div>
+    </a>
+
+  </div>
+
+
+  <div class="col-md-11 right-page">
+
+
+    <div class="col-md-9 page-body">
+      I have, in my naivety, set up a git submodule and treated it like a Subversion external -
+      i.e. it's now full of
+      changes that I've just realized haven't been committed or pushed anywhere.
+
+      Is there some easy way to commit/push the submodule changes back to the upstream repo?
+      And what's the recommended
+      technique in Git for doing simultaneous development on separate (but linked) repositories in this way?
+    </div>
+
+  </div>
