@@ -120,16 +120,14 @@
 
     <div class="col-md-3 queues">
 
-      <accordion close-others="oneAtATime">
-        <accordion-group heading="{{queue.name}}" ng-repeat="queue in queues">
-          <div ng-repeat="call in queue.calls">
-            <a ng-href="#/call/{{queue.queueid}}/{{call.callid}}"
-               class="list-group-item items-list">{{call.name}}</a>
-          </div>
-        </accordion-group>
+      <div class="list-group panel">
+        <div ng-repeat="queue in queues">
+          <a href="#/callclient/queue/{{queue.queueid}}"
+             class="list-group-item frist-item {{queue.calls | callAlert}}">{{queue.name}}</a>
+        </div>
 
-      </accordion>
+      </div>
 
     </div>
-
   </div>
+</div>

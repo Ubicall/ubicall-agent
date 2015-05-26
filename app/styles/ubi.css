@@ -39,7 +39,7 @@ ul, li {
   list-style:none;
   margin:0;
   padding:0;
-  outline: none;   
+  outline: none;
 }
 
 /**************************************** Header ****************************************/
@@ -238,6 +238,30 @@ a.list-group-item.items-list:after {
   border-bottom-left-radius: 0;
 }
 
+.list-group-item.alert-danger, .list-group-item.alert-danger:focus, .list-group-item.alert-danger:hover {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.list-group-item.alert-warning, .list-group-item.alert-warning:focus, .list-group-item.alert-warning:hover {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.list-group-item.alert-info, .list-group-item.alert-info:focus, .list-group-item.alert-info:hover {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.list-group-item.alert-success, .list-group-item.alert-success:focus, .list-group-item.alert-success:hover {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
 
 /**************************************** Page Body ****************************************/
 
@@ -247,6 +271,33 @@ a.list-group-item.items-list:after {
   min-height: 500px;
 }
 
+.page-body-all {
+  padding: 20px;
+  min-height: 500px;
+}
+
+.page-body-all h2 {
+  padding: 0 0 25px 0;
+  margin: 0 0 30px 0;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 24px;
+  color: #333;
+}
+
+.page-body-all h4 {
+  margin: 0 0 10px 0;
+  padding: 0;
+  text-align: left;
+  line-height: 20px;
+  font-weight: 500;
+  font-size: 18px;
+  color: #039997;
+}
+
+.page-body-all p {
+  padding: 0;
+  margin: 0 0 35px 0;
+}
 
 /**************************************** Recent Calls ****************************************/
 
@@ -629,6 +680,7 @@ a.list-group-item.items-list:after {
 #custom-search-input .glyphicon-search:hover{
   color: #058584;
 }
+
 
 
 
