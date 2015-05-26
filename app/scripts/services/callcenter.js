@@ -21,19 +21,13 @@ angular.module('agentUiApp')
     };
 
     this.getCallDetail = function (queueid, callid) {
-      var call = [];
-      angular.forEach(calls, function (item) {
-        if (item.callid === callid && item.queueid === queueid) {
-          this.push(item);
-        }
-      }, call);
-
-      call = {
-        name: 'waleed', image: "images/home-pic-04.jpg",
-        pigImage: "images/home-pic-01.jpg", title: 'man we', fullName: 'waleed samy',
-        phone: '+201069527634', date: '2/1/2013', time: '7:38:05 AM'
-      };
-      return call;
+      var deferred = $q.defer();
+      $http.get(API_BASE + "/call/" + queueid + "/" + callid).then(function (result) {
+        deferred.resolve(result.data);
+      }, function (error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
     };
 
     this.getQueues = function () {
