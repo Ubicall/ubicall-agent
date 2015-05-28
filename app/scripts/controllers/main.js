@@ -17,7 +17,7 @@ angular.module('agentUiApp')
     var user = Auth.currentUser().user;
     $scope.user = user;
     $scope.calls = $scope.queues = [];
-    CallCenter.getAvailablesCalls().then(function (calls) {
+    CallCenter.getAvailableCalls().then(function (calls) {
       $scope.calls = calls;
     });
     CallCenter.getQueues().then(function (queues) {
