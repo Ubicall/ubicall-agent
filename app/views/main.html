@@ -89,7 +89,6 @@
         <div class="recent-title">
           <div class="recent-title-01"></div>
           <div class="recent-title-02">Contact</div>
-          <div class="recent-title-03">Agent</div>
           <div class="recent-title-04">Via</div>
           <div class="recent-title-05">When</div>
           <div class="recent-title-06">Duration</div>
@@ -99,17 +98,16 @@
         <div ng-repeat="call in calls" class="recent-01">
           <div class="call-01 cll-current"></div>
           <div class="call-02">
-            <img src="{{call.image}}" alt=""/>
+            <span class="glyphicon glyphicon-user"></span>
 
-            <div class="call-02-name">{{call.name}}</div>
-            <div class="call-02-title">{{call.title}}</div>
+            <div class="call-02-name">{{call.name || 'Unknown'}}</div>
+            <div class="call-02-title">{{call.title||'Unknown'}}</div>
           </div>
-          <div class="call-03">{{call.fullName}}</div>
           <div class="call-04">{{call.phone}}</div>
-          <div class="call-05">{{call.date}}</div>
-          <div class="call-06">{{call.time}}</div>
+          <div class="call-05">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+          <div class="call-05">{{call.end_time | date: 'MMM d, y H:mm:ss'}}</div>
           <div class="call-07">
-            <a ng-href="#/call/{{call.queueid}}/{{call.callid}}">
+            <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
               <i class="fa fa-play-circle-o"></i>
             </a>
           </div>
