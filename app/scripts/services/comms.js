@@ -11,8 +11,16 @@ angular.module('agentUiApp')
   .service('comms', function ($q, $location, Auth, AuthToken, alertService) {
     var subscriptions = {};
     var ws;
+    var pendingAuth = true;
 
-    function connectWS() {
+    // depend on angular will inject same instance of comms service
+    // in all other component so connectWs is called first time it work
+
+    // unable to create Interceptor like AuthInterceptor , to add Auth Header to ws request
+    // and there is now way to do this as http://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api/4361358#4361358
+    // so i will make auth request separately then on success this client is authenticated
+    // otherwise what should i do ?logout , maybe
+    (function connectWS() {
       var path = location.hostname + ":" + location.port + document.location.pathname;
       path = path + (path.slice(-1) == "/" ? "" : "/") + "comms";
       path = "ws" + (document.location.protocol == "https:" ? "s" : "") + "://" + path;
@@ -28,11 +36,18 @@ angular.module('agentUiApp')
 
         ws = new WebSocket(path);
         ws.onopen = function () {
-          completeConnection();
+          if (pendingAuth) {
+            ws.send(JSON.stringify({auth: AuthToken.getToken(), method: "Bearer"}));
+          } else {
+            completeConnection();
+          }
         };
         ws.onmessage = function (event) {
           var msg = JSON.parse(event.data);
-          if (msg.topic) {
+          if (pendingAuth && msg.auth == "ok") {
+            pendingAuth = false;
+            completeConnection();
+          } else if (msg.topic) {
             for (var t in subscriptions) {
               if (subscriptions.hasOwnProperty(t)) {
                 var re = new RegExp("^" + t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g, "\\$1").replace(/\+/g, "[^/]+").replace(/\/#$/, "(\/.*)?") + "$");
@@ -55,11 +70,11 @@ angular.module('agentUiApp')
         };
 
 
-      }, function error(error) {
+      }, function error(error) { //user not logged in
         alertService.add('warn', 'user not authenticated');
         $location.path("/login");
       });
-    }
+    })();
 
     function subscribe(topic, callback) {
       if (subscriptions[topic] == null) {
@@ -86,7 +101,6 @@ angular.module('agentUiApp')
     }
 
     return {
-      connect: connectWS,
       subscribe: subscribe,
       unsubscribe: unsubscribe
     }

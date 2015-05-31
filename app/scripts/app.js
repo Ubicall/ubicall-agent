@@ -22,7 +22,7 @@ angular
     'LocalStorageModule'
   ]);
 angular
-  .module('agentUiApp').constant('API_BASE', 'http://10.0.0.170:3000/api');
+  .module('agentUiApp').constant('API_BASE', 'http://agent.sandcti.com:4443/api');
 
 angular.module('agentUiApp').config(function (localStorageServiceProvider) {
   localStorageServiceProvider
