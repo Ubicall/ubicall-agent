@@ -12,7 +12,7 @@ angular.module('agentUiApp')
         alertService.add('success' , "you logged in ");
         $location.path('/main');
       }, function error() {
-        alertService.add('danger' , "crednetial problem found")
+        alertService.add('danger' , "crednetial problem found");
       });
     };
 
