@@ -435,13 +435,13 @@ a.list-group-item.items-list:after {
 .call-01.cll-current {
   padding: 0;
   margin: 0;
-  background: url(../img/call-current.png) no-repeat center center;
+  background: url(../images/call-current.png) no-repeat center center;
 }
 
 .call-01.cll-priv {
   padding: 0;
   margin: 0;
-  background: url(../img/call-priv.png) no-repeat center center;
+  background: url(../images/call-priv.png) no-repeat center center;
 }
 
 .call-02 {

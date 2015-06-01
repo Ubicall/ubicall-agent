@@ -8,10 +8,11 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService, AuthToken, API_BASE) {
+  .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService,
+                                   AuthToken, API_BASE, comms) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
-    var calls, queues ;
+    var calls, queues;
 
     function _getCalls() {
       var deferred = $q.defer();
@@ -66,6 +67,11 @@ angular.module('agentUiApp')
       return deferred.promise;
     };
 
+    comms.subscribe("call", function (topic, call) {
+      calls.unshift(call);
+      $rootScope.$broadcast("calls:updated", calls);
+
+    });
 
     return CallCenter;
   });

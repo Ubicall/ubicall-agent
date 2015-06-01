@@ -8,38 +8,41 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('MainController', function ($scope, $location, comms, Auth, CallCenter) {
+  .controller('MainController', function ($scope, $location, Auth, CallCenter, alertService) {
     if (!Auth.currentUser() || !Auth.currentUser().user) {
       Auth.logout().then(function () {
         $location.path("/login");
       })
     } else {
-      var user = Auth.currentUser().user;
-      $scope.user = user;
+      var _user = Auth.currentUser().user;
+      var _calls, _totalCalls, _queues;
+      $scope.user = _user;
 
-      $scope.calls = $scope.queues = [];
-      $scope.totalCalls = 0;
+      $scope.calls = _calls = [];
+      $scope.queues = _queues = [];
+      $scope.totalCalls = _totalCalls = 0;
 
       CallCenter.getAvailableCalls().then(function (calls) {
-        $scope.totalCalls = calls.length;
-        $scope.calls = calls;
+        _totalCalls = calls.length;
+        $scope.totalCalls = _totalCalls;
+        _calls = calls;
+        $scope.calls = _calls;
       });
       CallCenter.getQueues().then(function (queues) {
-        $scope.queues = queues;
+        _queues = queues;
+        $scope.queues = _queues;
+      });
+
+      $scope.$on('calls:updated', function (event, calls) {
+        $scope.totalCalls = _totalCalls = calls.length;
+        $scope.calls = _calls = calls;
+        alertService.add("success", " new call available ");
       });
 
 
-      comms.subscribe("call", function (topic, msg) {
-        var newcalls = [{
-          name: 'new new', image: "images/home-pic-04.jpg",
-          pigImage: "images/home-pic-01.jpg", title: 'new new', fullName: 'new new',
-          phone: '+201069527634', date: '2/1/2013', time: '7:38:05 AM'
-        }, {
-          name: 'new new', image: "images/home-pic-04.jpg",
-          pigImage: "images/home-pic-01.jpg", title: 'new new', fullName: 'new new',
-          phone: '+201069527634', date: '2/1/2013', time: '7:38:05 AM'
-        }];
-        $scope.calls = newcalls.concat($scope.calls);
-      });
+      $scope.pageChanged = function (newPage) {
+        console.log("new page is " + newPage + " calls is " + _calls);
+
+      };
     }
   });

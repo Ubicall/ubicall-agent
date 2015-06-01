@@ -97,7 +97,7 @@
 
         <div class="row">
 
-          <div dir-paginate="call in calls | filter:q | itemsPerPage: 5" pagination-id="callsPaginator"
+          <div dir-paginate="call in calls | filter:q | itemsPerPage: 10" pagination-id="callsPaginator"
                total-items="totalCalls" current-page="pagination.current" class="recent-01">
             <div class="call-01 cll-current"></div>
             <div class="call-02">
@@ -117,8 +117,7 @@
 
           <div class="text-center">
             <dir-pagination-controls
-              template-url="lib/angular-utils-pagination/dirPagination.tpl.html"
-              pagination-id="callsPaginator"></dir-pagination-controls>
+              on-page-change="pageChanged(newPageNumber)" pagination-id="callsPaginator"></dir-pagination-controls>
           </div>
         </div>
       </div>
