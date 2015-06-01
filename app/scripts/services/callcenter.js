@@ -11,7 +11,7 @@ angular.module('agentUiApp')
   .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService, AuthToken, API_BASE) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
-    var calls, queues = [];
+    var calls, queues ;
 
     function _getCalls() {
       var deferred = $q.defer();

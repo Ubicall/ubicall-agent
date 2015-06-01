@@ -353,7 +353,7 @@ a.list-group-item.items-list:after {
 .recent-title-03 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 24%;
   height: 40px;
   line-height: 40px;
   display: inline-block;
@@ -366,7 +366,7 @@ a.list-group-item.items-list:after {
 .recent-title-04 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 24%;
   height: 40px;
   line-height: 40px;
   display: inline-block;
@@ -379,7 +379,7 @@ a.list-group-item.items-list:after {
 .recent-title-05 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 14%;
   height: 40px;
   line-height: 40px;
   display: inline-block;
@@ -390,19 +390,6 @@ a.list-group-item.items-list:after {
 }
 
 .recent-title-06 {
-  padding: 0;
-  margin: 0;
-  width: 11%;
-  height: 40px;
-  line-height: 40px;
-  display: inline-block;
-  float: left;
-  text-align: center;
-  color: #555;
-  font-weight: 600;
-}
-
-.recent-title-07 {
   padding: 0;
   margin: 0;
   width: 3%;
@@ -448,13 +435,13 @@ a.list-group-item.items-list:after {
 .call-01.cll-current {
   padding: 0;
   margin: 0;
-  background: url(../images/call-current.png) no-repeat center center;
+  background: url(../img/call-current.png) no-repeat center center;
 }
 
 .call-01.cll-priv {
   padding: 0;
   margin: 0;
-  background: url(../images/call-priv.png) no-repeat center center;
+  background: url(../img/call-priv.png) no-repeat center center;
 }
 
 .call-02 {
@@ -480,6 +467,19 @@ a.list-group-item.items-list:after {
   color: #555;
 }
 
+.call-02 .glyphicon {
+  padding: 0 12px;
+  margin: 0 15px 0 0;
+  height: 45px;
+  line-height: 45px;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  color: #555;
+  font-size: 25px;
+}
+
+
 .call-02 .call-02-name {
   margin: 0;
   padding: 0;
@@ -503,7 +503,7 @@ a.list-group-item.items-list:after {
 .call-03 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 24%;
   height: 45px;
   line-height: 45px;
   display: inline-block;
@@ -515,7 +515,7 @@ a.list-group-item.items-list:after {
 .call-04 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 24%;
   height: 45px;
   line-height: 45px;
   display: inline-block;
@@ -527,7 +527,7 @@ a.list-group-item.items-list:after {
 .call-05 {
   padding: 0;
   margin: 0;
-  width: 17%;
+  width: 14%;
   height: 45px;
   line-height: 45px;
   display: inline-block;
@@ -539,18 +539,6 @@ a.list-group-item.items-list:after {
 .call-06 {
   padding: 0;
   margin: 0;
-  width: 11%;
-  height: 45px;
-  line-height: 45px;
-  display: inline-block;
-  float: left;
-  text-align: center;
-  color: #555;
-}
-
-.call-07 {
-  padding: 0;
-  margin: 0;
   width: 3%;
   height: 45px;
   line-height: 45px;
@@ -560,7 +548,7 @@ a.list-group-item.items-list:after {
   color: #555;
 }
 
-.call-07 .fa {
+.call-06 .fa {
   padding: 0;
   font-size: 28px;
   line-height: 45px;
@@ -680,7 +668,6 @@ a.list-group-item.items-list:after {
 #custom-search-input .glyphicon-search:hover{
   color: #058584;
 }
-
 
 
 

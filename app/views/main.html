@@ -89,29 +89,30 @@
         <div class="recent-title">
           <div class="recent-title-01"></div>
           <div class="recent-title-02">Contact</div>
-          <div class="recent-title-04">Via</div>
-          <div class="recent-title-05">When</div>
-          <div class="recent-title-06">Duration</div>
-          <div class="recent-title-07"></div>
+          <div class="recent-title-03">Via</div>
+          <div class="recent-title-04">When</div>
+          <div class="recent-title-05">Duration</div>
+          <div class="recent-title-06"></div>
         </div>
+
 
         <div ng-repeat="call in calls" class="recent-01">
           <div class="call-01 cll-current"></div>
           <div class="call-02">
-            <span class="glyphicon glyphicon-user"></span>
+            <i class="glyphicon glyphicon-user"></i>
 
-            <div class="call-02-name">{{call.name || 'Unknown'}}</div>
-            <div class="call-02-title">{{call.title||'Unknown'}}</div>
+            <div class="call-02-name">{{call.name || 'N/A'}}</div>
           </div>
-          <div class="call-04">{{call.phone}}</div>
-          <div class="call-05">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
-          <div class="call-05">{{call.end_time | date: 'MMM d, y H:mm:ss'}}</div>
-          <div class="call-07">
+          <div class="call-03">{{call.phone}}</div>
+          <div class="call-04">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+          <div class="call-05">{{call.end_time - call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+          <div class="call-06">
             <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
               <i class="fa fa-play-circle-o"></i>
             </a>
           </div>
         </div>
+
       </div>
 
     </div>
