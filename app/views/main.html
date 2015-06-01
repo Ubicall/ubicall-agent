@@ -74,7 +74,7 @@
         <div id="custom-search-input">
           <div class="input-group col-md-12">
             <form>
-              <input type="text" class="form-control" placeholder="Search..."/>
+              <input ng-model="q" id="search" type="text" class="form-control" placeholder="Search...">
             </form>
 						<span class="input-group-btn">
 							<button class="btn btn-info btn-lg" type="button">
@@ -95,27 +95,34 @@
           <div class="recent-title-06"></div>
         </div>
 
+        <div class="row">
 
-        <div dir-paginate="call in calls | itemsPerPage: 10" pagination-id="calls" class="recent-01">
-          <div class="call-01 cll-current"></div>
-          <div class="call-02">
-            <i class="glyphicon glyphicon-user"></i>
+          <div dir-paginate="call in calls | filter:q | itemsPerPage: 5" pagination-id="callsPaginator"
+               total-items="totalCalls" current-page="pagination.current" class="recent-01">
+            <div class="call-01 cll-current"></div>
+            <div class="call-02">
+              <i class="glyphicon glyphicon-user"></i>
 
-            <div class="call-02-name">{{call.name || 'N/A'}}</div>
+              <div class="call-02-name">{{call.name || 'N/A'}}</div>
+            </div>
+            <div class="call-03">{{call.phone}}</div>
+            <div class="call-04">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+            <div class="call-05">{{call.end_time - call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+            <div class="call-06">
+              <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
+                <i class="fa fa-play-circle-o"></i>
+              </a>
+            </div>
           </div>
-          <div class="call-03">{{call.phone}}</div>
-          <div class="call-04">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
-          <div class="call-05">{{call.end_time - call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
-          <div class="call-06">
-            <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
-              <i class="fa fa-play-circle-o"></i>
-            </a>
+
+          <div class="text-center">
+            <dir-pagination-controls
+              template-url="lib/angular-utils-pagination/dirPagination.tpl.html"
+              pagination-id="callsPaginator"></dir-pagination-controls>
           </div>
         </div>
-
-        <dir-pagination-controls pagination-id="calls"></dir-pagination-controls>
-
       </div>
+
 
     </div>
 

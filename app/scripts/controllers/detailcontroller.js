@@ -13,14 +13,14 @@ angular.module('agentUiApp')
       Auth.logout().then(function () {
         $location.path("/login");
       })
+    } else {
+      var user = Auth.currentUser().user;
+      $scope.user = user;
+      CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
+        $scope.call = call;
+      });
+      CallCenter.getQueues().then(function (queues) {
+        $scope.queues = queues;
+      });
     }
-    var user = Auth.currentUser().user;
-    $scope.user = user;
-    $scope.call = $scope.queues = [];
-    CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
-      $scope.call = call;
-    });
-    CallCenter.getQueues().then(function (queues) {
-      $scope.queues = queues;
-    });
   });
