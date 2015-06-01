@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'ui.bootstrap',
     'door3.css',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'angularUtils.directives.dirPagination'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.sandcti.com:4443/api');

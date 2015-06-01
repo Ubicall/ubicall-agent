@@ -96,7 +96,7 @@
         </div>
 
 
-        <div ng-repeat="call in calls" class="recent-01">
+        <div dir-paginate="call in calls | itemsPerPage: 10" pagination-id="calls" class="recent-01">
           <div class="call-01 cll-current"></div>
           <div class="call-02">
             <i class="glyphicon glyphicon-user"></i>
@@ -112,6 +112,8 @@
             </a>
           </div>
         </div>
+
+        <dir-pagination-controls pagination-id="calls"></dir-pagination-controls>
 
       </div>
 

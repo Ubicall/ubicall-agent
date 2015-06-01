@@ -1,72 +1,59 @@
 <!doctype html>
 <html class="no-js">
 <head>
-	<meta charset="utf-8">
-	<title>Ubicall Agent</title>
-	<meta name="description" content="">
-	<link rel="icon" href="favicon.ico" />
-	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css(.) styles/vendor.css -->
-	<!-- bower:css -->
-	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
-	<!-- endbower -->
-	<!-- endbuild -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"  />
-	<link rel="stylesheet" href="styles/ubi.css">
-	<!-- endbuild -->
+  <meta charset="utf-8">
+  <title>Ubicall Agent</title>
+  <meta name="description" content="">
+  <link rel="icon" href="favicon.ico"/>
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="styles/ubi.css">
+  <!-- endbuild -->
 </head>
 <body ng-app="agentUiApp">
 
-	<div ng-controller="AlertController">
-		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-	</div>
+<div ng-controller="AlertController">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
 
-	<div ng-view=""></div>
+<div ng-view=""></div>
 
 
+<!-- Footer -->
 
-	<!-- Footer -->
+<div class="footer">
+  <div class="container">
+    <p><span class="glyphicon glyphicon-heart"></span> from the sandcti team</p>
+  </div>
+</div>
 
-	<div class="footer">
-		<div class="container">
-			<p><span class="glyphicon glyphicon-heart"></span> from the sandcti team</p>
-		</div>
-	</div>
+<!-- Footer End -->
 
-	<!-- Footer End -->
-	<script src="lib/jquery/dist/jquery.js"></script>
-	<script src="lib/angular/angular.js"></script>
-	<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="lib/angular-animate/angular-animate.js"></script>
-	<script src="lib/angular-cookies/angular-cookies.js"></script>
-	<script src="lib/angular-messages/angular-messages.js"></script>
-	<script src="lib/angular-resource/angular-resource.js"></script>
-	<script src="lib/angular-route/angular-route.js"></script>
-	<script src="lib/angular-sanitize/angular-sanitize.js"></script>
-	<script src="lib/angular-touch/angular-touch.js"></script>
-	<script src="lib/angular-local-storage/dist/angular-local-storage.js"></script>
-	<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="lib/angular-css/angular-css.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
+<!-- endbower -->
+<!-- endbuild -->
 
-	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/services/alert.js"></script>
-	<script src="scripts/services/authtoken.js"></script>
-	<script src="scripts/services/authinterceptor.js"></script>
-	<script src="scripts/services/auth.js"></script>
-	<script src="scripts/controllers/main.js"></script>
-	<script src="scripts/controllers/about.js"></script>
-	<script src="scripts/controllers/login.js"></script>
-	<script src="scripts/controllers/alert.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/services/alert.js"></script>
+<script src="scripts/services/authtoken.js"></script>
+<script src="scripts/services/authinterceptor.js"></script>
+<script src="scripts/services/auth.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/alert.js"></script>
 <script src="scripts/services/callcenter.js"></script>
 <script src="scripts/controllers/detailcontroller.js"></script>
 <script src="scripts/filters/callalert.js"></script>
 <script src="scripts/services/comms.js"></script>
-	<!-- endbuild -->
+<!-- endbuild -->
 </body>
 </html>
