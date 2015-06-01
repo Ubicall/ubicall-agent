@@ -38,11 +38,5 @@ angular.module('agentUiApp')
         $scope.calls = _calls = calls;
         alertService.add("success", " new call available ");
       });
-
-
-      $scope.pageChanged = function (newPage) {
-        console.log("new page is " + newPage + " calls is " + _calls);
-
-      };
     }
   });

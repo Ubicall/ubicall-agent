@@ -80,14 +80,17 @@
         <div class="col-md-8">
 
           <div class="details-header">
-            <div class="details-name">{{call.fullName}}</div>
+            <div class="details-name">{{call.phone}}</div>
             <div class="details-title">Call center manager at Ubicall</div>
           </div>
-          <div ng-repeat="(key, value) in call">
+          <div ng-repeat="(key, value) in call" ng-if="call.key!='call_data'">
             <div class="col-md-2">{{key}}</div>
             <div class="col-md-10 details-fields">{{value}}</div>
           </div>
-
+          <div ng-repeat="(cd_key, cd_value) in call.call_data">
+            <div class="col-md-2">{{cd_key}}</div>
+            <div class="col-md-10 details-fields">{{cd_value}}</div>
+          </div>
         </div>
 
       </div>
