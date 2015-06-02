@@ -24,7 +24,7 @@ angular
     'angularMoment'
   ]);
 angular
-  .module('agentUiApp').constant('API_BASE', 'https://agent.sandcti.com:4443/api');
+  .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api'); // TODO : standardized url for api in dev and prod (may use config file)
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
