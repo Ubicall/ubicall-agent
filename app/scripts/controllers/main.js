@@ -8,19 +8,20 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('MainController', function ($scope, $location, Auth, CallCenter, alertService) {
+  .controller('MainController', function ($scope, $location, Auth, CallCenter, alertService, moment, amMoment) {
     if (!Auth.currentUser() || !Auth.currentUser().user) {
       Auth.logout().then(function () {
         $location.path("/login");
       })
     } else {
       var _user = Auth.currentUser().user;
-      var _calls, _totalCalls, _queues;
+      var _calls, _totalCalls, _queues, _totalQueues;
       $scope.user = _user;
 
       $scope.calls = _calls = [];
       $scope.queues = _queues = [];
       $scope.totalCalls = _totalCalls = 0;
+      $scope.totalQueues = _totalQueues = 0;
 
       CallCenter.getAvailableCalls().then(function (calls) {
         _totalCalls = calls.length;
@@ -29,14 +30,26 @@ angular.module('agentUiApp')
         $scope.calls = _calls;
       });
       CallCenter.getQueues().then(function (queues) {
+        _totalQueues = queues.length;
+        $scope.totalQueues = _totalQueues;
         _queues = queues;
         $scope.queues = _queues;
       });
 
+      $scope.fromNow = function (utcend, utcstart) {
+        return moment.utc(moment(utcend, "DD/MM/YYYY HH:mm:ss").
+          diff(moment(utcstart, "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
+      };
       $scope.$on('calls:updated', function (event, calls) {
         $scope.totalCalls = _totalCalls = calls.length;
         $scope.calls = _calls = calls;
         alertService.add("success", " new call available ");
+      });
+
+      $scope.$on('queues:updated', function (event, queues) {
+        $scope.totalQueues = _totalQueues = queues.length;
+        $scope.queues = _queues = queues;
+        alertService.add("success", " new queue available ");
       });
     }
   });

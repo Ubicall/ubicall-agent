@@ -20,10 +20,16 @@ angular
     'ui.bootstrap',
     'door3.css',
     'LocalStorageModule',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'angularMoment'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.sandcti.com:4443/api');
+angular
+  .module('agentUiApp').constant('angularMomentConfig', {
+    preprocess: 'utc'
+  });
+
 
 angular.module('agentUiApp').config(function (localStorageServiceProvider) {
   localStorageServiceProvider
@@ -44,7 +50,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
           Auth.isLoggedIn().then(function () {
             $q.defer().reject();
             alertService.add('info', "you already logged in ");
-            $location.path("/main");
+            $location.path("/recent");
           }, function () {
             return true;
           });
@@ -69,7 +75,13 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       resolve: {
         factory: checkRouting
       }
-    }).when('/main', {
+    }).when('/current', {
+      templateUrl: 'views/callDetail.html',
+      controller: 'DetailController',
+      resolve: {
+        factory: checkRouting
+      }
+    }).when('/recent', {
       templateUrl: 'views/main.html',
       controller: 'MainController',
       css: "styles/main.css",
@@ -82,8 +94,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       resolve: {
         factory: checkRouting
       }
-    })
-    .otherwise({
+    }).otherwise({
       redirectTo: '/'
     });
 });

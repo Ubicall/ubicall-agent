@@ -1,4 +1,4 @@
-<div id="header">
+<div id="header" xmlns="http://www.w3.org/1999/html">
   <div class="container">
 
     <nav class="navbar navbar-default">
@@ -42,15 +42,15 @@
 
   <div class="col-md-1 left-page">
 
-    <a href="#/main">
-      <div class="left-menu active">
+    <a href="#/current">
+      <div class="left-menu">
         <i class="fa fa-history"></i>
         <h4>Recent Calls</h4>
       </div>
     </a>
 
-    <a href="#/history">
-      <div class="left-menu active">
+    <a href="#/recent">
+      <div class="left-menu">
         <i class="fa fa-history"></i>
         <h4>Recent Calls</h4>
       </div>
@@ -67,14 +67,12 @@
 
 
   <div class="col-md-11 right-page">
-
-
     <div class="col-md-9 page-body">
 
       <div class="details-calls">
 
         <div class="col-md-4">
-          <img src="images/default-user-image.png"/>
+          <img src="images/default-user-image-small_64x64.png"/>
         </div>
 
         <div class="col-md-8">
@@ -83,26 +81,47 @@
             <div class="details-name">{{call.phone}}</div>
             <div class="details-title">Call center manager at Ubicall</div>
           </div>
-          <div ng-repeat="(key, value) in call" ng-if="call.key!='call_data'">
-            <div class="col-md-2">{{key}}</div>
-            <div class="col-md-10 details-fields">{{value}}</div>
-          </div>
-          <div ng-repeat="(cd_key, cd_value) in call.call_data">
-            <div class="col-md-2">{{cd_key}}</div>
-            <div class="col-md-10 details-fields">{{cd_value}}</div>
-          </div>
+          <ul ng-repeat="(key, value) in call">
+            <li class="col-md-2">{{key}}</li>
+            <div ng-if="isJson(value)">
+              <ul ng-repeat="(nkey, nvalue) in value">
+                <li class="object1 col-md-2">{{nkey}}</li>
+                <div ng-if="isJson(nvalue)">
+                  <ul ng-repeat="(nnkey, nnvalue) in nvalue">
+                    <li class="object2 col-md-2">{{nnkey}}</li>
+                    <li class="object2 col-md-10 details-fields">{{nnvalue}}</li>
+                  </ul>
+                </div>
+                <div ng-if="!isJson(nvalue)">
+                  <li class="object1 col-md-10">{{nvalue}}</li>
+                </div>
+              </ul>
+            </div>
+            <div ng-if="!isJson(value)">
+              <li class="notobject col-md-10 details-fields">{{value}}</li>
+            </div>
+          </ul>
+
         </div>
 
       </div>
-
     </div>
 
     <div class="col-md-3 queues">
 
       <div class="list-group panel">
-        <div ng-repeat="queue in queues">
+        <input ng-model="qsearch" id="qsearch" type="text" class="form-control" placeholder="Search...">
+
+        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: 4"
+             pagination-id="queuesPaginator" total-items="totalQueues"
+             current-page="pagination.current">
           <a href="#/callclient/queue/{{queue.queueid}}"
-             class="list-group-item frist-item {{queue.calls | callAlert}}">{{queue.name}}</a>
+             class="list-group-item frist-item {{queue.calls | callAlert}}">
+            {{queue.name}}
+          </a>
+        </div>
+        <div class="text-center">
+          <dir-pagination-controls pagination-id="queuesPaginator"></dir-pagination-controls>
         </div>
 
       </div>

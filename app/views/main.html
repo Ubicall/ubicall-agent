@@ -42,14 +42,14 @@
 
   <div class="col-md-1 left-page">
 
-    <a href="#/main">
-      <div class="left-menu active">
+    <a href="#/current">
+      <div class="left-menu">
         <i class="fa fa-history"></i>
         <h4>Recent Calls</h4>
       </div>
     </a>
 
-    <a href="#/history">
+    <a href="#/recent">
       <div class="left-menu active">
         <i class="fa fa-history"></i>
         <h4>Recent Calls</h4>
@@ -101,13 +101,13 @@
                total-items="totalCalls" current-page="pagination.current" class="recent-01">
             <div class="call-01 cll-current"></div>
             <div class="call-02">
-              <i class="glyphicon glyphicon-user"></i>
+              <img src="images/default-user-image-small_16x16.png"/>
 
-              <div class="call-02-name">{{call.name || 'N/A'}}</div>
+              <div class="call-02-name">{{call.address || 'N/A'}}</div>
             </div>
             <div class="call-03">{{call.phone}}</div>
-            <div class="call-04">{{call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
-            <div class="call-05">{{call.end_time - call.start_time | date: 'MMM d, y H:mm:ss'}}</div>
+            <div class="call-04">{{call.start_time | amDateFormat:'dddd, MMMM Do , h:mm:ss a'}}</div>
+            <div class="call-05">{{fromNow(call.start_time,call.end_time)}}</div>
             <div class="call-06">
               <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
                 <i class="fa fa-play-circle-o"></i>
@@ -127,9 +127,18 @@
     <div class="col-md-3 queues">
 
       <div class="list-group panel">
-        <div ng-repeat="queue in queues">
+        <input ng-model="qsearch" id="qsearch" type="text" class="form-control" placeholder="Search...">
+
+        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: 7"
+             pagination-id="queuesPaginator" total-items="totalQueues"
+             current-page="pagination.current">
           <a href="#/callclient/queue/{{queue.queueid}}"
-             class="list-group-item frist-item {{queue.calls | callAlert}}">{{queue.name}}</a>
+             class="list-group-item frist-item {{queue.calls | callAlert}}">
+            {{queue.name}}
+          </a>
+        </div>
+        <div class="text-center">
+          <dir-pagination-controls pagination-id="queuesPaginator"></dir-pagination-controls>
         </div>
 
       </div>

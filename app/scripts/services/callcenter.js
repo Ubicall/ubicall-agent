@@ -73,5 +73,10 @@ angular.module('agentUiApp')
 
     });
 
+    comms.subscribe("queue", function (topic, queue) {
+      queues.unshift(queue);
+      $rootScope.$broadcast("queue:updated", queues);
+
+    });
     return CallCenter;
   });
