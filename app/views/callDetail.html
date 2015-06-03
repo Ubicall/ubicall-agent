@@ -81,37 +81,40 @@
             <div class="details-name">{{call.phone}}</div>
             <div class="details-title">Call center manager at Ubicall</div>
           </div>
-          <div class="row" ng-repeat="(key, value) in call">
-            <div class="col-md-2">{{key}}</div>
-            <div ng-if="isJson(value)">
-              <div class="row" ng-repeat="(nkey, nvalue) in value">
-                <div class="col-md-2">{{nkey}}</div>
-                <div ng-if="isJson(nvalue)">
-                  <div class="row" ng-repeat="(nnkey, nnvalue) in nvalue">
-                    <div class="col-md-2"><b>{{nnkey}}</b></div>
-                    <div ng-if="isJson(nnvalue)">
-                      <div class="row" ng-repeat="(nnnkey, nnnvalue) in nnvalue">
-                        <div class="col-md-2">{{nnnkey}}</div>
-                        <div class="col-md-10 details-fields"><b>{{nnnvalue || "N/A"}}</b></div>
-                      </div>
-                    </div>
-                    <div ng-if="!isJson(nnvalue)">
-                      <div class="col-md-10 details-fields"><b>{{nnvalue || "N/A"}}</b></div>
-                    </div>
-                  </div>
-                </div>
-                <div ng-if="!isJson(nvalue)">
-                  <div class="col-md-10">{{nvalue || "N/A"}}</div>
+          <tabset justified="true">
+            <tab heading="General">
+              <div class="row" ng-repeat="(key, value) in call">
+                <div ng-if="key != 'call_data'">
+                  <div class="col-md-2">{{key}}</div>
+                  <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
                 </div>
               </div>
-            </div>
-            <div ng-if="!isJson(value)">
-              <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
-            </div>
-          </div>
-
+            </tab>
+            <tab heading="Call Data">
+              <accordion close-others="oneAtATime">
+                <div class="row" ng-repeat="(key, value) in call.call_data">
+                  <accordion-group heading="{{key}}" is-open="true">
+                    <div ng-if="isJson(value)">
+                      <ul ng-repeat="(nkey, nvalue) in value">
+                        <div ng-if="isJson(nvalue)">
+                          <ul ng-repeat="(nnkey, nnvalue) in nvalue">
+                            <li>{{nnkey}} : {{nnvalue}}</li>
+                          </ul>
+                        </div>
+                        <div ng-if="!isJson(nvalue)">
+                          <li>{{nkey}} : {{nvalue}}</li>
+                        </div>
+                      </ul>
+                    </div>
+                    <div ng-if="!isJson(value)">
+                      {{value}}
+                    </div>
+                  </accordion-group>
+                </div>
+              </accordion>
+            </tab>
+          </tabset>
         </div>
-
       </div>
     </div>
 

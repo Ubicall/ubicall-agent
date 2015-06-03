@@ -99,7 +99,7 @@
         <div class="row">
           <div dir-paginate="call in calls | filter:qcalls | itemsPerPage: callsPageSize"
                current-page="callsCurrentPage" pagination-id="callsPaginator"
-               class="recent-01">
+               ng-class="{recent01 : $index%2==0, recent02 : !($index%2==0)}">
             <div class="call-01 cll-current"></div>
             <div class="call-02">
               <img src="images/default-user-image-small_16x16.png"/>

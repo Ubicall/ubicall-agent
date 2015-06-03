@@ -1,5 +1,3 @@
-
-
 /**************************************** Body ****************************************/
 
 body {
@@ -18,6 +16,7 @@ a {
   -o-transition: .5s;
   transition: .5s;
 }
+
 a:hover {
   text-decoration: none;
   outline: none;
@@ -26,6 +25,7 @@ a:hover {
   -o-transition: .5s;
   transition: .5s;
 }
+
 a:focus {
   text-decoration: none;
   outline: none;
@@ -36,9 +36,9 @@ a:focus {
 }
 
 ul, li {
-  list-style:none;
-  margin:0;
-  padding:0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   outline: none;
 }
 
@@ -59,8 +59,8 @@ ul, li {
   overflow-x: visible;
   -webkit-overflow-scrolling: touch;
   border-top: 1px solid transparent;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
 }
 
 .container-fluid {
@@ -81,19 +81,18 @@ ul, li {
   border: none;
 }
 
-.navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>li>a:focus {
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a:focus {
   color: #fff;
 }
 
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav > li > a:hover {
   color: #faa632;
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
   color: #fff;
   background-color: #058584;
 }
-
 
 .dropdown-toggle .fa {
   font-size: 11px;
@@ -112,13 +111,11 @@ ul, li {
   color: #ffff00;
 }
 
-
 /**************************************** Pages ****************************************/
 
 #pages {
   margin: 10px 10px 10px 0;
 }
-
 
 /**************************************** Left Page ****************************************/
 
@@ -262,7 +259,6 @@ a.list-group-item.items-list:after {
   border-color: #d6e9c6;
 }
 
-
 /**************************************** Page Body ****************************************/
 
 .page-body {
@@ -402,7 +398,7 @@ a.list-group-item.items-list:after {
   font-weight: 600;
 }
 
-.recent-01 {
+.recent01 {
   padding: 5px 0;
   margin: 2px 0 0 0;
   width: 100%;
@@ -411,7 +407,7 @@ a.list-group-item.items-list:after {
   background: #f1f1f1;
 }
 
-.recent-02 {
+.recent02 {
   padding: 5px 0;
   margin: 2px 0 0 0;
   width: 100%;
@@ -478,7 +474,6 @@ a.list-group-item.items-list:after {
   color: #555;
   font-size: 25px;
 }
-
 
 .call-02 .call-02-name {
   margin: 0;
@@ -555,7 +550,6 @@ a.list-group-item.items-list:after {
   color: #777;
 }
 
-
 /**************************************** Details Calls ****************************************/
 
 .details-calls {
@@ -615,7 +609,7 @@ a.list-group-item.items-list:after {
 
 /**************************************** Search ****************************************/
 
-#custom-search-input{
+#custom-search-input {
   padding: 3px;
   border: solid 1px #e3e3e3;
   border-radius: 0;
@@ -637,13 +631,13 @@ a.list-group-item.items-list:after {
   margin-bottom: 0;
 }
 
-#custom-search-input input{
+#custom-search-input input {
   border: 0;
   box-shadow: none;
   font-size: 16px;
 }
 
-#custom-search-input button{
+#custom-search-input button {
   margin: 2px 0 0 0;
   background: none;
   box-shadow: none;
@@ -653,23 +647,21 @@ a.list-group-item.items-list:after {
   border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:focus, #custom-search-input button:hover{
+#custom-search-input button:focus, #custom-search-input button:hover {
   border: 0;
   box-shadow: none;
   border-left: solid 1px #ccc;
   outline: none;
 }
 
-#custom-search-input .glyphicon-search{
+#custom-search-input .glyphicon-search {
   font-size: 18px;
   color: #039997;
 }
 
-#custom-search-input .glyphicon-search:hover{
+#custom-search-input .glyphicon-search:hover {
   color: #058584;
 }
-
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -677,10 +669,12 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -690,7 +684,6 @@ body {
   background-color: #f5f5f5;
 }
 
-
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -698,6 +691,7 @@ body {
 body > .container {
   padding: 60px 15px 0;
 }
+
 .container .text-muted {
   margin: 20px 0;
 }
