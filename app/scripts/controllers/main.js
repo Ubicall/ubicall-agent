@@ -16,6 +16,13 @@ angular.module('agentUiApp')
     } else {
       var _user = Auth.currentUser().user;
       var _calls, _totalCalls, _queues, _totalQueues;
+
+      $scope.queuesCurrentPage = 1;
+      $scope.queuesPageSize = 10;
+
+      $scope.callsCurrentPage = 1;
+      $scope.callsPageSize = 10;
+
       $scope.user = _user;
 
       $scope.calls = _calls = [];
@@ -35,6 +42,7 @@ angular.module('agentUiApp')
         _queues = queues;
         $scope.queues = _queues;
       });
+
 
       $scope.fromNow = function (utcend, utcstart) {
         return moment.utc(moment(utcend, "DD/MM/YYYY HH:mm:ss").

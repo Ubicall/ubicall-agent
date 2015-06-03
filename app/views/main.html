@@ -74,7 +74,7 @@
         <div id="custom-search-input">
           <div class="input-group col-md-12">
             <form>
-              <input ng-model="q" id="search" type="text" class="form-control" placeholder="Search...">
+              <input ng-model="qcalls" id="search" type="text" class="form-control" placeholder="Search...">
             </form>
 						<span class="input-group-btn">
 							<button class="btn btn-info btn-lg" type="button">
@@ -96,9 +96,9 @@
         </div>
 
         <div class="row">
-
-          <div dir-paginate="call in calls | filter:q | itemsPerPage: 10" pagination-id="callsPaginator"
-               total-items="totalCalls" current-page="pagination.current" class="recent-01">
+          <div dir-paginate="call in calls | filter:qcalls | itemsPerPage: callsPageSize"
+               current-page="callsCurrentPage" pagination-id="callsPaginator"
+               class="recent-01">
             <div class="call-01 cll-current"></div>
             <div class="call-02">
               <img src="images/default-user-image-small_16x16.png"/>
@@ -106,7 +106,7 @@
               <div class="call-02-name">{{call.address || 'N/A'}}</div>
             </div>
             <div class="call-03">{{call.phone}}</div>
-            <div class="call-04">{{call.start_time | amDateFormat:'dddd, MMMM Do , h:mm:ss a'}}</div>
+            <div class="call-04">{{call.start_time | amDateFormat:'ddd, MMM Do , h:mm:ss a'}}</div>
             <div class="call-05">{{fromNow(call.start_time,call.end_time)}}</div>
             <div class="call-06">
               <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
@@ -116,7 +116,9 @@
           </div>
 
           <div class="text-center">
-            <dir-pagination-controls pagination-id="callsPaginator"></dir-pagination-controls>
+            <dir-pagination-controls
+              boundary-links="true" pagination-id="callsPaginator">
+            </dir-pagination-controls>
           </div>
         </div>
       </div>
@@ -125,20 +127,21 @@
     </div>
 
     <div class="col-md-3 queues">
-
       <div class="list-group panel">
         <input ng-model="qsearch" id="qsearch" type="text" class="form-control" placeholder="Search...">
 
-        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: 7"
-             pagination-id="queuesPaginator" total-items="totalQueues"
-             current-page="pagination.current">
+        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
+             current-page="queuesCurrentPage"
+             pagination-id="queuesPaginator">
           <a href="#/callclient/queue/{{queue.queueid}}"
              class="list-group-item frist-item {{queue.calls | callAlert}}">
             {{queue.name}}
           </a>
         </div>
+
         <div class="text-center">
-          <dir-pagination-controls pagination-id="queuesPaginator"></dir-pagination-controls>
+          <dir-pagination-controls
+            boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
         </div>
 
       </div>
