@@ -21,6 +21,10 @@ angular.module('agentUiApp')
       $scope.queues = _queues = [];
       $scope.totalQueues = _totalQueues = 0;
 
+
+      $scope.queuesCurrentPage = 1;
+      $scope.queuesPageSize = 10;
+
       CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
         $scope.call = call;
       });
@@ -29,7 +33,7 @@ angular.module('agentUiApp')
       });
 
       $scope.isJson = function (str) {
-        if (!str) {
+        if (!str || isNumber(str)) {
           return false;
         }
         if (typeof str == 'object') {
@@ -41,7 +45,11 @@ angular.module('agentUiApp')
           return false;
         }
         return true;
-      }
+      };
+
+      var isNumber = function (n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+      };
 
 
       $scope.$on('queues:updated', function (event, queues) {

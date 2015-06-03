@@ -45,7 +45,7 @@
     <a href="#/current">
       <div class="left-menu">
         <i class="fa fa-history"></i>
-        <h4>Current Calls</h4>
+        <h4>Current Call</h4>
       </div>
     </a>
 
@@ -81,26 +81,34 @@
             <div class="details-name">{{call.phone}}</div>
             <div class="details-title">Call center manager at Ubicall</div>
           </div>
-          <ul ng-repeat="(key, value) in call">
-            <li class="col-md-2">{{key}}</li>
+          <div class="row" ng-repeat="(key, value) in call">
+            <div class="col-md-2">{{key}}</div>
             <div ng-if="isJson(value)">
-              <ul ng-repeat="(nkey, nvalue) in value">
-                <li class="object1 col-md-2">{{nkey}}</li>
+              <div class="row" ng-repeat="(nkey, nvalue) in value">
+                <div class="col-md-2">{{nkey}}</div>
                 <div ng-if="isJson(nvalue)">
-                  <ul ng-repeat="(nnkey, nnvalue) in nvalue">
-                    <li class="object2 col-md-2">{{nnkey}}</li>
-                    <li class="object2 col-md-10 details-fields">{{nnvalue}}</li>
-                  </ul>
+                  <div class="row" ng-repeat="(nnkey, nnvalue) in nvalue">
+                    <div class="col-md-2"><b>{{nnkey}}</b></div>
+                    <div ng-if="isJson(nnvalue)">
+                      <div class="row" ng-repeat="(nnnkey, nnnvalue) in nnvalue">
+                        <div class="col-md-2">{{nnnkey}}</div>
+                        <div class="col-md-10 details-fields"><b>{{nnnvalue || "N/A"}}</b></div>
+                      </div>
+                    </div>
+                    <div ng-if="!isJson(nnvalue)">
+                      <div class="col-md-10 details-fields"><b>{{nnvalue || "N/A"}}</b></div>
+                    </div>
+                  </div>
                 </div>
                 <div ng-if="!isJson(nvalue)">
-                  <li class="object1 col-md-10">{{nvalue}}</li>
+                  <div class="col-md-10">{{nvalue || "N/A"}}</div>
                 </div>
-              </ul>
+              </div>
             </div>
             <div ng-if="!isJson(value)">
-              <li class="notobject col-md-10 details-fields">{{value}}</li>
+              <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
             </div>
-          </ul>
+          </div>
 
         </div>
 
@@ -108,21 +116,22 @@
     </div>
 
     <div class="col-md-3 queues">
-
       <div class="list-group panel">
         <input ng-disabled="!queues.length" ng-model="qsearch"
                id="qsearch" type="text" class="form-control" placeholder="Search...">
 
-        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: 4"
-             pagination-id="queuesPaginator" total-items="totalQueues"
-             current-page="pagination.current">
+        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
+             current-page="queuesCurrentPage"
+             pagination-id="queuesPaginator">
           <a href="#/callclient/queue/{{queue.queueid}}"
              class="list-group-item frist-item {{queue.calls | callAlert}}">
             {{queue.name}}
           </a>
         </div>
+
         <div class="text-center">
-          <dir-pagination-controls pagination-id="queuesPaginator"></dir-pagination-controls>
+          <dir-pagination-controls
+            boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
         </div>
 
       </div>

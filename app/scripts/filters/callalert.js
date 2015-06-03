@@ -12,13 +12,13 @@ angular.module('agentUiApp')
   .filter('callAlert', function () {
     return function (input) {
       if (typeof  input == 'number') {
-        if (input < 3) {
+        if (input < 40) {
           return 'alert-success'
         }
-        if (input < 5) {
+        if (input < 100) {
           return 'alert-info'
         }
-        if (input < 10) {
+        if (input < 160) {
           return 'alert-warning'
         }
         return 'alert-danger'
