@@ -25,9 +25,7 @@ angular.module('agentUiApp')
       $scope.queuesCurrentPage = 1;
       $scope.queuesPageSize = 10;
 
-      CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
-        $scope.call = call;
-      });
+
       CallCenter.getQueues().then(function (queues) {
         $scope.queues = queues;
       });
@@ -57,5 +55,17 @@ angular.module('agentUiApp')
         $scope.queues = _queues = queues;
         alertService.add("success", " new queue available ");
       });
+
+
+      if (/^\/queue/.test($location.path())) {
+        CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
+          $scope.call = call;
+        });
+      } else if (/^\/call/.test($location.path())) {
+        $scope.isDetail = true;
+        CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
+          $scope.call = call;
+        });
+      }
     }
   });

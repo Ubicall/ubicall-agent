@@ -67,6 +67,21 @@ angular.module('agentUiApp')
       return deferred.promise;
     };
 
+    CallCenter.getMeCall = function (qid, qslug) {
+      var deferred = $q.defer();
+      $http.get(API_BASE + "/call/" + qid + "/" + qslug)
+        .then(function success(res) {
+          // return your call client detail
+          // wait your phone ring
+          // answer
+          // wait to your client to get connected
+          return deferred.resolve(res.data);
+        }, function error(err) {
+          deferred.reject(err);
+        });
+      return deferred.promise;
+    };
+
     comms.subscribe("call", function (topic, call) {
       calls.unshift(call);
       $rootScope.$broadcast("calls:updated", calls);

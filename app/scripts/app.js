@@ -94,6 +94,12 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       resolve: {
         factory: checkRouting
       }
+    }).when('/queue/:queueid/:qslug', {
+      templateUrl: 'views/callDetail.html',
+      controller: 'DetailController',
+      resolve: {
+        factory: checkRouting
+      }
     }).otherwise({
       redirectTo: '/'
     });

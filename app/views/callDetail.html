@@ -43,9 +43,9 @@
   <div class="col-md-1 left-page">
 
     <a href="#/current">
-      <div class="left-menu">
+      <div class="left-menu active">
         <i class="fa fa-history"></i>
-        <h4>Current Call</h4>
+        <h4>{{isDetail? 'Call Detail':'Current Call'}}</h4>
       </div>
     </a>
 
@@ -126,9 +126,9 @@
         <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
              current-page="queuesCurrentPage"
              pagination-id="queuesPaginator">
-          <a href="#/callclient/queue/{{queue.queueid}}"
+          <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
              class="list-group-item frist-item {{queue.calls | callAlert}}">
-            {{queue.name}}
+            {{queue.queue_name}}
           </a>
         </div>
 

@@ -135,9 +135,9 @@
         <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
              current-page="queuesCurrentPage"
              pagination-id="queuesPaginator">
-          <a href="#/callclient/queue/{{queue.queueid}}"
+          <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
              class="list-group-item frist-item {{queue.calls | callAlert}}">
-            {{queue.name}}
+            {{queue.queue_name}}
           </a>
         </div>
 
