@@ -110,7 +110,8 @@
     <div class="col-md-3 queues">
 
       <div class="list-group panel">
-        <input ng-model="qsearch" id="qsearch" type="text" class="form-control" placeholder="Search...">
+        <input ng-disabled="!queues.length" ng-model="qsearch"
+               id="qsearch" type="text" class="form-control" placeholder="Search...">
 
         <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: 4"
              pagination-id="queuesPaginator" total-items="totalQueues"
