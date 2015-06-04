@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService,
-                                   AuthToken, API_BASE, comms) {
+                                   alertService, AuthToken, API_BASE, comms) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
     var calls, queues;
@@ -18,13 +18,14 @@ angular.module('agentUiApp')
       var deferred = $q.defer();
       if (calls) {
         deferred.resolve(calls);
+      } else {
+        $http.get(API_BASE + "/calls").then(function (result) {
+          calls = result.data;
+          deferred.resolve(result.data);
+        }, function (error) {
+          deferred.reject(error);
+        });
       }
-      $http.get(API_BASE + "/calls").then(function (result) {
-        calls = result.data;
-        deferred.resolve(result.data);
-      }, function (error) {
-        deferred.reject(error);
-      });
       return deferred.promise;
     }
 
@@ -57,13 +58,14 @@ angular.module('agentUiApp')
       var deferred = $q.defer();
       if (queues) {
         deferred.resolve(queues);
+      } else {
+        $http.get(API_BASE + "/queues").then(function (result) {
+          queues = result.data;
+          deferred.resolve(result.data);
+        }, function (error) {
+          deferred.reject(error);
+        });
       }
-      $http.get(API_BASE + "/queues").then(function (result) {
-        queues = result.data;
-        deferred.resolve(result.data);
-      }, function (error) {
-        deferred.reject(error);
-      });
       return deferred.promise;
     };
 
@@ -82,16 +84,28 @@ angular.module('agentUiApp')
       return deferred.promise;
     };
 
-    comms.subscribe("call", function (topic, call) {
+    comms.subscribe("calls:updated", function (topic, call) {
       calls.unshift(call);
       $rootScope.$broadcast("calls:updated", calls);
 
     });
 
-    comms.subscribe("queue", function (topic, queue) {
+    comms.subscribe("queues:updated", function (topic, queue) {
       queues.unshift(queue);
-      $rootScope.$broadcast("queue:updated", queues);
+      $rootScope.$broadcast("queues:updated", queues);
 
     });
+
+    comms.subscribe(["call:ringing", "call:complete", "call:problem"],
+      function (topic, callStatus) {
+        if (topic == "call:problem") {
+          alertService.add("alert", callStatus.message);
+        } else if (topic == "call:ringing") {
+          alertService.add("info", callStatus.message);
+        } else if (topic == "call:complete") {
+          alertService.add("success", callStatus.message);
+        }
+      });
+
     return CallCenter;
   });

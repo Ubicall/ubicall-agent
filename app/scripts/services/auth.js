@@ -56,19 +56,11 @@ angular.module('agentUiApp')
 
     function isLoggedIn() {
       var deferred = $q.defer();
-      $http.get(API_BASE + "/users/me")
-        .success(function (response) {
-          // mean access_token is valid
-          $rootScope.isLoggedIn = true;
-          deferred.resolve(true);
-        })
-        .error(function (error) {
-          $rootScope.currentUser = null
-          $rootScope.isLoggedIn = false;
-          localStorageService.remove('currentUser')
-          AuthToken.clearToken();
-          deferred.reject(error);
-        });
+      if (AuthToken.getToken()) {
+        deferred.resolve(true);
+      } else {
+        deferred.reject(false);
+      }
       return deferred.promise;
     }
 

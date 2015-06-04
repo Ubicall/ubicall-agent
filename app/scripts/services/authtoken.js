@@ -8,14 +8,15 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('AuthToken', function (localStorageService) {
+  .factory('AuthToken', function (localStorageService, $window) {
     var tokenKey = 'access_token';
     var cachedToken;
     return {
       isAuthenticated: isAuthenticated,
       setToken: setToken,
       getToken: getToken,
-      clearToken: clearToken
+      clearToken: clearToken,
+      payload: atobPayLoad
     };
     function setToken(token) {
       cachedToken = token;
@@ -36,5 +37,10 @@ angular.module('agentUiApp')
 
     function isAuthenticated() {
       return !!getToken();
+    }
+
+    function atobPayLoad() {
+      var b64 = getToken().split('.')[1];
+      return JSON.parse($window.atob(b64));
     }
   });

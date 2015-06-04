@@ -5,6 +5,9 @@
  * @name agentUiApp.comms
  * @description
  * # comms
+ * subscribe to published events from server like
+ *['queues:updated', 'calls:updated', 'call:wait:agent',
+ * 'call:wait:client','call:complete', 'call:agent:problem', 'call:client:problem']
  * Service in the agentUiApp as socket connection between frontend and client and backend one
  */
 angular.module('agentUiApp')
@@ -76,7 +79,16 @@ angular.module('agentUiApp')
       });
     })();
 
-    function subscribe(topic, callback) {
+    function _sendErrorHappen(err) {
+      if (ws && ws.readyState == 1) {
+        ws.send(JSON.stringify({
+          info: {token: AuthToken.getToken(), date: new Date().now},
+          error: err
+        }));
+      }
+    }
+
+    function _subscribe(topic, callback) {
       if (subscriptions[topic] == null) {
         subscriptions[topic] = [];
       }
@@ -86,7 +98,21 @@ angular.module('agentUiApp')
       }
     }
 
-    function unsubscribe(topic, callback) {
+    function subscribe(topic, callback) {
+      if (!AuthToken.payload || !AuthToken.payload.lic) {
+        _sendErrorHappen({message: "payload or lic is missed"});
+      } else {
+        if (topic.constructor === Array) {
+          for (var top in topic) {
+            _subscribe(AuthToken.payload.lic + ":" + top, callback);
+          }
+        } else {
+          _subscribe(AuthToken.payload.lic + ":" + topic, callback);
+        }
+      }
+    }
+
+    function _unsubscribe(topic, callback) {
       if (subscriptions[topic]) {
         for (var i = 0; i < subscriptions[topic].length; i++) {
           if (subscriptions[topic][i] === callback) {
@@ -96,6 +122,20 @@ angular.module('agentUiApp')
         }
         if (subscriptions[topic].length === 0) {
           delete subscriptions[topic];
+        }
+      }
+    }
+
+    function unsubscribe(topic, callback) {
+      if (!AuthToken.payload || !AuthToken.payload.lic) {
+        _sendErrorHappen({message: "payload or lic is missed"});
+      } else {
+        if (topic.constructor === Array) {
+          for (var top in topic) {
+            _unsubscribe(AuthToken.payload.lic + ":" + top, callback);
+          }
+        } else {
+          _unsubscribe(AuthToken.payload.lic + ":" + topic, callback);
         }
       }
     }
