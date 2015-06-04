@@ -11,6 +11,7 @@ angular.module('agentUiApp')
   .factory('AuthToken', function (localStorageService, $window) {
     var tokenKey = 'access_token';
     var cachedToken;
+    var cachedPayload;
     return {
       isAuthenticated: isAuthenticated,
       setToken: setToken,
@@ -40,7 +41,10 @@ angular.module('agentUiApp')
     }
 
     function atobPayLoad() {
-      var b64 = getToken().split('.')[1];
-      return JSON.parse($window.atob(b64));
+      if (!cachedPayload) {
+        var b64 = getToken().split('.')[1];
+        cachedPayload = JSON.parse($window.atob(b64));
+      }
+      return cachedPayload;
     }
   });

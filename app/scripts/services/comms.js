@@ -99,15 +99,15 @@ angular.module('agentUiApp')
     }
 
     function subscribe(topic, callback) {
-      if (!AuthToken.payload || !AuthToken.payload.lic) {
+      if (!AuthToken.payload() || !AuthToken.payload().lic) {
         _sendErrorHappen({message: "payload or lic is missed"});
       } else {
         if (topic.constructor === Array) {
           for (var top in topic) {
-            _subscribe(AuthToken.payload.lic + ":" + top, callback);
+            _subscribe(AuthToken.payload().lic + ":" + top, callback);
           }
         } else {
-          _subscribe(AuthToken.payload.lic + ":" + topic, callback);
+          _subscribe(AuthToken.payload().lic + ":" + topic, callback);
         }
       }
     }
@@ -127,15 +127,15 @@ angular.module('agentUiApp')
     }
 
     function unsubscribe(topic, callback) {
-      if (!AuthToken.payload || !AuthToken.payload.lic) {
+      if (!AuthToken.payload() || !AuthToken.payload().lic) {
         _sendErrorHappen({message: "payload or lic is missed"});
       } else {
         if (topic.constructor === Array) {
           for (var top in topic) {
-            _unsubscribe(AuthToken.payload.lic + ":" + top, callback);
+            _unsubscribe(AuthToken.payload().lic + ":" + top, callback);
           }
         } else {
-          _unsubscribe(AuthToken.payload.lic + ":" + topic, callback);
+          _unsubscribe(AuthToken.payload().lic + ":" + topic, callback);
         }
       }
     }

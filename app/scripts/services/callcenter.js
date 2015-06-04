@@ -84,28 +84,54 @@ angular.module('agentUiApp')
       return deferred.promise;
     };
 
-    comms.subscribe("calls:updated", function (topic, call) {
-      calls.unshift(call);
-      $rootScope.$broadcast("calls:updated", calls);
+    // generate dynamic topic layout for socket to subscribe
+    var payload = AuthToken.payload();
+    if (payload.per && payload.per.notify && payload.per.notify.length > 0) {
 
-    });
-
-    comms.subscribe("queues:updated", function (topic, queue) {
-      queues.unshift(queue);
-      $rootScope.$broadcast("queues:updated", queues);
-
-    });
-
-    comms.subscribe(["call:ringing", "call:complete", "call:problem"],
-      function (topic, callStatus) {
-        if (topic == "call:problem") {
-          alertService.add("alert", callStatus.message);
-        } else if (topic == "call:ringing") {
-          alertService.add("info", callStatus.message);
-        } else if (topic == "call:complete") {
-          alertService.add("success", callStatus.message);
+      for (var prev in payload.per.notify) {
+        if (prev == "system") {
+          prev.forEach(function (item) {
+            comms.subscribe(item, function (topic, result) {
+              // There is No System wide events yet
+              alertService.add("info ", prev + " : " + topic + " : " + result.message);
+            });
+          });
         }
-      });
-
+        if (prev == "api") {
+          prev.forEach(function (item) {
+            var topicLayout = AuthToken.payload().lic + ":" + item
+            comms.subscribe(topicLayout, function (topic, result) {
+              if (item == "calls:updated") {
+                calls.unshift(result.calls);
+                $rootScope.$broadcast("calls:updated", result.calls);
+                alertService.add("info", result.message);
+              }
+              if (item == "queues:updated") {
+                queues.unshift(result.queues);
+                $rootScope.$broadcast("queues:updated", result.queues);
+                alertService.add("info", result.message);
+              }
+            });
+          });
+        }
+        if (prev == "agent") {
+          prev.forEach(function (item) {
+            var topicLayout = AuthToken.payload().lic + ":" + item + ":" + AuthToken.payload().username;
+            comms.subscribe(topicLayout, function (topic, result) {
+              if (item == "call:ringing") {
+                alertService.add("info", result.message);
+              }
+              if (item == "call:complete") {
+                alertService.add("success", result.message);
+              }
+              if (item == "call:problem") {
+                alertService.add("alert", result.message);
+              }
+            });
+          });
+        }
+      }
+    }
     return CallCenter;
-  });
+  }
+);
