@@ -86,11 +86,11 @@ angular.module('agentUiApp')
 
     // generate dynamic topic layout for socket to subscribe
     var payload = AuthToken.payload();
-    if (payload.per && payload.per.notify && payload.per.notify.length > 0) {
-
+    if (payload.per && payload.per.notify) {
       for (var prev in payload.per.notify) {
         if (prev == "system") {
-          prev.forEach(function (item) {
+          angular.forEach(payload.per.notify["system"], function (item) {
+            console.log("subscribe to " + item);
             comms.subscribe(item, function (topic, result) {
               // There is No System wide events yet
               alertService.add("info ", prev + " : " + topic + " : " + result.message);
@@ -98,8 +98,9 @@ angular.module('agentUiApp')
           });
         }
         if (prev == "api") {
-          prev.forEach(function (item) {
+          angular.forEach(payload.per.notify["api"], function (item) {
             var topicLayout = AuthToken.payload().lic + ":" + item
+            console.log("subscribe to " + topicLayout);
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "calls:updated") {
                 calls.unshift(result.calls);
@@ -115,8 +116,9 @@ angular.module('agentUiApp')
           });
         }
         if (prev == "agent") {
-          prev.forEach(function (item) {
+          angular.forEach(payload.per.notify["agent"], function (item) {
             var topicLayout = AuthToken.payload().lic + ":" + item + ":" + AuthToken.payload().username;
+            console.log("subscribe to " + topicLayout);
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "call:ringing") {
                 alertService.add("info", result.message);

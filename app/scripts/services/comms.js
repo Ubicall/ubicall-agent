@@ -52,14 +52,11 @@ angular.module('agentUiApp')
             completeConnection();
           } else if (msg.topic) {
             for (var t in subscriptions) {
-              if (subscriptions.hasOwnProperty(t)) {
-                var re = new RegExp("^" + t.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g, "\\$1").replace(/\+/g, "[^/]+").replace(/\/#$/, "(\/.*)?") + "$");
-                if (re.test(msg.topic)) {
-                  var subscribers = subscriptions[t];
-                  if (subscribers) {
-                    for (var i = 0; i < subscribers.length; i++) {
-                      subscribers[i](msg.topic, msg.data);
-                    }
+              if (subscriptions.hasOwnProperty(t) && t == msg.topic) {
+                var subscribers = subscriptions[t];
+                if (subscribers) {
+                  for (var i = 0; i < subscribers.length; i++) {
+                    subscribers[i](msg.topic, msg.data);
                   }
                 }
               }
@@ -104,10 +101,10 @@ angular.module('agentUiApp')
       } else {
         if (topic.constructor === Array) {
           for (var top in topic) {
-            _subscribe(AuthToken.payload().lic + ":" + top, callback);
+            _subscribe(top, callback);
           }
         } else {
-          _subscribe(AuthToken.payload().lic + ":" + topic, callback);
+          _subscribe(topic, callback);
         }
       }
     }
@@ -132,10 +129,10 @@ angular.module('agentUiApp')
       } else {
         if (topic.constructor === Array) {
           for (var top in topic) {
-            _unsubscribe(AuthToken.payload().lic + ":" + top, callback);
+            _unsubscribe(top, callback);
           }
         } else {
-          _unsubscribe(AuthToken.payload().lic + ":" + topic, callback);
+          _unsubscribe(topic, callback);
         }
       }
     }
