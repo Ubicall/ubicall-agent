@@ -90,7 +90,6 @@ angular.module('agentUiApp')
       for (var prev in payload.per.notify) {
         if (prev == "system") {
           angular.forEach(payload.per.notify["system"], function (item) {
-            console.log("subscribe to " + item);
             comms.subscribe(item, function (topic, result) {
               // There is No System wide events yet
               alertService.add("info ", prev + " : " + topic + " : " + result.message);
@@ -100,17 +99,14 @@ angular.module('agentUiApp')
         if (prev == "api") {
           angular.forEach(payload.per.notify["api"], function (item) {
             var topicLayout = AuthToken.payload().lic + ":" + item
-            console.log("subscribe to " + topicLayout);
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "calls:updated") {
-                calls.unshift(result.calls);
-                $rootScope.$broadcast("calls:updated", result.calls);
-                alertService.add("info", result.message);
+                Array.prototype.unshift.apply(calls, result.calls);
+                $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
-                queues.unshift(result.queues);
-                $rootScope.$broadcast("queues:updated", result.queues);
-                alertService.add("info", result.message);
+                Array.prototype.unshift.apply(queues, result.queues);
+                $rootScope.$broadcast("queues:updated", queues);
               }
             });
           });
@@ -118,7 +114,6 @@ angular.module('agentUiApp')
         if (prev == "agent") {
           angular.forEach(payload.per.notify["agent"], function (item) {
             var topicLayout = AuthToken.payload().lic + ":" + item + ":" + AuthToken.payload().username;
-            console.log("subscribe to " + topicLayout);
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "call:ringing") {
                 alertService.add("info", result.message);

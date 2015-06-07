@@ -51,13 +51,13 @@ angular.module('agentUiApp')
       $scope.$on('calls:updated', function (event, calls) {
         $scope.totalCalls = _totalCalls = calls.length;
         $scope.calls = _calls = calls;
-        alertService.add("success", " new call available ");
+        alertService.add("success", " new calls available ");
       });
 
       $scope.$on('queues:updated', function (event, queues) {
         $scope.totalQueues = _totalQueues = queues.length;
         $scope.queues = _queues = queues;
-        alertService.add("success", " new queue available ");
+        alertService.add("success", " new queues available ");
       });
     }
   });
