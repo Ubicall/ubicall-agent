@@ -8,7 +8,7 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('alertService', function ($timeout) {
+  .factory('alertService', function ($timeout, $rootScope) {
     var service = {
         add: add,
         closeAlert: closeAlert,
@@ -35,7 +35,7 @@ angular.module('agentUiApp')
           return closeAlert(that);
         }
       });
-      console.log("alerts is " + JSON.stringify(alerts));
+      $rootScope.$broadcast("notify", alerts);
     }
 
     function closeAlert(alert) {

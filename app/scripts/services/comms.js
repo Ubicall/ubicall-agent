@@ -47,7 +47,10 @@ angular.module('agentUiApp')
         };
         ws.onmessage = function (event) {
           var msg = JSON.parse(event.data);
-          if (pendingAuth && msg.auth == "ok") {
+          if (msg.auth == "fail") { // Re Authenticate
+            pendingAuth = true;
+            ws.send(JSON.stringify({auth: AuthToken.getToken(), method: "Bearer"}));
+          } else if (pendingAuth && msg.auth == "ok") {
             pendingAuth = false;
             completeConnection();
           } else if (msg.topic) {

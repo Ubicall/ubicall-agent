@@ -122,7 +122,7 @@ angular.module('agentUiApp')
                 alertService.add("success", result.message);
               }
               if (item == "call:problem") {
-                alertService.add("alert", result.message);
+                alertService.add("danger", result.message);
               }
             });
           });
