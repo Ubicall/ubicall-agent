@@ -127,27 +127,52 @@
 
     </div>
 
-    <div class="col-md-3 queues">
-      <div class="list-group panel">
-        <input ng-disabled="!queues.length" ng-model="qsearch"
-               id="qsearch" type="text" class="form-control" placeholder="Search...">
+    <div class="row">
+      <div class="col-md-3 queues">
+        <div class="list-group panel">
+          <input ng-disabled="!queues.length" ng-model="qsearch"
+                 id="qsearch" type="text" class="form-control" placeholder="Search...">
 
-        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
-             current-page="queuesCurrentPage"
-             pagination-id="queuesPaginator">
-          <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
-             class="list-group-item frist-item {{queue.calls | callAlert}}">
-            {{queue.queue_name}}
-          </a>
+          <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
+               current-page="queuesCurrentPage"
+               pagination-id="queuesPaginator">
+            <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
+               class="list-group-item frist-item {{queue.calls | callAlert}}">
+              {{queue.queue_name}}
+            </a>
+          </div>
+
+          <div class="text-center">
+            <dir-pagination-controls
+              boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+          </div>
+
         </div>
 
-        <div class="text-center">
-          <dir-pagination-controls
-            boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
-        </div>
+      </div>
+      <div class="col-md-3" ng-controller="PhoneController">
+        <span id="status">{{status}}</span>
+        <span id="sessionid">{{sessionid}}</span>
+			  <span id="no_mic">
+				  no mic
+        </span>
+        <a href="#" onClick="showSecurity();">Microphone not allowed</a>
+
+        <swf-object
+          swf-url="p/freeswitch/freeswitch.swf"
+          swf-width="250"
+          swf-height="150"
+          swf-version="9.0.0"
+          swf-params="{allowScriptAccess: 'always'}"
+          swf-vars="{rtmp_url: 'rtmp://104.239.164.247/phone'}"
+          xi-swf-url-str="lib/swfobject/swfobject/expressInstall.swf"
+          swf-load="onLoadHandler(evt)">
+
+        </swf-object>
 
       </div>
 
     </div>
+
   </div>
 </div>

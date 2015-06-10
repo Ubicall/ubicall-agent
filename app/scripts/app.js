@@ -21,10 +21,13 @@ angular
     'door3.css',
     'LocalStorageModule',
     'angularUtils.directives.dirPagination',
-    'angularMoment'
+    'angularMoment',
+    'swfobject'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api'); // TODO : standardized url for api in dev and prod (may use config file)
+angular
+  .module('agentUiApp').constant('FS_RTMP', 'rtmp://104.239.164.247/phone');
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
