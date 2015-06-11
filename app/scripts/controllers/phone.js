@@ -10,7 +10,9 @@
 angular.module('agentUiApp')
   .controller('PhoneController', function ($scope, rtmp, alertService) {
 
+    // ["signal-none" ,"signal-weak" ,"signal-medium"]
 
+    $scope.signal = {class: 'signal-strong', title: 'signal strong'};
     $scope.fsFlashLoaded = rtmp.onFSLoaded;
 
     $scope.answer = rtmp.answer;

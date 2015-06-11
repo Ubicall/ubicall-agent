@@ -68,13 +68,17 @@
 
 <!--Header End-->
 
+
 <div class="clear"></div>
+
+
+<!-- Page -->
 
 <div id="pages">
 
   <div class="pages-title">
     <div class="container">
-      Recent Calls
+      Profile
     </div>
   </div>
 
@@ -86,59 +90,44 @@
 
       <div class="col-md-9 right-line-pages">
 
-        <div id="custom-search-input">
-          <div class="input-group col-md-12">
-            <form>
-              <input ng-disabled="!calls.length" ng-model="qcalls"
-                     id="search" type="text" class="form-control" placeholder="Search...">
-            </form>
-              <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" type="button">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
-              </span>
-          </div>
+        <div id="profile">
+          <img src="img/home-pic-04.jpg" class="pro-img" alt="" />
+          <div class="pro-name">Samantha Nedaerk</div>
+          <div class="pro-title">Call Center</div>
         </div>
 
-        <div class="recent-title">
-          <div class="recent-title-01"></div>
-          <div class="recent-title-02">Contact</div>
-          <div class="recent-title-03">Via</div>
-          <div class="recent-title-04">When</div>
-          <div class="recent-title-05">Duration</div>
-          <div class="recent-title-06"></div>
-        </div>
+        <div class="space-01"></div>
 
-        <div class="row">
-          <div dir-paginate="call in calls | filter:qcalls | itemsPerPage: callsPageSize"
-               current-page="callsCurrentPage" pagination-id="callsPaginator"
-               ng-class="{recent01 : $index%2==0, recent02 : !($index%2==0)}">
-            <div class="call-01 cll-current"></div>
-            <div class="call-02">
-              <img src="images/default-user-image-small_16x16.png"/>
+        <form role="form">
 
-              <div class="call-02-name">{{call.address || 'N/A'}}</div>
-            </div>
-            <div class="call-03">{{call.phone}}</div>
-            <div class="call-04">{{call.start_time | amDateFormat:'ddd, MMM Do , h:mm:ss a'}}</div>
-            <div class="call-05">{{fromNow(call.start_time,call.end_time)}}</div>
-            <div class="call-06">
-              <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
-                <i class="fa fa-play-circle-o"></i>
-              </a>
-            </div>
+          <div class="form-group">
+            <label>Old Password</label>
+            <input class="form-control input-medium" type="password" id="OldPassword" name="OldPassword" />
           </div>
 
-          <div class="text-center">
-            <dir-pagination-controls
-              boundary-links="true" pagination-id="callsPaginator">
-            </dir-pagination-controls>
+          <div class="form-group">
+            <label>New Password</label>
+            <input class="form-control input-medium" type="password" id="NewPassword" name="NewPassword" />
           </div>
-        </div>
+
+          <div class="form-group">
+            <label>Re-New Password</label>
+            <input class="form-control input-medium" type="password" id="ReNewPassword" name="ReNewPassword" />
+          </div>
+
+          <div class="form-group">
+            <label>Change your image</label>
+            <input class="form-control input-medium" type="file" id="image" name="image" />
+          </div>
+
+          <button type="submit" class="btn btn-default">Submit</button>
+
+        </form>
 
       </div>
 
       <!-- Right Page End -->
+
 
 
       <!-- Left Page -->

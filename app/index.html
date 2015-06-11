@@ -9,13 +9,14 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
   <link rel="stylesheet" href="styles/ubi.css">
+  <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
 </head>
 <body ng-app="agentUiApp">
@@ -24,7 +25,7 @@
   <alert ng-repeat="alert in alerts track by $index" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
   </alert>
 </div>
-<div ng-controller="PhoneController" >
+<div ng-controller="PhoneController">
   <swf-object
     swf-url="p/freeswitch/freeswitch.swf"
     swf-width="250"
@@ -36,18 +37,21 @@
     swf-load="fsFlashLoaded(evt)"/>
 </div>
 
-<div ng-view=""></div>
+<div id="wrapper">
+
+  <div ng-view=""></div>
 
 
-<!-- Footer -->
+  <!-- Footer -->
 
-<div class="footer">
-  <div class="container">
-    <p><span class="glyphicon glyphicon-heart"></span> from the sandcti team</p>
+  <div id="footer">
+    <div class="container">
+      <p>Ubicall &copy; All Rights Reserved.</p>
+    </div>
   </div>
-</div>
 
-<!-- Footer End -->
+  <!-- Footer End -->
+</div>
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="lib/angular/angular.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>

@@ -1,0 +1,108 @@
+<!-- Header -->
+
+<div id="header">
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-icons">
+          <li>
+            <a href="#/main" title="Dashboard">
+              <img src="img/logo-header.png" class="logo-header" alt=""/>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#/about" title="Recent Calls">
+              <i class="fa fa-history"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#/help" title="Contacts">
+              <i class="glyphicon glyphicon-user"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#/current" title="Messages">
+              <i class="fa fa-envelope"></i><span class="badge">8</span>
+            </a>
+          </li>
+          <li>
+            <a href="#/recent" title="Reports"><i class="fa fa-flag"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#/agents" title="Settings"><i class="fa fa-cog"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               aria-expanded="false">
+              <i class="fa fa-circle available">
+              </i> {{user.username}} <span class="caret"/>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#/status/available"><i class="fa fa-circle available"></i> Available</a></li>
+              <li><a href="#/status/Away"><i class="fa fa-circle after"></i> Away</a></li>
+              <li class="divider" role="presentation"></li>
+              <li><a href="#/logout">logout</a></li>
+              <li><a href="#/me">profile</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</div>
+
+<!--Header End-->
+
+<div class="clear"></div>
+
+
+<!-- Page -->
+
+<div id="pages">
+
+  <div class="pages-title">
+    <div class="container">
+      Dashboard
+    </div>
+  </div>
+
+  <div class="container page-main">
+
+    <div id="dashboard">
+
+      <h3>Welcome Admin, <span>What would you like to go?</span></h3>
+
+      <ul class="dashboard">
+        <li><a class="dash-icon" href="recent.html" title="Recent Calls"><i class="fa fa-history"></i>Recent Calls</a>
+        </li>
+        <li><a class="dash-icon" href="#" title="Contacts"><i class="glyphicon glyphicon-user"></i>Contacts</a></li>
+        <li><a class="dash-icon" href="#" title="Messages"><i class="fa fa-envelope"></i>Messages</a></li>
+        <li><a class="dash-icon" href="#" title="Reports"><i class="fa fa-flag"></i>Reports</a></li>
+        <li><a class="dash-icon" href="#" title="Settings"><i class="fa fa-cog"></i>Settings</a></li>
+        <li><a class="dash-icon" href="profile.html" title="Profile"><i class="fa fa-user"></i>Profile</a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Page End -->
+
+
+<div class="clear"></div>
