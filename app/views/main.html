@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav navbar-icons">
           <li>
             <a href="#/main" title="Dashboard">
-              <img src="img/logo-header.png" class="logo-header" alt=""/>
+              <img src="images/logo-header.png" class="logo-header" alt=""/>
             </a>
           </li>
           <li class="active">
@@ -147,7 +147,7 @@
 
         <!-- Queues -->
 
-        <div class="list-group" dir-paginate="queue in queues | itemsPerPage: queuesPageSize"
+        <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize"
              current-page="queuesCurrentPage"
              pagination-id="queuesPaginator">
           <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
