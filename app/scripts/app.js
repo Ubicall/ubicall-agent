@@ -121,4 +121,5 @@ var checkRouting = function ($q, $location, alertService, Auth) {
 
 angular.module('agentUiApp').config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
+  $httpProvider.interceptors.push('callInterceptor');
 });

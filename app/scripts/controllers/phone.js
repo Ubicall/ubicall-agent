@@ -8,103 +8,32 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope, $window, FS_RTMP, alertService) {
-    var fsrtmp;
-    var mics;
-    var currentMic;
-    var calls = [];
-
-    $scope.status = "Waiting for communication server";
-    $scope.sessionid;
-
-    $scope.flashvars = {
-      rtmp_url: FS_RTMP
-    };
-
-    $scope.params = {
-      allowScriptAccess: 'always'
-    };
-
-    $scope.onLoadHandler = function (evt) {
-      if (evt.success) {
-        fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
-
-        $window.onConnected = function (sessionid) {
-          $scope.sessionid = sessionid;
-          $scope.status = "Connected";
-          alertService.add("success", "rtmp session is " + sessionid);
-          $window.fsLogin("1112@104.239.164.247", "26021234");
-        };
+  .controller('PhoneController', function ($scope, rtmp, alertService) {
 
 
-        $window.onDisconnected = function () {
-          $scope.status = "Disconnected";
-          $scope.sessionid = "";
-          setTimeout(function () {
-            $scope.status = "Connecting...";
-            fsrtmp.connect();
-          }, 5000);
-        };
+    $scope.fsFlashLoaded = rtmp.onFSLoaded;
+
+    $scope.answer = rtmp.answer;
+    $scope.hangup = rtmp.hangup;
+
+    $scope.$on("rtmp:login", function (event, loginInfo) {
+      if (loginInfo.status == "success") {
 
 
-        $window.onLogin = function (status, user, domain) {
-          if (status != "success") {
-            alertService.add("danger", "Authentication failed! onAuth");
-          } else {
-            alertService.add("success", "connected to the matrix");
-            var u = user + '@' + domain;
-            fsrtmp.register(u, "");
-            // you logged in now with your sip credentials
-          }
-        };
+        // dim answer and hangup until call received
+        // notify user he can ask for calls now
 
-        $window.fsLogin = function (user, pass) {
-          fsrtmp.login(user, pass);
-        };
-
-        $window.fsLogout = function (account) {
-          fsrtmp.logout(account);
-        };
-
-        $window.fsHangup = function (uuid) {
-          fsrtmp.hangup(uuid);
-        };
-
-        $window.answer = function (uuid) {
-          fsrtmp.answer(uuid);
-        };
-
-        $scope.hangup = function () {
-          $window.fsHangup($scope.callUuid);
-          $scope.callIn = false;
-          $scope.callName = $scope.callNumber = $scope.callUuid = $scope.callAccount = '';
-          $scope.phone = "noCall";
-        };
-
-        $scope.answer = function () {
-          $window.fsHangup($scope.callUuid);
-          $scope.phone = "answer";
-        };
-
-        $window.onIncomingCall = function (uuid, name, number, account, evt) {
-          calls.push({uuid: uuid, name: name, number: number});
-          $scope.callName = name;
-          $scope.callNumber = number;
-          $scope.callUuid = uuid;
-          $scope.callAccount = account;
-          $scope.phone = "ringing";
-          $scope.callIn = true;
-
-          console.log(name + " " + number + " calling with uuid " + uuid);
-          $window.answer(uuid);
-        };
-
-        $window.onDebug = function (message) {
-          alertService.add("info", message);
-        }
-
+      } else {
+        // should dim answer and hangup button
+        // notify that there is no signal from communication server
       }
-    };
+    });
 
+    $scope.$on("rtmp:call", function (event, callInfo) {
+      alertService.add("info", "new call from " + callInfo.name ? callInfo.name : 'UnKnown',
+        callInfo.number ? callInfo.number : 'UnKnown');
+
+      // now show answer and hangup button
+    });
 
   });

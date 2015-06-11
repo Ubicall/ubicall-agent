@@ -41,7 +41,7 @@ angular.module('agentUiApp')
     }
 
     function atobPayLoad() {
-      if (!cachedPayload) {
+      if (!cachedPayload && getToken()) {
         var b64 = getToken().split('.')[1];
         cachedPayload = JSON.parse($window.atob(b64));
       }

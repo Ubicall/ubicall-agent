@@ -59,5 +59,9 @@ angular.module('agentUiApp')
         $scope.queues = _queues = queues;
         alertService.add("success", " new queues available ");
       });
+
+      $scope.$on("rtmp:login", function (event, loginInfo) {
+        console.log("loginInfo is " + loginInfo);
+      });
     }
   });

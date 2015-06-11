@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agentUiApp')
-.controller('LoginController', function ($scope, $animate, $location, Auth, alertService) {
+  .controller('LoginController', function ($scope, $animate, $location, Auth, rtmp, alertService) {
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
@@ -9,23 +9,24 @@ angular.module('agentUiApp')
     // method called from shakeThat directive
     $scope.submit = function () {
       Auth.login($scope.email, $scope.password).then(function success() {
-        alertService.add('success' , "you logged in ");
+        rtmp.login();
+        alertService.add('success', "you logged in ");
         $location.path('/main');
       }, function error() {
-        alertService.add('danger' , "crednetial problem found");
+        alertService.add('danger', "crednetial problem found");
       });
     };
 
   })
-.directive('shakeThat', ['$animate', function ($animate) {
+  .directive('shakeThat', ['$animate', function ($animate) {
 
-  return {
-    require: '^form',
-    scope: {
-      submit: '&',
-      submitted: '='
-    },
-    link: function (scope, element, attrs, form) {
+    return {
+      require: '^form',
+      scope: {
+        submit: '&',
+        submitted: '='
+      },
+      link: function (scope, element, attrs, form) {
 
         // listen on submit event
         element.on('submit', function () {

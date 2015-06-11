@@ -118,27 +118,44 @@
       </div>
     </div>
 
-    <div class="col-md-3 queues">
-      <div class="list-group panel">
-        <input ng-disabled="!queues.length" ng-model="qsearch"
-               id="qsearch" type="text" class="form-control" placeholder="Search...">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="list-group panel">
+          <input ng-disabled="!queues.length" ng-model="qsearch"
+                 id="qsearch" type="text" class="form-control" placeholder="Search...">
 
-        <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
-             current-page="queuesCurrentPage"
-             pagination-id="queuesPaginator">
-          <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
-             class="list-group-item frist-item {{queue.calls | callAlert}}">
-            {{queue.queue_name}}
-          </a>
+          <div dir-paginate="queue in queues | filter:qsearch | itemsPerPage: queuesPageSize"
+               current-page="queuesCurrentPage"
+               pagination-id="queuesPaginator">
+            <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
+               class="list-group-item frist-item {{queue.calls | callAlert}}">
+              {{queue.queue_name}}
+            </a>
+          </div>
+
+          <div class="text-center">
+            <dir-pagination-controls
+              boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+          </div>
+
         </div>
 
-        <div class="text-center">
-          <dir-pagination-controls
-            boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+      </div>
+      <div class="col-md-3" ng-controller="PhoneController">
+
+        <div class="row show-grid">
+          <a class="btn btn-success" href="" ng-click="answer()">
+            answer
+          </a>
+          <a class="btn btn-danger" href="" ng-click="hangup()">
+            hangup
+          </a>
+
         </div>
 
       </div>
 
     </div>
+
   </div>
 </div>
