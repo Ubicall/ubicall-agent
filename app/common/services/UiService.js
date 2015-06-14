@@ -55,7 +55,7 @@ angular.module('agentUiApp')
           return closeAlert(that);
         }
       });
-      $rootScope.$broadcast("notify", alerts);
+      $rootScope.$broadcast("alert:notify", alerts);
     }
 
     function closeAlert(alert) {
