@@ -109,6 +109,7 @@ angular.module('agentUiApp')
 
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
         if (fsrtmp) {
+          console.log("rtmp:ready", {message: "flash ready in loading", level: 3});
           $rootScope.$broadcast("rtmp:ready", {message: "flash ready in loading", level: 3});
         };
 

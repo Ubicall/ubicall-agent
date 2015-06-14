@@ -2,7 +2,7 @@
 
 angular.module('agentUiApp')
   .controller('AlertController', function ($scope, UiService) {
-    $scope.alerts = UiService.get();
+    $scope.alerts = UiService.get;
 
 
     $scope.closeAlert = function (index) {
