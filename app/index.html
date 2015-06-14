@@ -9,18 +9,19 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="common/styles/style.css">
+  <link rel="stylesheet" href="styles/style.css">
   <!-- endbuild -->
 </head>
 <body ng-app="agentUiApp">
 
-<div ng-include="'alert/alert.html'"/>
+<div ng-include=" 'alert/alert.html' "></div>
+
 <div id="wrapper">
   <!-- Header -->
 
@@ -107,7 +108,7 @@
       <div class="row">
         <!-- Right Page -->
 
-        <div ng-view=""/>
+        <div ng-view=""></div>
 
         <!-- Right Page End -->
 
@@ -118,14 +119,15 @@
 
           <!-- Queues -->
 
-          <div ng-include="'queues/queues.html'"/>
+          <div ng-include=" 'queues/queues.html' "/>
 
           <!-- Queues End -->
 
 
           <!-- Phone -->
 
-          <div ng-include="'phone/phone.html'"/>
+          <div ng-include=" 'phone/phone.html' "/>
+
 
           <!-- Phone End -->
 
@@ -152,6 +154,8 @@
 
   <!-- Footer End -->
 </div>
+
+
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="lib/angular/angular.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -168,7 +172,7 @@
 <script src="lib/angular-utils-pagination/dirPagination.js"></script>
 <script src="lib/moment/moment.js"></script>
 <script src="lib/angular-moment/angular-moment.js"></script>
-<script src="lib/swfobject/swfobject/swfobject.js"></script>
+<script src="lib/swfobject/swfobject/src/swfobject.js"></script>
 <script src="lib/angular-swfobject/angular-swfobject.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
@@ -177,17 +181,21 @@
 <script src="app.js"></script>
 <script src="common/services/authtoken.js"></script>
 <script src="common/services/authinterceptor.js"></script>
-<script src="common/services/auth.js"></script>
 <script src="common/services/rtmp.js"></script>
 <script src="common/services/callinterceptor.js"></script>
+<script src="login/services/auth.js"></script>
+<script src="common/services/callcenter.js"></script>
+<script src="common/services/comms.js"></script>
+
 <script src="alert/services/alert.js"></script>
 <script src="recent/recent.js"></script>
 <script src="login/login.js"></script>
 <script src="alert/alert.js"></script>
-<script src="common/services/callcenter.js"></script>
 <script src="detail/detail.js"></script>
-<script src="alert/filters/callalert.js"></script>
-<script src="common/services/comms.js"></script>
+<script src="queues/queues.js"></script>
+<script src="queues/filters/callalert.js"></script>
+<script src="profile/profile.js"></script>
+<script src="main/main.js"></script>
 <script src="phone/phone.js"></script>
 <!-- endbuild -->
 </body>
