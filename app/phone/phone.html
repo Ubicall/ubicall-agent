@@ -1,4 +1,4 @@
-<div id="calls" ng-controller="PhoneController">
+<div id="calls" ng-controller="PhoneController" ng-if="isAuthenticated()">
 
   <span class="{{signal.class}}" title="{{signal.title}}"></span>
 

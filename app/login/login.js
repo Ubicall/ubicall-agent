@@ -9,9 +9,12 @@ angular.module('agentUiApp')
     // method called from shakeThat directive
     $scope.submit = function () {
       Auth.login($scope.email, $scope.password).then(function success() {
-        rtmp.login();
-        UiService.add('success', "you logged in ");
-        $location.path('/main');
+        $scope.$on('rtmp:ready', function (event, info) {
+            rtmp.login();            
+            UiService.add('success', "you logged in and connected with callcenter server");
+        });
+        UiService.add('success', "you logged in but wait to connect you with callcenter server");
+        $location.path('/recent');
       }, function error() {
         UiService.add('danger', "crednetial problem found");
       });

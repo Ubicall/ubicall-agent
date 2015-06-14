@@ -17,15 +17,14 @@ angular.module('agentUiApp')
     var rtmpSessionStatus;
     var sessionUser;
 
-
     var payload
 
     function fsLogin() {
       payload = AuthToken.payload();
-      if (payload && payload.sip && payload.sip.num && payload.sip.cred) {
-        fsrtmp.login(payload.sip.num, payload.sip.cred);
+      if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
+          fsrtmp.login(payload.sip.num, payload.sip.cred);     
       } else {
-        $rootScope.$broadcast("rtmp:problem", {message: "un able to login , no credentials", level: 3});
+        $rootScope.$broadcast("rtmp:problem", {message: "un able to login , no credentials or flash not loaded", level: 3});
       }
     }
 
@@ -109,6 +108,9 @@ angular.module('agentUiApp')
       if (evt.success) {
 
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
+        if (fsrtmp) {
+          $rootScope.$broadcast("rtmp:ready", {message: "flash ready in loading", level: 3});
+        };
 
 
       }
