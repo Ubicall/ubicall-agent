@@ -25,7 +25,7 @@
 <div id="wrapper" ng-controller="UIController">
   <!-- Header -->
 
-  <div id="header">
+  <div id="header" ng-if="!login">
 
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -96,7 +96,7 @@
 
   <div id="pages">
 
-    <div class="pages-title">
+    <div class="pages-title" ng-if="!login">
       <div class="container">
         {{pageTitle}}
       </div>
@@ -115,7 +115,7 @@
 
         <!-- Left Page -->
 
-        <div class="col-md-3">
+        <div class="col-md-3" ng-if="!login">
 
           <!-- Queues -->
 

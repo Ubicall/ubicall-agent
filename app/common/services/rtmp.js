@@ -127,6 +127,9 @@ angular.module('agentUiApp')
       answer: fsAnswer,
       hangup: fsHangup,
       me: function () {
+        if(!sessionUser){
+          sessionUser=AuthToken.payload().sip.num;
+        }
         return rtmpSession + "/" + sessionUser
       }
     }
