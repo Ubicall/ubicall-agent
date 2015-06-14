@@ -18,6 +18,7 @@ angular.module('agentUiApp')
         closeAlertIdx: closeAlertIdx,
         clear: clear,
         get: get,
+        setCurrentTab: setCurrentTab,
         currentTab: getCurrentTab,
         pageTitle: getPageTitle
       },
@@ -26,16 +27,16 @@ angular.module('agentUiApp')
     return service;
 
 
-    var setCurrentTab = function (tab, pageTitle) {
+    function setCurrentTab(tab, pageTitle) {
       previousTab = currentTab;
       currentTab = tab;
       currentTitle = pageTitle;
     };
-    var getCurrentTab = function () {
+    function getCurrentTab() {
       return currentTab;
     }
 
-    var getPageTitle = function () {
+    function getPageTitle() {
       return currentTitle;
     }
 

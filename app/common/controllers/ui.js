@@ -10,7 +10,7 @@
 angular.module('agentUiApp')
   .controller('UIController', function ($scope, UiService) {
 
-    $scope.current = UiService.currentTab();
-    $scope.pageTitle = UiService.pageTitle();
+    $scope.current = UiService.currentTab;
+    $scope.pageTitle = UiService.pageTitle;
 
   });
