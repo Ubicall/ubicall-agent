@@ -8,17 +8,36 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('alertService', function ($timeout, $rootScope) {
+  .factory('UiService', function ($timeout, $rootScope) {
+    var previousTab;
+    var currentTab;
+    var currentTitle;
     var service = {
         add: add,
         closeAlert: closeAlert,
         closeAlertIdx: closeAlertIdx,
         clear: clear,
-        get: get
+        get: get,
+        currentTab: getCurrentTab,
+        pageTitle: getPageTitle
       },
       alerts = [];
 
     return service;
+
+
+    var setCurrentTab = function (tab, pageTitle) {
+      previousTab = currentTab;
+      currentTab = tab;
+      currentTitle = pageTitle;
+    };
+    var getCurrentTab = function () {
+      return currentTab;
+    }
+
+    var getPageTitle = function () {
+      return currentTitle;
+    }
 
     function add(type, msg, tout) {
       var that = this;
@@ -53,4 +72,7 @@ angular.module('agentUiApp')
     function get() {
       return alerts;
     }
+
+
+    return {}
   });

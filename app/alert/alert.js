@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('agentUiApp')
-  .controller('AlertController', function ($scope, alertService) {
-    $scope.alerts = alertService.get();
+  .controller('AlertController', function ($scope, UiService) {
+    $scope.alerts = UiService.get();
 
 
     $scope.closeAlert = function (index) {
-      alertService.closeAlertIdx(index);
+      UiService.closeAlertIdx(index);
     };
 
     $scope.$on('notify', function (event, alerts) {

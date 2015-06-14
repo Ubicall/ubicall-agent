@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService,
-                                   alertService, AuthToken, API_BASE, comms) {
+                                   UiService, AuthToken, API_BASE, comms) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
     var calls, queues;
@@ -92,7 +92,7 @@ angular.module('agentUiApp')
           angular.forEach(payload.per.notify["system"], function (item) {
             comms.subscribe(item, function (topic, result) {
               // There is No System wide events yet
-              alertService.add("info ", prev + " : " + topic + " : " + result.message);
+              UiService.add("info ", prev + " : " + topic + " : " + result.message);
             });
           });
         }
@@ -116,13 +116,13 @@ angular.module('agentUiApp')
             var topicLayout = AuthToken.payload().lic + ":" + item + ":" + AuthToken.payload().username;
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "call:ringing") {
-                alertService.add("info", result.message);
+                UiService.add("info", result.message);
               }
               if (item == "call:complete") {
-                alertService.add("success", result.message);
+                UiService.add("success", result.message);
               }
               if (item == "call:problem") {
-                alertService.add("danger", result.message);
+                UiService.add("danger", result.message);
               }
             });
           });

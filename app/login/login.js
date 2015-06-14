@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('agentUiApp')
-  .controller('LoginController', function ($scope, $animate, $location, Auth, rtmp, alertService) {
+  .controller('LoginController', function ($scope, $animate, $location, Auth, rtmp, UiService) {
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
@@ -10,10 +10,10 @@ angular.module('agentUiApp')
     $scope.submit = function () {
       Auth.login($scope.email, $scope.password).then(function success() {
         rtmp.login();
-        alertService.add('success', "you logged in ");
+        UiService.add('success', "you logged in ");
         $location.path('/main');
       }, function error() {
-        alertService.add('danger', "crednetial problem found");
+        UiService.add('danger', "crednetial problem found");
       });
     };
 

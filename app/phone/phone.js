@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope, rtmp, alertService) {
+  .controller('PhoneController', function ($scope, rtmp, UiService) {
 
     // ["signal-none" ,"signal-weak" ,"signal-medium"]
     $scope.id="flash";
@@ -33,7 +33,7 @@ angular.module('agentUiApp')
     });
 
     $scope.$on("rtmp:call", function (event, callInfo) {
-      alertService.add("info", "new call from " + callInfo.name ? callInfo.name : 'UnKnown',
+      UiService.add("info", "new call from " + callInfo.name ? callInfo.name : 'UnKnown',
         callInfo.number ? callInfo.number : 'UnKnown');
 
       // now show answer and hangup button

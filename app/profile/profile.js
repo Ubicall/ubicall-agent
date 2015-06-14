@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('ProfileController', function ($scope) {
+  .controller('ProfileController', function ($scope,UiService) {
 
     UiService.setCurrentTab('profile', 'Your Profile');
 

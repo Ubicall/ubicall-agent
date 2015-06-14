@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('RecentController', function ($scope, $location, Auth, CallCenter, alertService, moment, amMoment) {
+  .controller('RecentController', function ($scope, $location, Auth, CallCenter,UiService, moment, amMoment) {
     UiService.setCurrentTab('recent', 'Recent Calls');
     if (!Auth.currentUser() || !Auth.currentUser().user) {
       Auth.logout().then(function () {
@@ -52,13 +52,13 @@ angular.module('agentUiApp')
       $scope.$on('calls:updated', function (event, calls) {
         $scope.totalCalls = _totalCalls = calls.length;
         $scope.calls = _calls = calls;
-        alertService.add("success", " new calls available ");
+        UiService.add("success", " new calls available ");
       });
 
       $scope.$on('queues:updated', function (event, queues) {
         $scope.totalQueues = _totalQueues = queues.length;
         $scope.queues = _queues = queues;
-        alertService.add("success", " new queues available ");
+        UiService.add("success", " new queues available ");
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {

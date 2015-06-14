@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('MainController', function ($scope) {
+  .controller('MainController', function ($scope,UiService) {
     $scope.current = "main";
     UiService.setCurrentTab('main', 'Main Page');
 
