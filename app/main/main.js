@@ -10,5 +10,6 @@
 angular.module('agentUiApp')
   .controller('MainController', function ($scope) {
     $scope.current = "main";
+    UiService.setCurrentTab('main', 'Main Page');
 
   });

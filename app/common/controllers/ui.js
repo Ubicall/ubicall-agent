@@ -4,12 +4,13 @@
  * @ngdoc function
  * @name agentUiApp.controller:PhoneCtrl
  * @description
- * # agentUiApp
+ * # PhoneCtrl
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('ProfileController', function ($scope) {
+  .controller('UIController', function ($scope, UiService) {
 
-    UiService.setCurrentTab('profile', 'Your Profile');
+    $scope.current = UiService.currentTab();
+    $scope.pageTitle = UiService.pageTitle();
 
   });
