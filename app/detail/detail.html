@@ -1,0 +1,53 @@
+<div class="col-md-9 right-line-pages">
+
+  <div id="details-calls">
+    <img src="images/default-user-image-small_48x48.png" class="det-img" alt=""/>
+
+    <div class="det-num">{{call.phone}}</div>
+    <div class="det-name">{{call.phone}}</div>
+    <div class="det-title">Call center manager at Ubicall</div>
+  </div>
+
+  <div class="space-01"></div>
+
+  <!-- Tabs -->
+
+  <tabset justified="true">
+    <tab heading="General">
+      <div class="row" ng-repeat="(key, value) in call">
+        <div ng-if="key != 'call_data'">
+          <div class="col-md-2">{{key}}</div>
+          <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Call Data">
+      <accordion close-others="oneAtATime">
+        <div class="row" ng-repeat="(key, value) in call.call_data">
+          <accordion-group heading="{{key}}" is-open="true">
+            <div ng-if="isJson(value)">
+              <ul ng-repeat="(nkey, nvalue) in value">
+                <div ng-if="isJson(nvalue)">
+                  <ul ng-repeat="(nnkey, nnvalue) in nvalue">
+                    <li>{{nnkey}} : {{nnvalue}}</li>
+                  </ul>
+                </div>
+                <div ng-if="!isJson(nvalue)">
+                  <li>{{nkey}} : {{nvalue}}</li>
+                </div>
+              </ul>
+            </div>
+            <div ng-if="!isJson(value)">
+              {{value}}
+            </div>
+          </accordion-group>
+        </div>
+      </accordion>
+    </tab>
+  </tabset>
+
+  <!-- Tabs End -->
+
+</div>
+
+

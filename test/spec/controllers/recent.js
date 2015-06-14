@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: RecentController', function () {
 
   // load the controller's module
   beforeEach(module('agentUiApp'));
 
-  var MainCtrl,
+  var RecentController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    RecentController = $controller('RecentController', {
       $scope: scope
     });
   }));

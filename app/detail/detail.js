@@ -9,6 +9,7 @@
  */
 angular.module('agentUiApp')
   .controller('DetailController', function ($scope, $location, $routeParams, alertService, Auth, CallCenter) {
+    $scope.current = 'detail';
     if (!Auth.currentUser() || !Auth.currentUser().user) {
       Auth.logout().then(function () {
         $location.path("/login");
@@ -56,11 +57,13 @@ angular.module('agentUiApp')
       });
 
       if (/^\/queue/.test($location.path())) {
+        $scope.current = 'current';
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
           $scope.call = call;
         });
       } else if (/^\/call/.test($location.path())) {
         $scope.isDetail = true;
+        $scope.current = 'detail';
         CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
           $scope.call = call;
         });

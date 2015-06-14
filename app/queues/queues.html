@@ -1,0 +1,15 @@
+<div ng-controller="QueuesController">
+  <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize"
+       current-page="queuesCurrentPage"
+       pagination-id="queuesPaginator">
+    <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
+       class="list-group-item frist-item {{queue.calls | callAlert}}">
+      {{queue.queue_name}}
+    </a>
+  </div>
+
+  <div class="text-center">
+    <dir-pagination-controls
+      boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div id="calls" ng-controller="PhoneController">
+
+  <span class="{{signal.class}}" title="{{signal.title}}"></span>
+
+  <a class="list-group-item call-call" href="" ng-click="answer()" data-toggle="collapse">Answer</a>
+
+  <a class="list-group-item call-end" href="" ng-click="hangup()" data-toggle="collapse">Hangup</a>
+
+  <swf-object
+    swf-url="p/freeswitch/freeswitch.swf"
+    swf-width="250"
+    swf-height="300"
+    swf-version="9.0.0"
+    swf-params="{allowScriptAccess: 'always'}"
+    swf-vars="{rtmp_url: 'rtmp://104.239.164.247/phone'}"
+    xi-swf-url-str="lib/swfobject/swfobject/expressInstall.swf"
+    swf-load="fsFlashLoaded(evt)"/>
+
+</div>
