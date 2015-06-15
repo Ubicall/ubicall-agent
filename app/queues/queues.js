@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .controller('QueuesController', function ($scope, $location, Auth, CallCenter, UiService, moment, amMoment) {
-    if (!Auth.currentUser() || !Auth.currentUser().user) {
+    if (!Auth.currentUser()) {
       Auth.logout().then(function () {
         $location.path("/login");
       })

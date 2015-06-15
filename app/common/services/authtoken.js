@@ -17,10 +17,12 @@ angular.module('agentUiApp')
       setToken: setToken,
       getToken: getToken,
       clearToken: clearToken,
-      payload: atobPayLoad
+      payload: atobPayLoad,
+      getCurrentUser: currentUser
     };
     function setToken(token) {
       cachedToken = token;
+      cachedPayload = null;
       localStorageService.set(tokenKey, token);
     }
 
@@ -46,5 +48,17 @@ angular.module('agentUiApp')
         cachedPayload = JSON.parse($window.atob(b64));
       }
       return cachedPayload;
+    }
+
+    function currentUser() {
+      var payload = atobPayLoad();
+      if (!payload) {
+        return null;
+      }
+      return {
+        email: payload.email || '',
+        name: payload.name || '',
+        image: payload.img || ''
+      }
     }
   });

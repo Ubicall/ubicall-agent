@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .controller('DetailController', function ($scope, $location, $routeParams, UiService, Auth, CallCenter) {
-    if (!Auth.currentUser() || !Auth.currentUser().user) {
+    if (!Auth.currentUser()) {
       Auth.logout().then(function () {
         $location.path("/login");
       })
@@ -57,7 +57,7 @@ angular.module('agentUiApp')
       });
 
       $scope.$on('rtmp:call:hangup', function (event, message) {
-       // update currentCall status and push to server
+        // update currentCall status and push to server
       });
 
       if (/^\/queue/.test($location.path())) {

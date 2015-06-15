@@ -8,8 +8,12 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('ProfileController', function ($scope,UiService) {
-
-    UiService.setCurrentTab('profile', 'Your Profile');
-
+  .controller('ProfileController', function ($scope, UiService) {
+    if (!Auth.currentUser()) {
+      Auth.logout().then(function () {
+        $location.path("/login");
+      });
+    } else {
+      UiService.setCurrentTab('profile', 'Your Profile');
+    }
   });

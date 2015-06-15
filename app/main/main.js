@@ -8,8 +8,13 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('MainController', function ($scope,UiService) {
-    $scope.current = "main";
-    UiService.setCurrentTab('main', 'Main Page');
-
+  .controller('MainController', function ($scope, Auth, UiService) {
+    if (!Auth.currentUser()) {
+      Auth.logout().then(function () {
+        $location.path("/login");
+      });
+    } else {
+      $scope.current = "main";
+      UiService.setCurrentTab('main', 'Main Page');
+    }
   });

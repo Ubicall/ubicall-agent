@@ -8,9 +8,9 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('RecentController', function ($scope, $location, Auth, CallCenter,UiService, moment, amMoment) {
+  .controller('RecentController', function ($scope, $location, Auth, CallCenter, UiService, moment, amMoment) {
     UiService.setCurrentTab('recent', 'Recent Calls');
-    if (!Auth.currentUser() || !Auth.currentUser().user) {
+    if (!Auth.currentUser()) {
       Auth.logout().then(function () {
         $location.path("/login");
       })
