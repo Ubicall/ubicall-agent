@@ -17,14 +17,17 @@ angular.module('agentUiApp')
     var rtmpSessionStatus;
     var sessionUser;
 
-    var payload
+    var payload;
 
     function fsLogin() {
       payload = AuthToken.payload();
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
-          fsrtmp.login(payload.sip.num, payload.sip.cred);     
+        fsrtmp.login(payload.sip.num, payload.sip.cred);
       } else {
-        $rootScope.$broadcast("rtmp:problem", {message: "un able to login , no credentials or flash not loaded", level: 3});
+        $rootScope.$broadcast("rtmp:problem", {
+          message: "un able to login , no credentials or flash not loaded",
+          level: 3
+        });
       }
     }
 
@@ -41,6 +44,8 @@ angular.module('agentUiApp')
     function fsHangup() {
       if (currentCall) {
         fsrtmp.hangup(currentCall.uuid);
+        console.log("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
       }
     }
 
@@ -74,11 +79,11 @@ angular.module('agentUiApp')
 
 
     $window.onLogin = function (status, user, domain) {
-      $rootScope.$broadcast("rtmp:login", {
+      $rootScope.$broadcast("rtmp:state:login", {
         session: rtmpSession, status: status,
         user: user, domain: domain
       });
-      console.log("rtmp:login", {
+      console.log("rtmp:state:login", {
         session: rtmpSession, status: status,
         user: user, domain: domain
       });
@@ -95,8 +100,6 @@ angular.module('agentUiApp')
       $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
       console.log("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
       console.log("current call info " + JSON.stringify(currentCall));
-
-      fsAnswer();
     };
 
     $window.onDebug = function (message) {
@@ -106,14 +109,13 @@ angular.module('agentUiApp')
 
     $window.fsFlashLoaded = function (evt) {
       if (evt.success) {
-
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
-        if (fsrtmp) {
-          console.log("rtmp:ready", {message: "flash ready in loading", level: 3});
-          $rootScope.$broadcast("rtmp:ready", {message: "flash ready in loading", level: 3});
-        };
-
-
+        if (!fsrtmp) {
+          $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
+        }
+        if (AuthToken.isAuthenticated()) {
+          fsLogin();
+        }
       }
       else {
         $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
@@ -130,8 +132,8 @@ angular.module('agentUiApp')
       answer: fsAnswer,
       hangup: fsHangup,
       me: function () {
-        if(!sessionUser){
-          sessionUser=AuthToken.payload().sip.num;
+        if (!sessionUser) {
+          sessionUser = AuthToken.payload().sip.num;
         }
         return rtmpSession + "/" + sessionUser
       }

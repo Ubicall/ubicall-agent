@@ -1,10 +1,10 @@
 <div id="calls" ng-controller="PhoneController" ng-if="isAuthenticated()">
 
-  <span class="{{signal.class}}" title="{{signal.title}}"></span>
+  <span class="{{signal.class}}" title="{{signal.title}}" ng-if="isCall"></span>
 
-  <a class="list-group-item call-call" href="" ng-click="answer()" data-toggle="collapse">Answer</a>
+  <a class="list-group-item call-call" href="" ng-click="answer()" ng-if="isCall" data-toggle="collapse">Answer</a>
 
-  <a class="list-group-item call-end" href="" ng-click="hangup()" data-toggle="collapse">Hangup</a>
+  <a class="list-group-item call-end" href="" ng-click="hangup()" ng-if="isCall" data-toggle="collapse">Hangup</a>
 
   <swf-object
     swf-url="p/freeswitch/freeswitch.swf"

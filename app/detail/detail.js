@@ -14,6 +14,7 @@ angular.module('agentUiApp')
         $location.path("/login");
       })
     } else {
+      var CurrentCall;
       var user = Auth.currentUser().user;
       $scope.user = user;
 
@@ -55,15 +56,21 @@ angular.module('agentUiApp')
         UiService.add("success", " new queues available ");
       });
 
+      $scope.$on('rtmp:call:hangup', function (event, message) {
+       // update currentCall status and push to server
+      });
+
       if (/^\/queue/.test($location.path())) {
         UiService.setCurrentTab('current', 'Current Call');
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
           $scope.call = call;
+          CurrentCall = call;
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');
         CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
           $scope.call = call;
+          CurrentCall = call;
         });
       }
     }
