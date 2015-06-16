@@ -48,4 +48,13 @@ angular.module('agentUiApp')
       console.log('ui controller rtmp call');
       $scope.isCall = false;
     });
+
+    $scope.$on("rtmp:state", function (event, state) {
+      if (state.status != "connected") {
+        $scope.isCall = false;
+        $scope.isAuthenticatedAndFS = function () {
+          return false;
+        };
+      }
+    });
   });
