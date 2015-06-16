@@ -9,8 +9,8 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -40,50 +40,45 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-icons">
-            <li ng-class="{'active': current == 'dash'}">
-              <a href="#/main" title="Dashboard">
+            <li ng-class="{'active': current() == 'dash'}">
+              <a href="#/main" title="{{pageTitle()}}">
                 <img src="images/logo-header.png" class="logo-header" alt=""/>
               </a>
             </li>
-            <li ng-class="{'active': current == 'recent'}">
-              <a href="#/recent" title="Recent Calls">
+            <li ng-class="{'active': current() == 'recent'}">
+              <a href="#/recent" title="{{pageTitle()}}">
                 <i class="fa fa-history"></i>
               </a>
             </li>
-            <li ng-class="{'active': current == 'recent'}">
-              <a href="#/recent" title="Contacts">
+            <li ng-class="{'active': current() == 'profile'}">
+              <a href="#/me" title=" {{pageTitle()}}">
                 <i class="glyphicon glyphicon-user"></i>
               </a>
             </li>
-            <li ng-class="{'active': current == 'current' || current == 'detail'}">
-              <a href="#/current" title="Messages">
+            <li ng-class="{'active': current() == 'current' || current() == 'detail'}">
+              <a href="#/current" title=" {{pageTitle()}}">
                 <i class="fa fa-envelope"></i><span class="badge">8</span>
               </a>
             </li>
-            <li ng-class="{'active': current == 'recent'}">
-              <a href="#/recent" title="Reports"><i class="fa fa-flag"></i>
-              </a>
-            </li>
-            <li ng-class="{'active': current == 'recent'}">
-              <a href="#/recent" title="Settings"><i class="fa fa-cog"></i>
+            <li ng-class="{'active': current() == 'settings'}">
+              <a href="#/settings" title=" {{pageTitle()}}"><i class="fa fa-cog"></i>
               </a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                 aria-expanded="false">
-                <i class="fa fa-circle available">
-                </i> {{user.username}} <span class="caret"/>
+            <span class="dropdown" dropdown on-toggle="toggled(open)">
+              <a href class="dropdown-toggle" dropdown-toggle>
+                <i class="fa fa-circle available"></i>
+                {{user.name}}
               </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#/status/available"><i class="fa fa-circle available"></i> Available</a></li>
-                <li><a href="#/status/Away"><i class="fa fa-circle after"></i> Away</a></li>
+              <ul class="dropdown-menu">
+                <li><a href="#" ng-click="status(available)"><i class="fa fa-circle available"></i> Available</a></li>
+                <li><a href="#" ng-click="status(away)"><i class="fa fa-circle after"></i> Away</a></li>
                 <li class="divider" role="presentation"></li>
                 <li><a href="#/logout">logout</a></li>
                 <li><a href="#/me">profile</a></li>
               </ul>
-            </li>
+          </span>
           </ul>
         </div>
       </div>
@@ -98,7 +93,7 @@
 
     <div class="pages-title" ng-if="isAuthenticated()">
       <div class="container">
-        {{pageTitle}}
+        {{pageTitle()}}
       </div>
     </div>
 

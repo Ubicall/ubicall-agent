@@ -52,7 +52,6 @@ angular.module('agentUiApp').config(function ($routeProvider) {
           // don't load login if user already login 'logout first'
           Auth.isLoggedIn().then(function () {
             $q.defer().reject();
-            //UiService.add('info', "you already logged in ");
             $location.path("/recent");
           }, function () {
             return true;
@@ -64,9 +63,9 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       controller: 'LoginController',
       css: 'login/login.css',
       resolve: {
-        factory: function ($q, $location, Auth, UiService) {
+        factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {
-            UiService.add('info', "bye ");
+            rtmp.logout();
             $location.path("/login");
             $q.defer().reject();
           });
@@ -106,11 +105,12 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     });
 });
 
-var checkRouting = function ($q, $location, UiService, Auth) {
+var checkRouting = function ($q, $location, UiService, Auth, rtmp) {
   Auth.isLoggedIn().then(function yes() {
     return true;
   }, function not() {
     $q.defer().reject();
+    rtmp.logout();
     UiService.add('danger', "unauthorized log in first ");
     $location.path("/login");
   });
