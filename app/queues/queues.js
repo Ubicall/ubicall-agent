@@ -41,7 +41,7 @@ angular.module('agentUiApp')
       $scope.$on('queues:updated', function (event, queues) {
         $scope.totalQueues = _totalQueues = queues.length;
         $scope.queues = _queues = queues;
-        UiService.add("success", " new queues available ");
+        UiService.ok(" new queues available ");
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {

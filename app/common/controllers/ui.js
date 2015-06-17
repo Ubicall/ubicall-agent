@@ -14,6 +14,7 @@ angular.module('agentUiApp')
     $scope.pageTitle = UiService.pageTitle;
     $scope.isAuthenticated = AuthToken.isAuthenticated;
     $scope.user = Auth.currentUser();
+
     $scope.isAuthenticatedAndFS = function () {
       return false;
     };
@@ -24,29 +25,32 @@ angular.module('agentUiApp')
     $scope.$on('rtmp:state:login', function (event, message) {
       if (message.status == "success") {
         $scope.userRTMPSession = message.session + "/" + message.user + "@" + message.domain;
-        console.log('agent connected to fs as' + $scope.userRTMPSession);
         $scope.isAuthenticatedAndFS = function () {
           return AuthToken.isAuthenticated();
         };
-        console.log("$scope.isAuthenticated() is " + $scope.isAuthenticated());
+        UiService.ok("connected successfully  to communication server");
+        $scope.$apply();
       } else {
-        console.log('agent credential is not correct with FS');
+        UiService.error("agent credential do not match in communication server");
         $scope.isAuthenticatedAndFS = function () {
           return false;
         };
+        $scope.$apply();
       }
     });
 
     $scope.$on('rtmp:call', function (event, callInfo) {
       console.log('ui controller rtmp call');
       $scope.isCall = true;
-      UiService.add("info", "new call from " + callInfo.name ? callInfo.name : 'UnKnown',
-        callInfo.number ? callInfo.number : 'UnKnown');
+      UiService.info("new call from " + callInfo.name ? callInfo.name : 'UnKnown',
+        callInfo.number ? callInfo.number : 'UnKnown', 8000);
+      $scope.$apply();
     });
 
     $scope.$on('rtmp:call:hangup', function (event, message) {
-      console.log('ui controller rtmp call');
+      UiService.info("call ended");
       $scope.isCall = false;
+      $scope.$apply();
     });
 
     $scope.$on("rtmp:state", function (event, state) {
@@ -55,6 +59,19 @@ angular.module('agentUiApp')
         $scope.isAuthenticatedAndFS = function () {
           return false;
         };
+        $scope.$apply();
       }
     });
+
+    $scope.closeAlert = function (index) {
+      UiService.closeAlertIdx(index);
+    };
+
+    $scope.$on('alert:notify', function (event, alerts) {
+      $scope.alerts = alerts;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    });
+
   });
