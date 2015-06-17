@@ -92,7 +92,7 @@ angular.module('agentUiApp')
           angular.forEach(payload.per.notify["system"], function (item) {
             comms.subscribe(item, function (topic, result) {
               // There is No System wide events yet
-              UiService.add("info ", prev + " : " + topic + " : " + result.message);
+              UiService.info(prev + " : " + topic + " : " + result.message);
             });
           });
         }
@@ -103,10 +103,12 @@ angular.module('agentUiApp')
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
                 $rootScope.$broadcast("calls:updated", calls);
+                UiService.ok(" new calls available ");
               }
               if (item == "queues:updated") {
                 Array.prototype.unshift.apply(queues, result.queues);
                 $rootScope.$broadcast("queues:updated", queues);
+                UiService.ok(" new queues available ");
               }
             });
           });
@@ -116,13 +118,13 @@ angular.module('agentUiApp')
             var topicLayout = AuthToken.payload().lic + ":" + item + ":" + AuthToken.payload().username;
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "call:ringing") {
-                UiService.add("info", result.message);
+                UiService.info(result.message);
               }
               if (item == "call:complete") {
-                UiService.add("success", result.message);
+                UiService.ok(result.message);
               }
               if (item == "call:problem") {
-                UiService.add("danger", result.message);
+                UiService.error(result.message);
               }
             });
           });

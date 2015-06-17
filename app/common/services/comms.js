@@ -68,13 +68,13 @@ angular.module('agentUiApp')
         };
         ws.onclose = function (event) {
           //TODO: check event code and reason , if has no privilege then forward to login
-          UiService.add('danger', "<b>Error</b>: Lost connection to server");
+          UiService.error("Lost connection to server");
           setTimeout(connectWS, 1000);
         };
 
 
       }, function error(error) { //user not logged in
-        UiService.add('warn', 'user not authenticated');
+        UiService.error('user not authenticated');
         $location.path("/login");
       });
     })();

@@ -15,14 +15,19 @@
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="styles/wstyle.css">
   <link rel="stylesheet" href="styles/style.css">
   <!-- endbuild -->
 </head>
 <body ng-app="agentUiApp">
 
-<div ng-include=" 'alert/alert.html' "></div>
-
 <div id="wrapper" ng-controller="UIController">
+  <div class="alerts-container">
+    <alert ng-repeat="alert in alerts track by $index" type="{{alert.type}}" close="closeAlert($index)">
+      {{alert.msg}}
+    </alert>
+  </div>
+
   <!-- Header -->
 
   <div id="header" ng-if="isAuthenticated()">
@@ -186,7 +191,6 @@
 
 <script src="recent/recent.js"></script>
 <script src="login/login.js"></script>
-<script src="alert/alert.js"></script>
 <script src="detail/detail.js"></script>
 <script src="queues/queues.js"></script>
 <script src="queues/filters/callalert.js"></script>

@@ -12,26 +12,14 @@ angular.module('agentUiApp')
     var previousTab;
     var currentTab;
     var currentTitle;
-    var service = {
-        add: add,
-        closeAlert: closeAlert,
-        closeAlertIdx: closeAlertIdx,
-        clear: clear,
-        get: get,
-        setCurrentTab: setCurrentTab,
-        currentTab: getCurrentTab,
-        pageTitle: getPageTitle
-      },
-      alerts = [];
-
-    return service;
-
+    var alerts = [];
 
     function setCurrentTab(tab, pageTitle) {
       previousTab = currentTab;
       currentTab = tab;
       currentTitle = pageTitle;
     };
+
     function getCurrentTab() {
       return currentTab;
     }
@@ -40,13 +28,11 @@ angular.module('agentUiApp')
       return currentTitle;
     }
 
-    function add(type, msg, tout) {
+    function add(type, msg, timeout) {
       var that = this;
-      tout = tout || 6000; //6 seconds
-      type = type || 'success';
       $timeout(function () {
         closeAlert(that);
-      }, tout);
+      }, timeout || 2000);
       alerts.push({
         type: type,
         msg: msg,
@@ -59,7 +45,9 @@ angular.module('agentUiApp')
     }
 
     function closeAlert(alert) {
-      return closeAlertIdx(alerts.indexOf(alert));
+      var re = closeAlertIdx(alerts.indexOf(alert));
+      $rootScope.$broadcast("alert:notify", alerts);
+      return re;
     }
 
     function closeAlertIdx(index) {
@@ -74,6 +62,29 @@ angular.module('agentUiApp')
       return alerts;
     }
 
-
-    return {}
+    return {
+      add: function (type, msg, timout) {
+        console.log("should not use add directly use info,error,warn or ok instead")
+        add(type, msg, timout);
+      },
+      info: function (msg, timout) {
+        add("info", msg, timout);
+      },
+      ok: function (msg, timout) {
+        add("success", msg, timout);
+      },
+      error: function (msg, timout) {
+        add("danger", msg, 8000);
+      },
+      warn: function (msg, timout) {
+        add("warning", msg, timout);
+      },
+      closeAlert: closeAlert,
+      closeAlertIdx: closeAlertIdx,
+      clear: clear,
+      get: get,
+      setCurrentTab: setCurrentTab,
+      currentTab: getCurrentTab,
+      pageTitle: getPageTitle
+    }
   });

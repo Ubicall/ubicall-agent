@@ -52,13 +52,11 @@ angular.module('agentUiApp')
       $scope.$on('calls:updated', function (event, calls) {
         $scope.totalCalls = _totalCalls = calls.length;
         $scope.calls = _calls = calls;
-        UiService.add("success", " new calls available ");
       });
 
       $scope.$on('queues:updated', function (event, queues) {
         $scope.totalQueues = _totalQueues = queues.length;
         $scope.queues = _queues = queues;
-        UiService.add("success", " new queues available ");
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {
