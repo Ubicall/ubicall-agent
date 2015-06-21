@@ -63,6 +63,10 @@ angular.module('agentUiApp')
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
       UiService.info("successfully connected to communication server");
+
+      if (AuthToken.isAuthenticated()) {
+        fsLogin();
+      }
     };
 
 
@@ -110,9 +114,6 @@ angular.module('agentUiApp')
           $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
           UiService.error("flash fail in loading , please reload page");
         }
-        if (AuthToken.isAuthenticated()) {
-          fsLogin();
-        }
       }
       else {
         $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
@@ -124,7 +125,6 @@ angular.module('agentUiApp')
       rtmpVars: {rtmp_url: FS_RTMP},
       rtmpParams: {allowScriptAccess: 'always'},
       onFSLoaded: $window.fsFlashLoaded,
-      login: fsLogin,
       logout: fsLogout,
       answer: fsAnswer,
       hangup: fsHangup,
