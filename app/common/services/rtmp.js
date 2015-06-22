@@ -20,6 +20,7 @@ angular.module('agentUiApp')
     var payload;
 
     function fsLogin() {
+      console.log("fsLogin");
       payload = AuthToken.payload();
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
         fsrtmp.login(payload.sip.num, payload.sip.cred);
@@ -29,6 +30,8 @@ angular.module('agentUiApp')
           level: 3
         });
         UiService.error("un able to login , no credentials or flash not loaded");
+        console.log(fsrtmp);
+        console.log(payload);
       }
     }
 
@@ -58,7 +61,8 @@ angular.module('agentUiApp')
       fsrtmp.connect();
     }
 
-    $window.onConnected = function (sessionid) {
+    function fsOnConnected(sessionid) {
+      console.log("onConnected");
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
@@ -67,10 +71,9 @@ angular.module('agentUiApp')
       if (AuthToken.isAuthenticated()) {
         fsLogin();
       }
-    };
+    }
 
-
-    $window.onDisconnected = function () {
+    function fsOnDisconnected() {
       rtmpSessionStatus = "disconnected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 1});
       UiService.info("take a rest , we try to connect you back to server");
@@ -80,7 +83,7 @@ angular.module('agentUiApp')
         UiService.info("try to connect you back to serve");
         fsConnect();
       }, 5000);
-    };
+    }
 
 
     $window.onLogin = function (status, user, domain) {
@@ -104,18 +107,23 @@ angular.module('agentUiApp')
 
     $window.onDebug = function (message) {
       $rootScope.$broadcast("rtmp:debug", {message: message, level: 5});
-      UiService.info(message);
+      if (message == "Closing media streams") {
+        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+      }
+      //UiService.info(message);
     };
 
     $window.fsFlashLoaded = function (evt) {
+      console.log("fsFlashLoaded");
       if (evt.success) {
+
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
-        if (!fsrtmp) {
-          $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
-          UiService.error("flash fail in loading , please reload page");
-        }
-      }
-      else {
+
+        // not define onConnected until fsFlashLoaded called to prevent calling onConnect first
+        $window.onConnected = fsOnConnected;
+        $window.onDisconnected = fsOnDisconnected;
+
+      } else {
         $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
         UiService.error({message: "flash fail in loading , please reload page", level: 1});
       }
@@ -136,4 +144,5 @@ angular.module('agentUiApp')
       }
     }
   }
-);
+)
+;

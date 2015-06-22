@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('DetailController', function ($scope, $location, $routeParams, UiService, Auth, CallCenter) {
+  .controller('DetailController', function ($scope, $location, $routeParams, $filter, UiService, Auth, CallCenter) {
     if (!Auth.currentUser()) {
       Auth.logout().then(function () {
         $location.path("/login");
@@ -65,6 +65,12 @@ angular.module('agentUiApp')
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
           $scope.call = call;
           CurrentCall = call;
+          // filter current queue from queues
+          var _queues = $filter('filter')($scope.queues, !{queue_slug: $routeParams.qslug});
+          $scope.queues = _queues;
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');

@@ -29,13 +29,17 @@ angular.module('agentUiApp')
           return AuthToken.isAuthenticated();
         };
         UiService.ok("connected successfully  to communication server");
-        $scope.$apply();
+        if (!$scope.$$phase) {
+          $scope.$apply();
+        }
       } else {
         UiService.error("agent credential do not match in communication server");
         $scope.isAuthenticatedAndFS = function () {
           return false;
         };
-        $scope.$apply();
+        if (!$scope.$$phase) {
+          $scope.$apply();
+        }
       }
     });
 
@@ -44,13 +48,17 @@ angular.module('agentUiApp')
       $scope.isCall = true;
       UiService.info("new call from " + callInfo.name ? callInfo.name : 'UnKnown',
         callInfo.number ? callInfo.number : 'UnKnown', 8000);
-      $scope.$apply();
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
     });
 
     $scope.$on('rtmp:call:hangup', function (event, message) {
       UiService.info("call ended");
       $scope.isCall = false;
-      $scope.$apply();
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
     });
 
     $scope.$on("rtmp:state", function (event, state) {
@@ -59,7 +67,9 @@ angular.module('agentUiApp')
         $scope.isAuthenticatedAndFS = function () {
           return false;
         };
-        $scope.$apply();
+        if (!$scope.$$phase) {
+          $scope.$apply();
+        }
       }
     });
 
