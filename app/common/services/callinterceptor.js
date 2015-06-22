@@ -11,7 +11,7 @@ angular.module('agentUiApp')
   .factory('callInterceptor', function (rtmp) {
     return {
       request: function (config) {
-        if (config.url.includes('/call/')) {
+        if (config.url.indexOf('/call/') > -1) {
           config.headers = config.headers || {};
           config.headers['x-rtmp-session'] = rtmp.me();
         }
