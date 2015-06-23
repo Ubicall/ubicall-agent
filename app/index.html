@@ -6,18 +6,12 @@
   <meta name="description" content="">
   <link rel="icon" href="favicon.ico"/>
   <meta name="viewport" content="width=device-width">
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <!-- build:css(.) styles/vendor.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
-  <!-- endbower -->
-  <!-- endbuild -->
-  <!-- build:css(.tmp) styles/main.css -->
+
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="styles/wstyle.css">
-  <link rel="stylesheet" href="styles/style.css">
-  <!-- endbuild -->
+  <link rel="stylesheet" href="lib/agent/css/agent.w.min.css">
+  <link rel="stylesheet" href="lib/agent/css/agent.min.css">
+
 </head>
 <body ng-app="agentUiApp">
 
@@ -156,31 +150,31 @@
 </div>
 
 
-<!-- build:js(.) scripts/vendor.js -->
-<!-- bower:js -->
-<script src="lib/jquery/dist/jquery.js"></script>
-<script src="lib/angular/angular.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="lib/angular-animate/angular-animate.js"></script>
-<script src="lib/angular-cookies/angular-cookies.js"></script>
-<script src="lib/angular-messages/angular-messages.js"></script>
-<script src="lib/angular-resource/angular-resource.js"></script>
-<script src="lib/angular-route/angular-route.js"></script>
-<script src="lib/angular-sanitize/angular-sanitize.js"></script>
-<script src="lib/angular-touch/angular-touch.js"></script>
-<script src="lib/angular-local-storage/dist/angular-local-storage.js"></script>
-<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="lib/angular-css/angular-css.js"></script>
-<script src="lib/angular-blocks/dist/angular-blocks.js"></script>
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="lib/angular-animate/angular-animate.min.js"></script>
+<script src="lib/angular-cookies/angular-cookies.min.js"></script>
+<script src="lib/angular-messages/angular-messages.min.js"></script>
+<script src="lib/angular-resource/angular-resource.min.js"></script>
+<script src="lib/angular-route/angular-route.min.js"></script>
+<script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="lib/angular-touch/angular-touch.min.js"></script>
+<script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="lib/angular-css/angular-css.min.js"></script>
+<script src="lib/angular-blocks/dist/angular-blocks.min.js"></script>
 <script src="lib/angular-utils-pagination/dirPagination.js"></script>
-<script src="lib/moment/moment.js"></script>
-<script src="lib/angular-moment/angular-moment.js"></script>
-<script src="lib/swfobject/swfobject/swfobject.js"></script>
+<script src="lib/moment/min/moment.min.js"></script>
+<script src="lib/angular-moment/angular-moment.min.js"></script>
+<script src="lib/swfobject/swfobject.js"></script>
 <script src="lib/angular-swfobject/angular-swfobject.js"></script>
-<!-- endbower -->
-<!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+<!-- Production Mode-->
+<script src="lib/agent/js/agent.min.js"></script>
+<!-- Development Mode-->
+<!--
 <script src="app.js"></script>
 <script src="common/services/authtoken.js"></script>
 <script src="common/services/authinterceptor.js"></script>
@@ -191,7 +185,6 @@
 <script src="common/services/comms.js"></script>
 <script src="common/services/UiService.js"></script>
 <script src="common/controllers/ui.js"></script>
-
 <script src="recent/recent.js"></script>
 <script src="login/login.js"></script>
 <script src="detail/detail.js"></script>
@@ -200,6 +193,6 @@
 <script src="profile/profile.js"></script>
 <script src="main/main.js"></script>
 <script src="phone/phone.js"></script>
-<!-- endbuild -->
+-->
 </body>
 </html>
