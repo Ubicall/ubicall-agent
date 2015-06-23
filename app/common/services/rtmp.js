@@ -22,6 +22,10 @@ angular.module('agentUiApp')
     function fsLogin() {
       console.log("fsLogin");
       payload = AuthToken.payload();
+      if (!fsrtmp) {
+        fsrtmp = angular.element(document.querySelector("#flashPhone"))[0];
+        console.log("hack to get fsrtmp and it is" + fsrtmp);
+      }
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
         fsrtmp.login(payload.sip.num, payload.sip.cred);
       } else {
@@ -30,8 +34,8 @@ angular.module('agentUiApp')
           level: 3
         });
         UiService.error("un able to login , no credentials or flash not loaded");
-        console.log(fsrtmp);
-        console.log(payload);
+        console.log("fsrtmp " + fsrtmp);
+        console.log("payload " + payload);
       }
     }
 
@@ -67,8 +71,8 @@ angular.module('agentUiApp')
       }
     }
 
-    function fsOnConnected(sessionid) {
-      console.log("onConnected");
+    $window.onConnected = function (sessionid) {
+      console.log("onConnected " + sessionid);
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
@@ -77,9 +81,9 @@ angular.module('agentUiApp')
       if (AuthToken.isAuthenticated()) {
         fsLogin();
       }
-    }
+    };
 
-    function fsOnDisconnected() {
+    $window.onDisconnected = function () {
       rtmpSessionStatus = "disconnected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 1});
       UiService.info("take a rest , we try to connect you back to server");
@@ -89,7 +93,7 @@ angular.module('agentUiApp')
         UiService.info("try to connect you back to serve");
         fsConnect();
       }, 5000);
-    }
+    };
 
 
     $window.onLogin = function (status, user, domain) {
@@ -124,12 +128,13 @@ angular.module('agentUiApp')
       if (evt.success) {
 
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
-
+        console.log("fsrtmp after flash loaded is " + fsrtmp);
         // not define onConnected until fsFlashLoaded called to prevent calling onConnect first
-        $window.onConnected = fsOnConnected;
-        $window.onDisconnected = fsOnDisconnected;
+
 
       } else {
+        $window.onConnected = null;
+        $window.onDisconnected = null;
         $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
         UiService.error({message: "flash fail in loading , please reload page", level: 1});
       }
