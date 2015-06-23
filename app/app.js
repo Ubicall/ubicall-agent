@@ -44,9 +44,9 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
 angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'login/login.html',
+      templateUrl: 'lib/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'login/login.css',
+      css: 'lib/agent/css/login.css',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
           // don't load login if user already login 'logout first'
@@ -59,9 +59,9 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/logout', {
-      templateUrl: 'login/login.html',
+      templateUrl: 'lib/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'login/login.css',
+      css: 'lib/agent/css/login.css',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {
@@ -72,30 +72,30 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/main', {
-      templateUrl: 'main/main.html',
+      templateUrl: 'lib/agent/views/main/main.html',
       resolve: {
         factory: checkRouting
       }
     }).when('/current', {
-      templateUrl: 'detail/detail.html',
+      templateUrl: 'lib/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/recent', {
-      templateUrl: 'recent/recent.html',
+      templateUrl: 'lib/agent/views/recent/recent.html',
       controller: 'RecentController',
       resolve: {
         factory: checkRouting
       }
     }).when('/call/:queueid/:callid', {
-      templateUrl: 'detail/detail.html',
+      templateUrl: 'lib/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/queue/:queueid/:qslug', {
-      templateUrl: 'detail/detail.html',
+      templateUrl: 'lib/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting

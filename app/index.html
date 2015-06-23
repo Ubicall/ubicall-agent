@@ -4,13 +4,20 @@
   <meta charset="utf-8">
   <title>Ubicall Agent</title>
   <meta name="description" content="">
-  <link rel="icon" href="favicon.ico"/>
+  <link rel="icon" href="lib/agent/images/favicon.ico"/>
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
+
+  <!-- Production Mode-->
   <link rel="stylesheet" href="lib/agent/css/agent.w.min.css">
   <link rel="stylesheet" href="lib/agent/css/agent.min.css">
+  <!-- End Production Mode-->
+  <!-- Development Mode
+  <link rel="stylesheet" href="lib/agent/css/wstyle.css">
+  <link rel="stylesheet" href="lib/agent/css/style.css">
+  <!-- End Development Mode-->
 
 </head>
 <body ng-app="agentUiApp">
@@ -41,7 +48,7 @@
           <ul class="nav navbar-nav navbar-icons">
             <li ng-class="{'active': current() == 'dash'}">
               <a href="#/main" title="{{pageTitle()}}">
-                <img src="images/logo-header.png" class="logo-header" alt=""/>
+                <img src="https://agent.ubicall.com/lib/agent/images/logo-header.png" class="logo-header" alt=""/>
               </a>
             </li>
             <li ng-class="{'active': current() == 'recent'}">
@@ -113,14 +120,14 @@
 
           <!-- Queues -->
 
-          <div ng-include=" 'queues/queues.html' "></div>
+          <div ng-include=" 'lib/agent/views/queues/queues.html' "></div>
 
           <!-- Queues End -->
 
 
           <!-- Phone -->
 
-          <div ng-include=" 'phone/phone.html' "></div>
+          <div ng-include=" 'lib/agent/views/phone/phone.html' "></div>
 
 
           <!-- Phone End -->
@@ -173,26 +180,26 @@
 
 <!-- Production Mode-->
 <script src="lib/agent/js/agent.min.js"></script>
-<!-- Development Mode-->
-<!--
-<script src="app.js"></script>
-<script src="common/services/authtoken.js"></script>
-<script src="common/services/authinterceptor.js"></script>
-<script src="common/services/rtmp.js"></script>
-<script src="common/services/callinterceptor.js"></script>
-<script src="login/services/auth.js"></script>
-<script src="common/services/callcenter.js"></script>
-<script src="common/services/comms.js"></script>
-<script src="common/services/UiService.js"></script>
-<script src="common/controllers/ui.js"></script>
-<script src="recent/recent.js"></script>
-<script src="login/login.js"></script>
-<script src="detail/detail.js"></script>
-<script src="queues/queues.js"></script>
-<script src="queues/filters/callalert.js"></script>
-<script src="profile/profile.js"></script>
-<script src="main/main.js"></script>
-<script src="phone/phone.js"></script>
--->
+<!-- End Production Mode-->
+<!-- Development Mode
+<script src="lib/agent/dev/js/app.js"></script>
+<script src="lib/agent/dev/js/common/services/authtoken.js"></script>
+<script src="lib/agent/dev/js/common/services/authinterceptor.js"></script>
+<script src="lib/agent/dev/js/common/services/rtmp.js"></script>
+<script src="lib/agent/dev/js/common/services/callinterceptor.js"></script>
+<script src="lib/agent/dev/js/login/services/auth.js"></script>
+<script src="lib/agent/dev/js/common/services/callcenter.js"></script>
+<script src="lib/agent/dev/js/common/services/comms.js"></script>
+<script src="lib/agent/dev/js/common/services/UiService.js"></script>
+<script src="lib/agent/dev/js/common/controllers/ui.js"></script>
+<script src="lib/agent/dev/js/recent/recent.js"></script>
+<script src="lib/agent/dev/js/login/login.js"></script>
+<script src="lib/agent/dev/js/detail/detail.js"></script>
+<script src="lib/agent/dev/js/queues/queues.js"></script>
+<script src="lib/agent/dev/js/queues/filters/callalert.js"></script>
+<script src="lib/agent/dev/js/profile/profile.js"></script>
+<script src="lib/agent/dev/js/main/main.js"></script>
+<script src="lib/agent/dev/js/phone/phone.js"></script>
+<!-- End Development Mode-->
 </body>
 </html>
