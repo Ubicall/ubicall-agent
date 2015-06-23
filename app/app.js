@@ -46,7 +46,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     .when('/', {
       templateUrl: 'lib/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'lib/agent/css/login.css',
+      css: 'lib/agent/css/login.min.css',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
           // don't load login if user already login 'logout first'
@@ -61,7 +61,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     }).when('/logout', {
       templateUrl: 'lib/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'lib/agent/css/login.css',
+      css: 'lib/agent/css/login.min.css',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {

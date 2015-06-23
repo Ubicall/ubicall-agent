@@ -26,12 +26,12 @@ angular.module('agentUiApp')
 
     function logout() {
       var deferred = $q.defer();
-      AuthToken.clearToken();
       $http.post(API_BASE + "/logout", {
         access_token: AuthToken.getToken()
       }).error(function (error) {
         $log.debug(error);
       });
+      AuthToken.clearToken();
       deferred.resolve(true);
       return deferred.promise;
     }
