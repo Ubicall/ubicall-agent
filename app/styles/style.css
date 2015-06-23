@@ -439,13 +439,13 @@ ul.dashboard li {
 .call-01.cll-current {
 	padding: 0;
 	margin: 0;
-	background: url(http://agent.ubicall.com/lib/agent/images/call-current.png) no-repeat center center;
+	background: url(https://agent.ubicall.com/lib/agent/images/call-current.png) no-repeat center center;
 }
 
 .call-01.cll-priv {
 	padding: 0;
 	margin: 0;
-	background: url(http://agent.ubicall.com/lib/agent/images/call-priv.png) no-repeat center center;
+	background: url(https://agent.ubicall.com/lib/agent/images/call-priv.png) no-repeat center center;
 }
 
 .call-02 {
@@ -610,7 +610,7 @@ ul.dashboard li {
 
 #calls .signal-none {
     color: #fff000;
-	background: url(http://agent.ubicall.com/lib/agent/images/signal-none.png) no-repeat;
+	background: url(https://agent.ubicall.com/lib/agent/images/signal-none.png) no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -619,7 +619,7 @@ ul.dashboard li {
 
 #calls .signal-weak {
     color: #fff000;
-	background: url(http://agent.ubicall.com/lib/agent/images/signal-weak.png) no-repeat;
+	background: url(https://agent.ubicall.com/lib/agent/images/signal-weak.png) no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -628,7 +628,7 @@ ul.dashboard li {
 
 #calls .signal-medium {
     color: #fff000;
-	background: url(http://agent.ubicall.com/lib/agent/images/signal-medium.png) no-repeat;
+	background: url(https://agent.ubicall.com/lib/agent/images/signal-medium.png) no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -637,7 +637,7 @@ ul.dashboard li {
 
 #calls .signal-strong {
     color: #fff000;
-	background: url(http://agent.ubicall.com/lib/agent/images/signal-strong.png) no-repeat;
+	background: url(https://agent.ubicall.com/lib/agent/images/signal-strong.png) no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
