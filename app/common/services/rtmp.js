@@ -36,11 +36,13 @@ angular.module('agentUiApp')
     }
 
     function fsLogout() {
-      fsrtmp.logout(sessionUser);
+      if (fsrtmp) {
+        fsrtmp.logout(sessionUser);
+      }
     }
 
     function fsAnswer() {
-      if (currentCall) {
+      if (currentCall && fsrtmp) {
         fsrtmp.answer(currentCall.uuid);
       }
     }
@@ -54,11 +56,15 @@ angular.module('agentUiApp')
     }
 
     function fsRegister() {
-      fsrtmp.register(sessionUser, "");
+      if (fsrtmp) {
+        fsrtmp.register(sessionUser, "");
+      }
     }
 
     function fsConnect() {
-      fsrtmp.connect();
+      if (fsrtmp) {
+        fsrtmp.connect();
+      }
     }
 
     function fsOnConnected(sessionid) {
