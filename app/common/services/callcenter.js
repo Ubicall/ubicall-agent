@@ -8,7 +8,7 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('CallCenter', function ($http, $rootScope, $log, $q, localStorageService,
+  .service('CallCenter', function ($http ,$rootScope, $log, $q, localStorageService,
                                    UiService, AuthToken, API_BASE, comms) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
@@ -84,9 +84,24 @@ angular.module('agentUiApp')
       return deferred.promise;
     };
 
+    CallCenter.hangup = function(){
+      var deferred = $q.defer();
+      $http.post(API_BASE + "/call/done")
+        .then(function success(res) {
+          if(res.status == 200){
+            UiService.info(res.message);
+          }else{
+            UiService.error(res.message);
+          }
+        }, function error(err) {
+          deferred.reject(err);
+        });
+      return deferred.promise;
+    }
+
     // generate dynamic topic layout for socket to subscribe
     var payload = AuthToken.payload();
-    if (payload.per && payload.per.notify) {
+    if (payload && payload.per && payload.per.notify) {
       for (var prev in payload.per.notify) {
         if (prev == "system") {
           angular.forEach(payload.per.notify["system"], function (item) {

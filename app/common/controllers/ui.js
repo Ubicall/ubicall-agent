@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('UIController', function ($scope, UiService, Auth, AuthToken) {
+  .controller('UIController', function ($scope, $location, UiService, Auth, AuthToken , CallCenter) {
     $scope.userRTMPSession;
     $scope.current = UiService.currentTab;
     $scope.pageTitle = UiService.pageTitle;
@@ -56,6 +56,8 @@ angular.module('agentUiApp')
     $scope.$on('rtmp:call:hangup', function (event, message) {
       UiService.info("call ended");
       $scope.isCall = false;
+      CallCenter.hangup();
+      $location.path('/recent');
       if (!$scope.$$phase) {
         $scope.$apply();
       }

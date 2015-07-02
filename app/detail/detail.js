@@ -56,10 +56,6 @@ angular.module('agentUiApp')
         UiService.ok(" new queues available ");
       });
 
-      $scope.$on('rtmp:call:hangup', function (event, message) {
-        // update currentCall status and push to server
-      });
-
       if (/^\/queue/.test($location.path())) {
         UiService.setCurrentTab('current', 'Current Call');
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
@@ -71,12 +67,24 @@ angular.module('agentUiApp')
           if (!$scope.$$phase) {
             $scope.$apply();
           }
+        },function(error){
+          UiService.error("error : unable to get call detail !")
+          $location.path('/recent');
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');
         CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
           $scope.call = call;
           CurrentCall = call;
+        },function(error){
+          UiService.error("error : unable to get call detail !")
+          $location.path('/recent');
+          if (!$scope.$$phase) {
+            $scope.$apply();
+          }
         });
       }
     }
