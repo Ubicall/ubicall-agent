@@ -23,7 +23,7 @@ angular.module('agentUiApp')
           calls = result.data;
           deferred.resolve(result.data);
         }, function (error) {
-          deferred.reject(error);
+          deferred.reject(error.data);
         });
       }
       return deferred.promise;
@@ -63,7 +63,7 @@ angular.module('agentUiApp')
           queues = result.data;
           deferred.resolve(result.data);
         }, function (error) {
-          deferred.reject(error);
+          deferred.reject(error.data);
         });
       }
       return deferred.promise;
@@ -79,7 +79,8 @@ angular.module('agentUiApp')
           // wait to your client to get connected
           return deferred.resolve(res.data);
         }, function error(err) {
-          deferred.reject(err);
+          // TODO : handl error cases of not correctly change call to SUCCESSFUL state , so agent stucked in ' you already has call'
+          deferred.reject(err.data);
         });
       return deferred.promise;
     };
@@ -94,7 +95,7 @@ angular.module('agentUiApp')
             UiService.error(res.message);
           }
         }, function error(err) {
-          deferred.reject(err);
+          deferred.reject(err.data);
         });
       return deferred.promise;
     }
