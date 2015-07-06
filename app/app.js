@@ -29,9 +29,18 @@ angular
 angular
   .module('agentUiApp').constant('FS_RTMP', 'rtmp://104.239.164.247/phone');
 angular
+    // if period of call less than next value 'in seconds' it should be retried , piority 1 in checking
+    .module('agentUiApp').constant('MAKE_CALL_DONE', 10);
+angular
+    // if call stream buffer has used less than nex value , it should be retried , piority 2 in checking
+    .module('agentUiApp').constant('GUESS_CALL_DONE', 5);
+angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
   });
+angular.module('agentUiApp')
+    // lodash support
+    .constant('_', window._);
 
 
 angular.module('agentUiApp').config(function (localStorageServiceProvider) {

@@ -69,8 +69,6 @@ angular.module('agentUiApp')
           }
         },function(error){
           UiService.error(error.message || "error : unable to get call detail !");
-          // hangup from call center if this is not happen from rtmp , this is just for the sake of development
-          CallCenter.hangup();
           $location.path('/recent');
           if (!$scope.$$phase) {
             $scope.$apply();

@@ -8,9 +8,9 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService) {
+  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment , _ , MAKE_CALL_DONE, GUESS_CALL_DONE) {
     var fsrtmp;
-    var currentCall;
+    var currentCall = { log:[] };
     var allCalls = [];
     var rtmpSession;
     //[connected , disconnected , connecting]
@@ -55,7 +55,7 @@ angular.module('agentUiApp')
       if (currentCall) {
         fsrtmp.hangup(currentCall.uuid);
         UiService.info({session: rtmpSession, uuid: currentCall.uuid});
-        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+        checkCallStatus();
       }
     }
 
@@ -69,6 +69,41 @@ angular.module('agentUiApp')
       if (fsrtmp) {
         fsrtmp.connect();
       }
+    }
+
+    function isCallOccurred(){
+      // guss this call occurred when
+      //  'netStatus: NetStream.Play.Start' 1 time
+      //  'netStatus: NetStream.Buffer.Full' GUESS_CALL_DONE time
+
+      var callLog = _.countBy(currentCall.log, _.identity);
+
+      var playStart = callLog['netStatus: NetStream.Play.Start'];
+      var bufferUsed = callLog['netStatus: NetStream.Buffer.Full'];
+
+      if (playStart > 0 && bufferUsed > GUESS_CALL_DONE ){
+        return true;
+      }
+      return false;
+    }
+
+    // this method called after agent hangup call or
+    // client hangup call ' detected by "Closing media streams" message in onDebug'
+    function checkCallStatus(){
+      var now = moment();
+      var startMoment = currentCall.log.start || now ;
+      var endMoment = currentCall.log.end || now ;
+      var callDuration = currentCall.log.duration =  endMoment.diff(startMoment,'seconds');
+
+      // mark this call processed if
+      //  call stay more than MAKE_CALL_DONE OR isCallOccurred
+
+      if(callDuration > MAKE_CALL_DONE ||  isCallOccurred() ){
+          $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'done'});
+      } else {
+          $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
+      }
+
     }
 
     $window.onConnected = function (sessionid) {
@@ -117,10 +152,14 @@ angular.module('agentUiApp')
 
     $window.onDebug = function (message) {
       $rootScope.$broadcast("rtmp:debug", {message: message, level: 5});
-      if (message == "Closing media streams") {
-        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+      currentCall.log.push(message);
+      if( message = 'netStatus: NetStream.Play.Start' ){
+        currentCall.log.start = moment();
       }
-      //UiService.info(message);
+      if (message == "Closing media streams" && startMoment) {
+        currentCall.log.end = moment();
+        checkCallStatus();
+      }
     };
 
     $window.fsFlashLoaded = function (evt) {

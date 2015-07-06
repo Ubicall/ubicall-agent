@@ -57,7 +57,7 @@ angular.module('agentUiApp')
       }
       return {
         email: payload.email || '',
-        name: payload.name || '',
+        name: payload.email || '',
         image: payload.img || ''
       }
     }

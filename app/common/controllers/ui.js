@@ -54,10 +54,30 @@ angular.module('agentUiApp')
     });
 
     $scope.$on('rtmp:call:hangup', function (event, message) {
-      UiService.info("call ended");
+      if(message.status == 'done'){
+          UiService.info("call ended");
+      } else {
+        UiService.info("call added to be retried");
+      }
       $scope.isCall = false;
-      CallCenter.hangup();
+      CallCenter.hangup({status : message.status});
       $location.path('/recent');
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    });
+
+    $scope.$on('call:complete',function(event,msg){
+      $location.path('/recent');
+      $scope.isCall = false;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    });
+
+    $scope.$on('call:problem',function(event,msg){
+      $location.path('/recent');
+      $scope.isCall = false;
       if (!$scope.$$phase) {
         $scope.$apply();
       }
@@ -73,6 +93,14 @@ angular.module('agentUiApp')
           $scope.$apply();
         }
       }
+    });
+
+    $scope.$on("rtmp:debug",function(event,message){
+      console.log("rtmp debug : " + message.message);
+    });
+
+    $scope.$on("Auth:login",function(event,message){
+      $scope.user = Auth.currentUser();
     });
 
     $scope.closeAlert = function (index) {

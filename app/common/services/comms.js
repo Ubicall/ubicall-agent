@@ -54,6 +54,7 @@ angular.module('agentUiApp')
             pendingAuth = false;
             completeConnection();
           } else if (msg.topic) {
+            console.log("get "+msg.topic);
             for (var t in subscriptions) {
               if (subscriptions.hasOwnProperty(t) && t == msg.topic) {
                 var subscribers = subscriptions[t];
