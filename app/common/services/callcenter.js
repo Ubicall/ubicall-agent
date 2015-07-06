@@ -81,7 +81,7 @@ angular.module('agentUiApp')
         }, function error(err) {
           // TODO : handl error cases of not correctly change call to SUCCESSFUL state , so agent stucked in ' you already has call'
           // hangup from call center if this is not happen from rtmp , this is just for the sake of development
-          CallCenter.hangup();
+          CallCenter.hangup({status : 'retry' , error : err});
           deferred.reject(err.data);
         });
       return deferred.promise;
@@ -89,11 +89,15 @@ angular.module('agentUiApp')
 
     CallCenter.hangup = function(meta){
       var deferred = $q.defer();
+      meta = meta || {};
       meta.status = meta.status || '';
       $http({
         url: API_BASE + "/call/done",
         method: "POST",
-        headers: {'x-call-action': meta.status == 'done' ? 'done' : 'retry'}
+        headers: {
+          'x-call-action': meta.status == 'done' ? 'done' : 'retry' ,
+          'x-call-error': meta.error ? meta.error : ''
+        }
       }).then(function success(res) {
           if(res.status == 200){
             UiService.info(res.message);
