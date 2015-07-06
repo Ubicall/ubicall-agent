@@ -30,10 +30,13 @@ angular
   .module('agentUiApp').constant('FS_RTMP', 'rtmp://104.239.164.247/phone');
 angular
     // if period of call less than next value 'in seconds' it should be retried , piority 1 in checking
-    .module('agentUiApp').constant('MAKE_CALL_DONE', 10);
+    .module('agentUiApp').constant('MAKE_CALL_DONE', 20);
 angular
     // if call stream buffer has used less than nex value , it should be retried , piority 2 in checking
-    .module('agentUiApp').constant('GUESS_CALL_DONE', 5);
+    .module('agentUiApp').constant('GUESS_CALL_DONE', 10);
+angular
+    // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
+    .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 10);
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'

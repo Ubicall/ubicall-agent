@@ -14,8 +14,12 @@ angular.module('agentUiApp')
 
     $scope.signal = {class: 'signal-strong', title: 'signal strong'};
     $scope.fsFlashLoaded = rtmp.onFSLoaded;
+    $scope.answered = false ;
 
-    $scope.answer = rtmp.answer;
+    $scope.answer = function(){
+      $scope.answered = true;
+      rtmp.answer();
+    }
     $scope.hangup = rtmp.hangup;
 
   });

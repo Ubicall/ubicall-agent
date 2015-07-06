@@ -8,7 +8,8 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment , _ , MAKE_CALL_DONE, GUESS_CALL_DONE) {
+  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment ,
+    _ , MAKE_CALL_DONE, GUESS_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
     var fsrtmp;
     var currentCall = { log:[] };
     var allCalls = [];
@@ -18,6 +19,8 @@ angular.module('agentUiApp')
     var sessionUser;
 
     var payload;
+
+    var callNotAnsweredPromise ;
 
     function fsLogin() {
       console.log("fsLogin");
@@ -47,6 +50,8 @@ angular.module('agentUiApp')
 
     function fsAnswer() {
       if (currentCall && fsrtmp) {
+        // clear callNotAnsweredPromise
+        $timeout.cancel(callNotAnsweredPromise);
         fsrtmp.answer(currentCall.uuid);
       }
     }
@@ -97,12 +102,15 @@ angular.module('agentUiApp')
       // mark this call processed if
       //  call stay more than MAKE_CALL_DONE OR isCallOccurred
 
-      console.log("callDuration is "+callDuration +" isCallOccurred : "+isCallOccurred());
-      if(callDuration > MAKE_CALL_DONE ||  isCallOccurred() ){
+      console.log("callDuration is " + callDuration +" isCallOccurred : "+isCallOccurred());
+      if(callDuration > MAKE_CALL_DONE &&  isCallOccurred() ){
+        console.log('call done ');
           $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'done'});
       } else {
+        console.log('call retry ');
           $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
       }
+      currentCall = null;
 
     }
 
@@ -122,6 +130,7 @@ angular.module('agentUiApp')
       rtmpSessionStatus = "disconnected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 1});
       UiService.info("take a rest , we try to connect you back to server");
+      //TODO : what happen to current call when agent disconnected , what strategy to fall over ?
       $timeout(function () {
         rtmpSessionStatus = "connecting";
         $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
@@ -148,19 +157,29 @@ angular.module('agentUiApp')
       currentCall.name = name;
       currentCall.number = number;
       currentCall.account = account;
+      currentCall.log = [];
+      currentCall.start = currentCall.end = currentCall.duration = null;
       allCalls.push(currentCall);
       $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
+      //TODO : wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
+      // not work as expected
+      callNotAnsweredPromise = $timeout(function(){
+        console.log("agent not answered , so we hangup !");
+        fsHangup();
+      }, AGENT_ANSWER_TIMEOUT * 1000);
       UiService.info("call " + uuid + " from " + name || " Unknown");
     };
 
     $window.onDebug = function (message) {
       $rootScope.$broadcast("rtmp:debug", {message: message, level: 5});
       currentCall.log.push(message);
-      if( message = 'netStatus: NetStream.Play.Start' ){
+      if( message == 'netStatus: NetStream.Play.Start' ){
         currentCall.start = moment();
+        console.log('Start media streams at' + currentCall.start.calendar());
       }
-      if (message == "Closing media streams" && startMoment) {
+      if (message == "Closing media streams") {
         currentCall.end = moment();
+        console.log('Closing media streams at' + currentCall.end.calendar());
         checkCallStatus();
       }
     };

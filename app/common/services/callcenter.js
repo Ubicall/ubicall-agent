@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .service('CallCenter', function ($http ,$rootScope, $log, $q, localStorageService,
-                                   UiService, AuthToken, API_BASE, comms) {
+                                   UiService, AuthToken, API_BASE, comms , rtmp) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
     var calls, queues;
@@ -81,6 +81,7 @@ angular.module('agentUiApp')
         }, function error(err) {
           // TODO : handl error cases of not correctly change call to SUCCESSFUL state , so agent stucked in ' you already has call'
           // hangup from call center if this is not happen from rtmp , this is just for the sake of development
+          rtmp.hangup();
           CallCenter.hangup({status : 'retry' , error : err});
           deferred.reject(err.data);
         });

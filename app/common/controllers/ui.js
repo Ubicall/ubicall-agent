@@ -46,6 +46,10 @@ angular.module('agentUiApp')
     $scope.$on('rtmp:call', function (event, callInfo) {
       console.log('ui controller rtmp call');
       $scope.isCall = true;
+      console.log('ui controller rtmp call set isCall true');
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
       UiService.info("new call from " + callInfo.name ? callInfo.name : 'UnKnown',
         callInfo.number ? callInfo.number : 'UnKnown', 8000);
       if (!$scope.$$phase) {
