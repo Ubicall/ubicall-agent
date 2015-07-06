@@ -144,7 +144,10 @@ angular.module('agentUiApp')
     };
 
     $window.onIncomingCall = function (uuid, name, number, account, evt) {
-      currentCall = {uuid: uuid, name: name, number: number, account: account};
+      currentCall.uuid = uuid;
+      currentCall.name = name;
+      currentCall.number = number;
+      currentCall.account = account;
       allCalls.push(currentCall);
       $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
       UiService.info("call " + uuid + " from " + name || " Unknown");
