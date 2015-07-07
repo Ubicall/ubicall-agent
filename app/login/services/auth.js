@@ -27,6 +27,7 @@ angular.module('agentUiApp')
 
     function logout() {
       var deferred = $q.defer();
+      $rootScope.$broadcast("Auth:logout");
       $http.post(API_BASE + "/logout", {
         access_token: AuthToken.getToken()
       }).error(function (error) {

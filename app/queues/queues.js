@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('QueuesController', function ($scope, $location, Auth, CallCenter, UiService, moment, amMoment) {
+  .controller('QueuesController', function ($scope, $location , $timeout, Auth, CallCenter, UiService, moment, amMoment) {
     if (!Auth.currentUser()) {
       Auth.logout().then(function () {
         $location.path("/login");
@@ -26,10 +26,12 @@ angular.module('agentUiApp')
       $scope.totalQueues = _totalQueues = 0;
 
       CallCenter.getQueues().then(function (queues) {
-        _totalQueues = queues.length;
-        $scope.totalQueues = _totalQueues;
-        _queues = queues;
-        $scope.queues = _queues;
+        $timeout(function(){
+          _totalQueues = queues.length;
+          $scope.totalQueues = _totalQueues;
+          _queues = queues;
+          $scope.queues = _queues;
+        })
       });
 
 
@@ -39,9 +41,10 @@ angular.module('agentUiApp')
       };
 
       $scope.$on('queues:updated', function (event, queues) {
-        $scope.totalQueues = _totalQueues = queues.length;
-        $scope.queues = _queues = queues;
-        UiService.ok(" new queues available ");
+        $timeout(function(){
+          $scope.totalQueues = _totalQueues = queues.length;
+          $scope.queues = _queues = queues;
+        });
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {

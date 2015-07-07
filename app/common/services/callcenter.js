@@ -8,7 +8,7 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('CallCenter', function ($http ,$rootScope, $log, $q, localStorageService,
+  .service('CallCenter', function ($http ,$rootScope, $log, $q , localStorageService,
                                    UiService, AuthToken, API_BASE, comms , rtmp) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
@@ -38,6 +38,10 @@ angular.module('agentUiApp')
       });
       return deferred.promise;
     }
+
+    CallCenter.init = function(){
+      calls = queues = null ;
+    };
 
     CallCenter.getAvailableCalls = function () {
       // moved to separate function , to call it from #getCallDetail
@@ -150,12 +154,35 @@ angular.module('agentUiApp')
               }
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
-                UiService.ok(" new calls available ");
+                UiService.ok(result.message || "new calls available");
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
-                Array.prototype.unshift.apply(queues, result.queues);
-                UiService.ok(" new queues available ");
+                // valid queue message operations [hide , show , +NUM , -NUM]
+                //NUM is max 2 digit number of calls added to this queue
+                if ( result.operation == 'hide' ){
+                  var done = false;
+                  angular.forEach(queues, function(value, key){
+                    if((value.queue_id == result.queue_id) && !done){
+                      value.calls = 0;
+                      done = true;
+                    }
+                  });
+                }else if(result.operation == 'show'){
+                  //TODO : what if queue hide then show again , in this case we not add any we just show
+                  var buildQueue = {queue_id : result.queue_id ,queue_slug : result.queue_slug ,
+                    queue_name : result.queue_name || result.queue_slug , calls : result.calls || 1 };
+                  queues.push(buildQueue);
+                } else if (/^(\-|\+)?[1-9][0-9]$/.test(result.operation)) {
+                  var done = false;
+                  angular.forEach(queues, function(value, key){
+                    if((value.queue_id == result.queue_id) && !done){
+                      value.calls = value.calls + Number(result.operation);
+                      done = true;
+                    }
+                  });
+                }
+                UiService.ok(result.message);
                 $rootScope.$broadcast("queues:updated", queues);
               }
             });

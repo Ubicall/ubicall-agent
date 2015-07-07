@@ -20,8 +20,6 @@ angular.module('agentUiApp')
 
     var payload;
 
-    var callNotAnsweredPromise ;
-
     function fsLogin() {
       console.log("fsLogin");
       payload = AuthToken.payload();
@@ -50,8 +48,6 @@ angular.module('agentUiApp')
 
     function fsAnswer() {
       if (currentCall && fsrtmp) {
-        // clear callNotAnsweredPromise
-        $timeout.cancel(callNotAnsweredPromise);
         fsrtmp.answer(currentCall.uuid);
       }
     }
@@ -108,7 +104,7 @@ angular.module('agentUiApp')
           $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'done'});
       } else {
         console.log('call retry ');
-          $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
+        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
       }
       currentCall = null;
 
@@ -153,6 +149,7 @@ angular.module('agentUiApp')
     };
 
     $window.onIncomingCall = function (uuid, name, number, account, evt) {
+      $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
       currentCall.uuid = uuid;
       currentCall.name = name;
       currentCall.number = number;
@@ -160,13 +157,6 @@ angular.module('agentUiApp')
       currentCall.log = [];
       currentCall.start = currentCall.end = currentCall.duration = null;
       allCalls.push(currentCall);
-      $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
-      //TODO : wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
-      // not work as expected
-      callNotAnsweredPromise = $timeout(function(){
-        console.log("agent not answered , so we hangup !");
-        fsHangup();
-      }, AGENT_ANSWER_TIMEOUT * 1000);
       UiService.info("call " + uuid + " from " + name || " Unknown");
     };
 

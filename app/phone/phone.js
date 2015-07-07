@@ -20,6 +20,10 @@ angular.module('agentUiApp')
       $scope.answered = true;
       rtmp.answer();
     }
-    $scope.hangup = rtmp.hangup;
+
+    $scope.hangup = function(){
+      $scope.hanguped = true;
+      rtmp.hangup();
+    };
 
   });
