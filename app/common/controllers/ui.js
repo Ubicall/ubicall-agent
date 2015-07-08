@@ -22,9 +22,6 @@ angular.module('agentUiApp')
       });
     };
 
-
-    $scope.isCall = false;
-
     $scope.$on('rtmp:state:login', function (event, message) {
       $timeout(function() {
         if (message.status == "success") {
@@ -55,7 +52,6 @@ angular.module('agentUiApp')
         } else {
           UiService.info("call added to be retried");
         }
-        $scope.isCall = false;
         CallCenter.hangup({status : message.status});
         $location.path('/recent');
       });
@@ -64,21 +60,18 @@ angular.module('agentUiApp')
     $scope.$on('call:complete',function(event,msg){
       $timeout(function () {
         $location.path('/recent');
-        $scope.isCall = false;
       });
     });
 
     $scope.$on('call:problem',function(event,msg){
       $timeout(function(){
         $location.path('/recent');
-        $scope.isCall = false;
       });
     });
 
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
         if (state.status != "connected") {
-          $scope.isCall = false;
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };

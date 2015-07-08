@@ -171,11 +171,9 @@ angular.module('agentUiApp')
       currentCall.log.push(message);
       if( message == 'netStatus: NetStream.Play.Start' ){
         currentCall.start = moment();
-        console.log('Start media streams at' + currentCall.start.calendar());
       }
       if (message == "Closing media streams") {
         currentCall.end = moment();
-        console.log('Closing media streams at' + currentCall.end.calendar());
         checkCallStatus();
       }
     };

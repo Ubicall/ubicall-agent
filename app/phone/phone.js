@@ -32,6 +32,33 @@ angular.module('agentUiApp')
       });
     });
 
+    $scope.$on('rtmp:call:hangup', function (event, message) {
+      $timeout(function () {
+        $scope.isCall = false;
+      });
+    });
+
+    $scope.$on('call:complete',function(event,msg){
+      $timeout(function () {
+        $scope.isCall = false;
+      });
+    });
+
+    $scope.$on('call:problem',function(event,msg){
+      $timeout(function(){
+        $scope.isCall = false;
+      });
+    });
+
+    $scope.$on("rtmp:state", function (event, state) {
+      $timeout(function(){
+        if (state.status != "connected") {
+          $scope.isCall = false;
+        }
+      });
+    });
+
+
     $scope.answer = function(){
       $timeout(function () {
         console.log("in $scope.answer ");
