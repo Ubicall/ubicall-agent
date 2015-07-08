@@ -16,6 +16,7 @@ angular.module('agentUiApp')
         password: password
       }).then(function (result) {
         AuthToken.setToken(result.data.access_token);
+        $rootScope.$broadcast("Auth:login", {username: userName});
         deferred.resolve({});
       }, function (error) {
         AuthToken.clearToken();
@@ -26,6 +27,7 @@ angular.module('agentUiApp')
 
     function logout() {
       var deferred = $q.defer();
+      $rootScope.$broadcast("Auth:logout");
       $http.post(API_BASE + "/logout", {
         access_token: AuthToken.getToken()
       }).error(function (error) {

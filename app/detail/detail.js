@@ -53,7 +53,7 @@ angular.module('agentUiApp')
       $scope.$on('queues:updated', function (event, queues) {
         $scope.totalQueues = _totalQueues = queues.length;
         $scope.queues = _queues = queues;
-        UiService.ok(" new queues available ");
+        UiService.ok("new queues available");
       });
 
       if (/^\/queue/.test($location.path())) {
@@ -68,7 +68,7 @@ angular.module('agentUiApp')
             $scope.$apply();
           }
         },function(error){
-          UiService.error("error : unable to get call detail !")
+          UiService.error(error.message || "error : unable to get call detail !");
           $location.path('/recent');
           if (!$scope.$$phase) {
             $scope.$apply();
@@ -80,7 +80,7 @@ angular.module('agentUiApp')
           $scope.call = call;
           CurrentCall = call;
         },function(error){
-          UiService.error("error : unable to get call detail !")
+          UiService.error(error.message || "error : unable to get call detail !")
           $location.path('/recent');
           if (!$scope.$$phase) {
             $scope.$apply();

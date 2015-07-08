@@ -3,6 +3,8 @@
        current-page="queuesCurrentPage"
        pagination-id="queuesPaginator">
     <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
+       ng-class="{disabled: queue.calls <= 0}"
+       title="{{{true: 'has ' + queue.calls + ' call waiting ' , false: 'has no calls now'}[queue.calls > 0]}}"
        class="list-group-item frist-item {{queue.calls | callAlert}}">
       {{queue.queue_name}}
     </a>

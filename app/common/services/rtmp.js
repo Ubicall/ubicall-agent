@@ -8,9 +8,10 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService) {
+  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment ,
+    _ , MAKE_CALL_DONE, GUESS_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
     var fsrtmp;
-    var currentCall;
+    var currentCall = {};
     var allCalls = [];
     var rtmpSession;
     //[connected , disconnected , connecting]
@@ -52,10 +53,14 @@ angular.module('agentUiApp')
     }
 
     function fsHangup() {
-      if (currentCall) {
+      console.log(' hangup from rtmp all object is ***' + JSON.stringify(currentCall));
+      if (currentCall && currentCall.uuid) {
+        console.log(' hangup from rtmp ***' + currentCall.uuid);
         fsrtmp.hangup(currentCall.uuid);
-        UiService.info({session: rtmpSession, uuid: currentCall.uuid});
-        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+        checkCallStatus();
+      }else{
+        console.log('NO UUID');
+        checkCallStatus();
       }
     }
 
@@ -69,6 +74,45 @@ angular.module('agentUiApp')
       if (fsrtmp) {
         fsrtmp.connect();
       }
+    }
+
+    function isCallOccurred(){
+      // guss this call occurred when
+      //  'netStatus: NetStream.Play.Start' 1 time
+      //  'netStatus: NetStream.Buffer.Full' GUESS_CALL_DONE time
+
+      var callLog = _.countBy(currentCall.log, _.identity);
+
+      var playStart = callLog['netStatus: NetStream.Play.Start'];
+      var bufferUsed = callLog['netStatus: NetStream.Buffer.Full'];
+
+      if (playStart > 0 && bufferUsed > GUESS_CALL_DONE ){
+        return true;
+      }
+      return false;
+    }
+
+    // this method called after agent hangup call or
+    // client hangup call ' detected by "Closing media streams" message in onDebug'
+    function checkCallStatus(){
+      var now = moment();
+      var startMoment = currentCall.start || now ;
+      var endMoment = currentCall.end || now ;
+      var callDuration = currentCall.duration =  endMoment.diff(startMoment,'seconds');
+
+      // mark this call processed if
+      //  call stay more than MAKE_CALL_DONE OR isCallOccurred
+
+      console.log("callDuration is " + callDuration +" isCallOccurred : "+isCallOccurred());
+      if(callDuration > MAKE_CALL_DONE &&  isCallOccurred() ){
+        console.log('call done ');
+          $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'done'});
+      } else {
+        console.log('call retry ');
+        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
+      }
+      currentCall = {};
+
     }
 
     $window.onConnected = function (sessionid) {
@@ -87,6 +131,7 @@ angular.module('agentUiApp')
       rtmpSessionStatus = "disconnected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 1});
       UiService.info("take a rest , we try to connect you back to server");
+      //TODO : what happen to current call when agent disconnected , what strategy to fall over ?
       $timeout(function () {
         rtmpSessionStatus = "connecting";
         $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
@@ -109,18 +154,30 @@ angular.module('agentUiApp')
     };
 
     $window.onIncomingCall = function (uuid, name, number, account, evt) {
-      currentCall = {uuid: uuid, name: name, number: number, account: account};
-      allCalls.push(currentCall);
       $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
+      currentCall = {};
+      currentCall.uuid = uuid;
+      currentCall.name = name;
+      currentCall.number = number;
+      currentCall.account = account;
+      currentCall.log = [];
+      currentCall.start = currentCall.end = currentCall.duration = null;
+      allCalls.push(currentCall);
       UiService.info("call " + uuid + " from " + name || " Unknown");
     };
 
     $window.onDebug = function (message) {
       $rootScope.$broadcast("rtmp:debug", {message: message, level: 5});
-      if (message == "Closing media streams") {
-        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid});
+      currentCall.log.push(message);
+      if( message == 'netStatus: NetStream.Play.Start' ){
+        currentCall.start = moment();
+        console.log('Start media streams at' + currentCall.start.calendar());
       }
-      //UiService.info(message);
+      if (message == "Closing media streams") {
+        currentCall.end = moment();
+        console.log('Closing media streams at' + currentCall.end.calendar());
+        checkCallStatus();
+      }
     };
 
     $window.fsFlashLoaded = function (evt) {
