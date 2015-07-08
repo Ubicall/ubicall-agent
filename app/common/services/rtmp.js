@@ -11,7 +11,7 @@ angular.module('agentUiApp')
   .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment ,
     _ , MAKE_CALL_DONE, GUESS_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
     var fsrtmp;
-    var currentCall = { log:[] };
+    var currentCall = {};
     var allCalls = [];
     var rtmpSession;
     //[connected , disconnected , connecting]
@@ -53,8 +53,13 @@ angular.module('agentUiApp')
     }
 
     function fsHangup() {
-      if (currentCall) {
+      console.log(' hangup from rtmp all object is ***' + JSON.stringify(currentCall));
+      if (currentCall && currentCall.uuid) {
+        console.log(' hangup from rtmp ***' + currentCall.uuid);
         fsrtmp.hangup(currentCall.uuid);
+        checkCallStatus();
+      }else{
+        console.log('NO UUID');
         checkCallStatus();
       }
     }
@@ -106,7 +111,7 @@ angular.module('agentUiApp')
         console.log('call retry ');
         $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
       }
-      currentCall = null;
+      currentCall = {};
 
     }
 
@@ -150,6 +155,7 @@ angular.module('agentUiApp')
 
     $window.onIncomingCall = function (uuid, name, number, account, evt) {
       $rootScope.$broadcast("rtmp:call", {uuid: uuid, name: name, number: number, account: account, level: 3});
+      currentCall = {};
       currentCall.uuid = uuid;
       currentCall.name = name;
       currentCall.number = number;

@@ -44,17 +44,6 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
-        console.log('ui controller rtmp call');
-        $scope.isCall = true;
-
-        // //TODO : wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
-        // // not work as expected
-        // $timeout(function(){
-        //   console.log("agent not answered , so we hangup !");
-        //   rtmp.hangup();
-        // }, AGENT_ANSWER_TIMEOUT * 1000);
-
-        console.log('ui controller rtmp call set isCall true');
         UiService.info("new call from " + callInfo.name ? callInfo.name : 'UnKnown', callInfo.number ? callInfo.number : 'UnKnown', 8000);
       });
     });

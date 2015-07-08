@@ -36,7 +36,7 @@ angular
     .module('agentUiApp').constant('GUESS_CALL_DONE', 10);
 angular
     // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
-    .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 10);
+    .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 4);
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
