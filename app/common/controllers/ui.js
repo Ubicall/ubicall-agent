@@ -52,7 +52,7 @@ angular.module('agentUiApp')
         } else {
           UiService.info("call added to be retried");
         }
-        CallCenter.hangup({status : message.status});
+        CallCenter.hangup({status : message.status , error : message.error , duration : message.duration});
         $location.path('/recent');
       });
     });

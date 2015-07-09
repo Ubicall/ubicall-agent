@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment ,
-    _ , MAKE_CALL_DONE, GUESS_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
+    _ , MAKE_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
     var fsrtmp;
     var currentCall = {};
     var allCalls = [];
@@ -76,22 +76,6 @@ angular.module('agentUiApp')
       }
     }
 
-    function isCallOccurred(){
-      // guss this call occurred when
-      //  'netStatus: NetStream.Play.Start' 1 time
-      //  'netStatus: NetStream.Buffer.Full' GUESS_CALL_DONE time
-
-      var callLog = _.countBy(currentCall.log, _.identity);
-
-      var playStart = callLog['netStatus: NetStream.Play.Start'];
-      var bufferUsed = callLog['netStatus: NetStream.Buffer.Full'];
-
-      if (playStart > 0 && bufferUsed > GUESS_CALL_DONE ){
-        return true;
-      }
-      return false;
-    }
-
     // this method called after agent hangup call or
     // client hangup call ' detected by "Closing media streams" message in onDebug'
     function checkCallStatus(){
@@ -101,15 +85,18 @@ angular.module('agentUiApp')
       var callDuration = currentCall.duration =  endMoment.diff(startMoment,'seconds');
 
       // mark this call processed if
-      //  call stay more than MAKE_CALL_DONE OR isCallOccurred
+      //  call stay more than MAKE_CALL_DONE
 
-      console.log("callDuration is " + callDuration +" isCallOccurred : "+isCallOccurred());
-      if(callDuration > MAKE_CALL_DONE &&  isCallOccurred() ){
+      console.log("call will be short if callDuration is less than " +MAKE_CALL_DONE + " seconds and it is "+callDuration)  ;
+      if(callDuration > MAKE_CALL_DONE){
         console.log('call done ');
-          $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'done'});
+        $rootScope.$broadcast("rtmp:call:hangup",
+          {session: rtmpSession, uuid: currentCall.uuid , status :'done' , duration : callDuration});
       } else {
         console.log('call retry ');
-        $rootScope.$broadcast("rtmp:call:hangup", {session: rtmpSession, uuid: currentCall.uuid , status :'retry'});
+        $rootScope.$broadcast("rtmp:call:hangup",
+          {session: rtmpSession, uuid: currentCall.uuid , status :'retry' ,
+          duration : callDuration , error : 'call is short than ' + MAKE_CALL_DONE + ' seconds'});
       }
       currentCall = {};
 
@@ -162,6 +149,7 @@ angular.module('agentUiApp')
       currentCall.account = account;
       currentCall.log = [];
       currentCall.start = currentCall.end = currentCall.duration = null;
+      currentCall.started = false;
       allCalls.push(currentCall);
       UiService.info("call " + uuid + " from " + name || " Unknown");
     };
@@ -169,8 +157,9 @@ angular.module('agentUiApp')
     $window.onDebug = function (message) {
       $rootScope.$broadcast("rtmp:debug", {message: message, level: 5});
       currentCall.log.push(message);
-      if( message == 'netStatus: NetStream.Play.Start' ){
+      if( message == 'netStatus: NetStream.Buffer.Full' && !currentCall.started ){
         currentCall.start = moment();
+        currentCall.started = true;
       }
       if (message == "Closing media streams") {
         currentCall.end = moment();
