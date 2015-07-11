@@ -27,7 +27,11 @@ angular
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api'); // TODO : standardized url for api in dev and prod (may use config file)
 angular
-  .module('agentUiApp').constant('FS_RTMP', 'rtmp://104.239.164.247/phone');
+  .module('agentUiApp').constant('FLASH_OBJ_VARS', {rtmp_url : 'rtmp://104.239.164.247/phone'});
+angular
+    .module('agentUiApp').constant('FLASH_PHONE_ID', 'flashPhone');
+angular
+        .module('agentUiApp').constant('FLASH_OBJ_PARAMS', {allowScriptAccess: 'always'});
 angular
     // if period of call less than next value 'in seconds' it should be retried
     .module('agentUiApp').constant('MAKE_CALL_DONE', 10);

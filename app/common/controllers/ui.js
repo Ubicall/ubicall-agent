@@ -75,15 +75,13 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
-        if (state.status == "disconnected") {
+        if(state.status == 'connected'){
+          UiService.ok("successfully connected to communication server");
+        } else {
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };
           UiService.info("take a rest , we try to connect you back to server , you will not able to send or recieve calls");
-        }else if(state.status == 'connected'){
-          UiService.ok("successfully connected to communication server");
-        }else if(state.status == 'connecting'){
-          UiService.info("try to connect you back to communication server , you will not able to send or recieve calls");
         }
       });
     });

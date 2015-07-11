@@ -19,8 +19,8 @@ angular.module('agentUiApp')
         return config;
       },
       response: function (response) {
-        if (response.status === 401) {
-          //TODO : log meta info of 401 url , headers , params
+        if (!/^2[0-9]{2}$/.test(response.status)) {
+          //TODO : log meta info of any non 2XX response code such url ,headers and params
         }
         return response || $q.when(response);
       }

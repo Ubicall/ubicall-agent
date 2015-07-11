@@ -8,8 +8,8 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout , moment ,
-    _ , MAKE_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
+  .service('rtmp', function ($rootScope, $window, AuthToken , $timeout , moment ,
+    _ , MAKE_CALL_DONE , AGENT_ANSWER_TIMEOUT ,FLASH_PHONE_ID) {
     var fsrtmp;
     var currentCall = {};
     var allCalls = [];
@@ -24,7 +24,7 @@ angular.module('agentUiApp')
       console.log("fsLogin");
       payload = AuthToken.payload();
       if (!fsrtmp) {
-        fsrtmp = angular.element(document.querySelector("#flashPhone"))[0];
+        fsrtmp = angular.element(document.querySelector("#"+FLASH_PHONE_ID))[0];
         console.log("hack to get fsrtmp and it is" + fsrtmp);
       }
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
@@ -162,9 +162,6 @@ angular.module('agentUiApp')
 
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
         console.log("fsrtmp after flash loaded is " + fsrtmp);
-        // not define onConnected until fsFlashLoaded called to prevent calling onConnect first
-
-
       } else {
         $window.onConnected = null;
         $window.onDisconnected = null;
@@ -173,8 +170,6 @@ angular.module('agentUiApp')
     };
 
     return {
-      rtmpVars: {rtmp_url: FS_RTMP},
-      rtmpParams: {allowScriptAccess: 'always'},
       onFSLoaded: $window.fsFlashLoaded,
       logout: fsLogout,
       answer: fsAnswer,
