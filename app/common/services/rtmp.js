@@ -8,7 +8,7 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout, UiService , moment ,
+  .service('rtmp', function ($rootScope, $window, AuthToken, FS_RTMP, $timeout , moment ,
     _ , MAKE_CALL_DONE , AGENT_ANSWER_TIMEOUT) {
     var fsrtmp;
     var currentCall = {};
@@ -31,10 +31,9 @@ angular.module('agentUiApp')
         fsrtmp.login(payload.sip.num, payload.sip.cred);
       } else {
         $rootScope.$broadcast("rtmp:problem", {
-          message: "un able to login , no credentials or flash not loaded",
+          message: "unable to login , no credentials or flash not loaded",
           level: 3
         });
-        UiService.error("un able to login , no credentials or flash not loaded");
         console.log("fsrtmp " + fsrtmp);
         console.log("payload " + payload);
       }
@@ -102,8 +101,6 @@ angular.module('agentUiApp')
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
-      UiService.info("successfully connected to communication server");
-
       if (AuthToken.isAuthenticated()) {
         fsLogin();
       }
@@ -112,12 +109,10 @@ angular.module('agentUiApp')
     $window.onDisconnected = function () {
       rtmpSessionStatus = "disconnected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 1});
-      UiService.info("take a rest , we try to connect you back to server");
       //TODO : what happen to current call when agent disconnected , what strategy to fall over ?
       $timeout(function () {
         rtmpSessionStatus = "connecting";
         $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
-        UiService.info("try to connect you back to serve");
         fsConnect();
       }, 5000);
     };
@@ -146,7 +141,6 @@ angular.module('agentUiApp')
       currentCall.start = currentCall.end = currentCall.duration = null;
       currentCall.started = false;
       allCalls.push(currentCall);
-      UiService.info("call " + uuid + " from " + name || " Unknown");
     };
 
     $window.onDebug = function (message) {
@@ -174,8 +168,7 @@ angular.module('agentUiApp')
       } else {
         $window.onConnected = null;
         $window.onDisconnected = null;
-        $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading", level: 1});
-        UiService.error({message: "flash fail in loading , please reload page", level: 1});
+        $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading , please reload page", level: 1});
       }
     };
 

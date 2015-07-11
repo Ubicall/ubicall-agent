@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('QueuesController', function ($scope, $location , $timeout, Auth, CallCenter, UiService, moment, amMoment) {
+  .controller('QueuesController', function ($scope, $location , $timeout, Auth, CallCenter , moment, amMoment) {
     if (!Auth.currentUser()) {
       Auth.logout();
     } else {

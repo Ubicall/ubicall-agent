@@ -8,7 +8,7 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('AuthInterceptor', function ($rootScope, $q, AuthToken, UiService) {
+  .factory('AuthInterceptor', function ($rootScope, $q, AuthToken) {
     return {
       request: function (config) {
         var token = AuthToken.getToken();

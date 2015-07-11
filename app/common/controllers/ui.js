@@ -41,7 +41,7 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
-        UiService.info("new call from " + callInfo.name ? callInfo.name : 'UnKnown', callInfo.number ? callInfo.number : 'UnKnown', 8000);
+        UiService.info('you got a new call ....');
       });
     });
 
@@ -67,12 +67,23 @@ angular.module('agentUiApp')
       });
     });
 
+    $scope.$on('rtmp:problem',function(event,msg){
+      $timeout(function () {
+        UiService.error(msg.message);
+      });
+    });
+
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
-        if (state.status != "connected") {
+        if (state.status == "disconnected") {
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };
+          UiService.info("take a rest , we try to connect you back to server , you will not able to send or recieve calls");
+        }else if(state.status == 'connected'){
+          UiService.ok("successfully connected to communication server");
+        }else if(state.status == 'connecting'){
+          UiService.info("try to connect you back to communication server , you will not able to send or recieve calls");
         }
       });
     });

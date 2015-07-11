@@ -8,22 +8,21 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope , $timeout, rtmp, $window, UiService , AGENT_ANSWER_TIMEOUT) {
+  .controller('PhoneController', function ($scope , $timeout, rtmp, $window , AGENT_ANSWER_TIMEOUT) {
 
     // ["signal-none" ,"signal-weak" ,"signal-medium"]
 
-    $scope.signal = {class: 'signal-strong', title: 'signal strong'};
+    $scope.signal = {class: 'signal-strong', title: 'strong signal'};
     $scope.fsFlashLoaded = rtmp.onFSLoaded;
     $scope.answered = false ;
     $scope.hanguped = false;
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
-        console.log("in $scope.$on rtmp:call timout ");
         $scope.answered = false;
         $scope.isCall = true;
         $scope.hanguped = false;
-        // //TODO : wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
+        // wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
         $scope.whatIfAgnetNotAnswer = function(){
            console.log("agent not answered , so we hangup !");
            $scope.hangup();
@@ -52,8 +51,11 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
-        if (state.status != "connected") {
+        if (state.status == "disconnected" || state.status == 'connecting') {
           $scope.isCall = false;
+          $scope.signal = {class: 'signal-none', title: 'no signal'};
+        }else if (state.status == "connected") {
+          $scope.signal = {class: 'signal-strong', title: 'strong signal'};
         }
       });
     });
@@ -61,7 +63,6 @@ angular.module('agentUiApp')
 
     $scope.answer = function(){
       $timeout(function () {
-        console.log("in $scope.answer ");
         $timeout.cancel($scope.agentAnswerTimeout);
         $scope.answered = true;
         $scope.isCall = true;
@@ -73,7 +74,6 @@ angular.module('agentUiApp')
     $scope.hangup = function(){
       rtmp.hangup();
       $timeout(function () {
-        console.log("in $scope.hangup ");
         $scope.isCall = false;
         $scope.answered = false;
         $scope.hanguped = true;

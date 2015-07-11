@@ -74,8 +74,7 @@ angular.module('agentUiApp')
 
 
       }, function error(error) { //user not logged in
-        UiService.error('user not authenticated');
-        $location.path("/login");
+          Auth.logout();
       });
     })();
 
