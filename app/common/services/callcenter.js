@@ -31,11 +31,19 @@ angular.module('agentUiApp')
 
     function _getCall(callid, queueid) {
       var deferred = $q.defer();
+      var done = false;
+      var call;
       angular.forEach(calls, function (_call) {
-        if (_call.id == callid && _call.queue_id == queueid) {
-          deferred.resolve(_call);
+        if (_call.id == callid && _call.queue_id == queueid && !done) {
+          call = _call;
+          done = true;
         }
       });
+      if( !done ){
+        deferred.reject({message : 'unable to get call detail !'});
+      } else {
+        deferred.resolve(call );
+      }
       return deferred.promise;
     }
 
@@ -77,14 +85,8 @@ angular.module('agentUiApp')
       var deferred = $q.defer();
       $http.get(API_BASE + "/call/" + qid + "/" + qslug)
         .then(function success(res) {
-          // return your call client detail
-          // wait your phone ring
-          // answer
-          // wait to your client to get connected
           return deferred.resolve(res.data);
         }, function error(err) {
-          // TODO : handl error cases of not correctly change call to SUCCESSFUL state , so agent stucked in ' you already has call'
-          // hangup from call center if this is not happen from rtmp , this is just for the sake of development
           rtmp.hangup();
           deferred.reject(err.data);
         });
@@ -104,13 +106,11 @@ angular.module('agentUiApp')
           'x-call-duration': meta.duration
         }
       }).then(function success(res) {
-          if(res.status == 200){
-            UiService.info(res.message);
-          }else{
-            UiService.error(res.message);
-          }
+          UiService.info(res.message);
+          deferred.resolve({}});
         }, function error(err) {
-          deferred.reject(err.data);
+          //silent err
+          deferred.resolve({}});
         });
       return deferred.promise;
     }
@@ -154,7 +154,7 @@ angular.module('agentUiApp')
               }
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
-                UiService.ok(result.message || "new calls available");
+                UiService.ok(result.message);
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {

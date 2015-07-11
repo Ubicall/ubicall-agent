@@ -8,11 +8,9 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('DetailController', function ($scope, $location, $routeParams, $filter, UiService, Auth, CallCenter) {
+  .controller('DetailController', function ($scope, $location, $routeParams, $filter , $timeout, UiService, Auth, CallCenter) {
     if (!Auth.currentUser()) {
-      Auth.logout().then(function () {
-        $location.path("/login");
-      })
+      Auth.logout();
     } else {
       var CurrentCall;
       var user = Auth.currentUser().user;
@@ -59,32 +57,27 @@ angular.module('agentUiApp')
       if (/^\/queue/.test($location.path())) {
         UiService.setCurrentTab('current', 'Current Call');
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
-          $scope.call = call;
-          CurrentCall = call;
-          // filter current queue from queues
-          var _queues = $filter('filter')($scope.queues, !{queue_slug: $routeParams.qslug});
-          $scope.queues = _queues;
-          if (!$scope.$$phase) {
-            $scope.$apply();
-          }
+          $timeot(function(){
+            $scope.call = call;
+            CurrentCall = call;
+          });
         },function(error){
-          UiService.error(error.message || "error : unable to get call detail !");
-          $location.path('/recent');
-          if (!$scope.$$phase) {
-            $scope.$apply();
-          }
+          $timeout(function(){
+            UiService.error(error.message);
+          });
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');
         CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
-          $scope.call = call;
-          CurrentCall = call;
+          $timeout(function(){
+            $scope.call = call;
+            CurrentCall = call;
+          });
         },function(error){
-          UiService.error(error.message || "error : unable to get call detail !")
-          $location.path('/recent');
-          if (!$scope.$$phase) {
-            $scope.$apply();
-          }
+          $timeout(function(){
+            UiService.error(error.message || "unable to get call detail !")
+            $location.path('/recent');
+          });
         });
       }
     }

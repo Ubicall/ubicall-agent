@@ -47,12 +47,10 @@ angular.module('agentUiApp')
 
     $scope.$on('rtmp:call:hangup', function (event, message) {
       $timeout(function () {
-        if(message.status == 'done'){
-          UiService.info("call ended");
-        } else {
-          UiService.info("call added to be retried");
+        if(message.uuid && (call.status == 'done' || call.status == 'retry')){
+          CallCenter.hangup({status : message.status ,
+            error : message.error , duration : message.duration});
         }
-        CallCenter.hangup({status : message.status , error : message.error , duration : message.duration});
         $location.path('/recent');
       });
     });
@@ -85,10 +83,12 @@ angular.module('agentUiApp')
 
     $scope.$on("Auth:login",function(event,message){
       $scope.user = Auth.currentUser();
+      $location.path('/recent');
     });
 
     $scope.$on("Auth:logout",function(event,message){
       CallCenter.init();
+      $location.path('/login');
     });
 
     $scope.closeAlert = function (index) {

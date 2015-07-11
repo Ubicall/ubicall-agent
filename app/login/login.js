@@ -12,7 +12,6 @@ angular.module('agentUiApp')
         // flash will load after you login 'ng-if isAuthenticated prevent this load'
         // when you logged in you next page will load flash and then will register you with backend communication server
         UiService.ok("you logged in but wait to connect you with communication server");
-        $location.path('/recent');
       }, function error() {
         UiService.error("credentials problem found");
       });

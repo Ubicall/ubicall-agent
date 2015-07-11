@@ -11,9 +11,7 @@ angular.module('agentUiApp')
   .controller('RecentController', function ($scope, $location, Auth, CallCenter, UiService, moment, amMoment) {
     UiService.setCurrentTab('recent', 'Recent Calls');
     if (!Auth.currentUser()) {
-      Auth.logout().then(function () {
-        $location.path("/login");
-      })
+      Auth.logout();
     } else {
       var _user = Auth.currentUser().user;
       var _calls, _totalCalls, _queues, _totalQueues;

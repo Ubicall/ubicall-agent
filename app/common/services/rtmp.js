@@ -53,15 +53,10 @@ angular.module('agentUiApp')
     }
 
     function fsHangup() {
-      console.log(' hangup from rtmp all object is ***' + JSON.stringify(currentCall));
       if (currentCall && currentCall.uuid) {
-        console.log(' hangup from rtmp ***' + currentCall.uuid);
         fsrtmp.hangup(currentCall.uuid);
-        checkCallStatus();
-      }else{
-        console.log('NO UUID');
-        checkCallStatus();
       }
+      checkCallStatus();
     }
 
     function fsRegister() {

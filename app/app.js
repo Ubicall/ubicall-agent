@@ -120,7 +120,6 @@ var checkRouting = function ($q, $location, UiService, Auth, rtmp) {
   }, function not() {
     $q.defer().reject();
     rtmp.logout();
-    UiService.add('danger', "unauthorized log in first ");
     $location.path("/login");
   });
 };

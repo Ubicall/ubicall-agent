@@ -20,8 +20,7 @@ angular.module('agentUiApp')
       },
       response: function (response) {
         if (response.status === 401) {
-          UiService.warn('user not authenticated');
-          // handle the case where the user is not authenticated
+          //TODO : log meta info of 401 url , headers , params
         }
         return response || $q.when(response);
       }

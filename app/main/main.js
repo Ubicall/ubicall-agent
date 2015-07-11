@@ -10,9 +10,7 @@
 angular.module('agentUiApp')
   .controller('MainController', function ($scope, Auth, UiService) {
     if (!Auth.currentUser()) {
-      Auth.logout().then(function () {
-        $location.path("/login");
-      });
+      Auth.logout();
     } else {
       $scope.current = "main";
       UiService.setCurrentTab('main', 'Main Page');

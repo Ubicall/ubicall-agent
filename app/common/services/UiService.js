@@ -63,10 +63,6 @@ angular.module('agentUiApp')
     }
 
     return {
-      add: function (type, msg, timout) {
-        console.log("should not use add directly use info,error,warn or ok instead")
-        add(type, msg, timout);
-      },
       info: function (msg, timout) {
         add("info", msg, timout);
       },
