@@ -33,6 +33,8 @@ angular
 angular
         .module('agentUiApp').constant('FLASH_OBJ_PARAMS', {allowScriptAccess: 'always'});
 angular
+        .module('agentUiApp').constant('MOMENT_DATE_FORMAT', 'dddd, MMMM Do YYYY, h:mm:ss a');
+angular
     // if period of call less than next value 'in seconds' it should be retried
     .module('agentUiApp').constant('MAKE_CALL_DONE', 10);
 angular

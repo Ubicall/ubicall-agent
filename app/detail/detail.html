@@ -15,8 +15,11 @@
   <tabset justified="true">
     <tab heading="General">
       <div class="row" ng-repeat="(key, value) in call">
-        <div ng-if="key != 'call_data'">
-          <div class="col-md-2">{{key}}</div>
+        <div ng-if="key != 'call_data' && key != 'api_key' && key != 'uniqueid' &&  key != 'trunk' &&
+            key != 'datetime_entry_queue' &&   key != 'id' && key != 'queue_id' && key != 'id_agent' &&
+             key != 'failure_cause_txt' && key != 'dnc' && key != 'failure_cause' && key != 'longitude' &&
+             key != 'latitude' && key != 'time_init' && key != 'time_end' ">
+          <div class="col-md-2">{{key | peautifyKey }}</div>
           <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
         </div>
       </div>
