@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('UIController', function ($scope, $location , $timeout, UiService, Auth, AuthToken , CallCenter , rtmp,
+  .controller('UIController', function ($scope, $location , $timeout , $log , UiService, Auth, AuthToken , CallCenter , rtmp,
     AGENT_ANSWER_TIMEOUT) {
     $scope.userRTMPSession;
     $scope.current = UiService.currentTab;
@@ -47,7 +47,7 @@ angular.module('agentUiApp')
 
     $scope.$on('rtmp:call:hangup', function (event, message) {
       $timeout(function () {
-        if(message.uuid && (call.status == 'done' || call.status == 'retry')){
+        if(message.uuid && (message.status == 'done' || message.status == 'retry')){
           CallCenter.hangup({status : message.status ,
             error : message.error , duration : message.duration});
         }
@@ -87,7 +87,7 @@ angular.module('agentUiApp')
     });
 
     $scope.$on("rtmp:debug",function(event,message){
-      console.log("rtmp debug : " + message.message);
+      $log.debug("rtmp debug : " + message.message);
     });
 
     $scope.$on("Auth:login",function(event,message){

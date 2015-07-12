@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('RecentController', function ($scope, $location, Auth, CallCenter, UiService, moment, amMoment) {
+  .controller('RecentController', function ($scope, $location, $log, Auth, CallCenter, UiService, moment, amMoment) {
     UiService.setCurrentTab('recent', 'Recent Calls');
     if (!Auth.currentUser()) {
       Auth.logout();
@@ -57,7 +57,7 @@ angular.module('agentUiApp')
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {
-        console.log("loginInfo is " + loginInfo);
+        $log.debug("loginInfo is " + loginInfo);
       });
     }
   });

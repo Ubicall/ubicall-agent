@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('QueuesController', function ($scope, $location , $timeout, Auth, CallCenter , moment, amMoment) {
+  .controller('QueuesController', function ($scope, $location , $timeout , $log , Auth, CallCenter , moment, amMoment) {
     if (!Auth.currentUser()) {
       Auth.logout();
     } else {
@@ -46,7 +46,7 @@ angular.module('agentUiApp')
       });
 
       $scope.$on("rtmp:login", function (event, loginInfo) {
-        console.log("loginInfo is " + loginInfo);
+        $log.info("loginInfo is " + loginInfo);
       });
     }
   });

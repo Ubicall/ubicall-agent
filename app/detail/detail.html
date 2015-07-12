@@ -23,12 +23,12 @@
     </tab>
     <tab heading="Call Data">
       <accordion close-others="oneAtATime">
-        <div class="row" ng-repeat="(key, value) in call.call_data">
+        <div class="row" ng-repeat="(key, value) in call.call_data track by $index">
           <accordion-group heading="{{key}}" is-open="true">
             <div ng-if="isJson(value)">
-              <ul ng-repeat="(nkey, nvalue) in value">
+              <ul ng-repeat="(nkey, nvalue) in value track by $index">
                 <div ng-if="isJson(nvalue)">
-                  <ul ng-repeat="(nnkey, nnvalue) in nvalue">
+                  <ul ng-repeat="(nnkey, nnvalue) in nvalue track by $index">
                     <li>{{nnkey}} : {{nnvalue}}</li>
                   </ul>
                 </div>
@@ -49,5 +49,3 @@
   <!-- Tabs End -->
 
 </div>
-
-

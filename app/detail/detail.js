@@ -57,14 +57,10 @@ angular.module('agentUiApp')
       if (/^\/queue/.test($location.path())) {
         UiService.setCurrentTab('current', 'Current Call');
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
-          $timeot(function(){
             $scope.call = call;
             CurrentCall = call;
-          });
         },function(error){
-          $timeout(function(){
-            UiService.error(error.message);
-          });
+          UiService.error(error.message);
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');

@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope , $timeout, $window ,
+  .controller('PhoneController', function ($scope , $timeout, $window , $log,
     rtmp ,FLASH_OBJ_VARS ,FLASH_PHONE_ID ,FLASH_OBJ_PARAMS , AGENT_ANSWER_TIMEOUT) {
 
     // ["signal-none" ,"signal-weak" ,"signal-medium"]
@@ -29,7 +29,7 @@ angular.module('agentUiApp')
         $scope.hanguped = false;
         // wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
         $scope.whatIfAgnetNotAnswer = function(){
-           console.log("agent not answered , so we hangup !");
+           $log.info("agent not answered , so we hangup !");
            $scope.hangup();
         }
         $scope.agentAnswerTimeout = $timeout(function(){ $scope.whatIfAgnetNotAnswer(); }, AGENT_ANSWER_TIMEOUT * 1000);

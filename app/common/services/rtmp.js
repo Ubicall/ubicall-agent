@@ -8,7 +8,7 @@
  * Service in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .service('rtmp', function ($rootScope, $window, AuthToken , $timeout , moment ,
+  .service('rtmp', function ($rootScope, $window, $log ,$timeout , AuthToken  , moment ,
     _ , MAKE_CALL_DONE , AGENT_ANSWER_TIMEOUT ,FLASH_PHONE_ID) {
     var fsrtmp;
     var currentCall = {};
@@ -21,11 +21,10 @@ angular.module('agentUiApp')
     var payload;
 
     function fsLogin() {
-      console.log("fsLogin");
       payload = AuthToken.payload();
       if (!fsrtmp) {
         fsrtmp = angular.element(document.querySelector("#"+FLASH_PHONE_ID))[0];
-        console.log("hack to get fsrtmp and it is" + fsrtmp);
+        $log.debug("hack to get fsrtmp and it is" + fsrtmp);
       }
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
         fsrtmp.login(payload.sip.num, payload.sip.cred);
@@ -34,8 +33,6 @@ angular.module('agentUiApp')
           message: "unable to login , no credentials or flash not loaded",
           level: 3
         });
-        console.log("fsrtmp " + fsrtmp);
-        console.log("payload " + payload);
       }
     }
 
@@ -80,14 +77,12 @@ angular.module('agentUiApp')
 
       // mark this call processed if
       //  call stay more than MAKE_CALL_DONE
-
-      console.log("call will be short if callDuration is less than " +MAKE_CALL_DONE + " seconds and it is "+callDuration)  ;
       if(callDuration > MAKE_CALL_DONE){
-        console.log('call done ');
+        $log.info('call done');
         $rootScope.$broadcast("rtmp:call:hangup",
           {session: rtmpSession, uuid: currentCall.uuid , status :'done' , duration : callDuration});
       } else {
-        console.log('call retry ');
+        $log.info('call retry , short call with duration less than ' + MAKE_CALL_DONE);
         $rootScope.$broadcast("rtmp:call:hangup",
           {session: rtmpSession, uuid: currentCall.uuid , status :'retry' ,
           duration : callDuration , error : 'call is short than ' + MAKE_CALL_DONE + ' seconds'});
@@ -97,7 +92,7 @@ angular.module('agentUiApp')
     }
 
     $window.onConnected = function (sessionid) {
-      console.log("onConnected " + sessionid);
+      $log.debug("rtmp connect with sessionid " + sessionid);
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
@@ -157,11 +152,10 @@ angular.module('agentUiApp')
     };
 
     $window.fsFlashLoaded = function (evt) {
-      console.log("fsFlashLoaded");
+      $log.debug("fsFlashLoaded");
       if (evt.success) {
-
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
-        console.log("fsrtmp after flash loaded is " + fsrtmp);
+        $log.debug("fsrtmp after flash loaded is " + fsrtmp);
       } else {
         $window.onConnected = null;
         $window.onDisconnected = null;
