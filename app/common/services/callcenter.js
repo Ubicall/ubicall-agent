@@ -107,10 +107,10 @@ angular.module('agentUiApp')
         }
       }).then(function success(res) {
           UiService.info(res.message);
-          deferred.resolve({}});
+          deferred.resolve({});
         }, function error(err) {
           //silent err
-          deferred.resolve({}});
+          deferred.resolve({});
         });
       return deferred.promise;
     }
