@@ -22,6 +22,11 @@ angular.module('agentUiApp')
       });
     };
 
+    $scope.showQueues = function(){ //show queues only in recent , queue , call pages
+      var re = /^\/recent|\/queue|\/call/;
+      return re.test($location.path());
+    }
+
     $scope.$on('rtmp:state:login', function (event, message) {
       $timeout(function() {
         if (message.status == "success") {

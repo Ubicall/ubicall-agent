@@ -35,7 +35,7 @@
       </div>
       <div class="call-03">{{call.phone}}</div>
       <div class="call-04">{{call.start_time | amDateFormat:'MMM Do , h:mm:ss a'}}</div>
-      <div class="call-05">{{fromNow(call.start_time,call.end_time)}}</div>
+      <div class="call-05">{{fromNow(call.end_time,call.start_time)}}</div>
       <div class="call-06">
         <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
           <i class="fa fa-play"></i>

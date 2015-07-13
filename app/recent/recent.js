@@ -44,7 +44,7 @@ angular.module('agentUiApp')
 
 
       $scope.fromNow = function (endDate, startDate) {
-        return moment.utc(moment(startDate).diff(moment(endDate))).format('HH:mm:ss');
+        return moment.utc(moment(endDate).diff(moment(startDate))).format('HH:mm:ss');
       };
       $scope.$on('calls:updated', function (event, calls) {
         $scope.totalCalls = _totalCalls = calls.length;

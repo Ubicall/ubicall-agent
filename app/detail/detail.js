@@ -29,6 +29,12 @@ angular.module('agentUiApp')
         $scope.queues = queues;
       });
 
+      $scope.isDate = function (value){
+        // see http://stackoverflow.com/a/1353710
+        // not use angular.isDate https://github.com/angular/angular.js/blob/master/src/Angular.js#L583
+        return !isNaN( Date.parse(value) );
+      }
+
       $scope.isJson = function (str) {
         if (!str || isNumber(str)) {
           return false;
@@ -54,24 +60,43 @@ angular.module('agentUiApp')
         UiService.ok("new queues available");
       });
 
-      var peautifyCall = function (call){
+      $scope.isEmptyObject = function(obj){
+          if(obj){
+            return Object.keys(obj).length === 0 ? true : false;
+          }else {
+            return true;
+          }
+      }
 
-        call.duration = moment.utc(moment(call.date_end).diff(moment(call.date_init))).format('MM:DD:HH:mm');
-        call.duration_wait = moment.utc(moment(call.date_end).diff(moment(call.schedule_time))).format('MM:DD:HH:mm');
-
-        call.schedule_time = moment(call.schedule_time).format(MOMENT_DATE_FORMAT);
-        call.start_time = moment(call.start_time).format(MOMENT_DATE_FORMAT);
-        call.end_time = moment(call.end_time).format(MOMENT_DATE_FORMAT);
-        call.date_init = moment(call.date_init).format(MOMENT_DATE_FORMAT);
-        call.date_end = moment(call.date_end).format(MOMENT_DATE_FORMAT);
-        call.datetime_originate = moment(call.datetime_originate).format(MOMENT_DATE_FORMAT);
-        
+      var parseCallDate = function(call){
+        if(call.call_data instanceof Object){
+          return call;
+        }
+        try {
+            var v = JSON.parse(call.call_data);
+            if (v && v instanceof Array){
+              call.call_data = (v.length > 0) ? v[0] : null;
+            }else if (v && v instanceof Object) {
+              call.call_data = v;
+            }else {
+              call.call_data = null;
+            }
+          } catch (e) {
+            call.call_data = null;
+          }
         return call;
       }
+
+      var formatCallDuration = function (call){
+        call.duration = moment.utc(moment(call.end_time).diff(moment(call.start_time))).format('HH:mm:ss');
+        call.duration_wait = moment.utc(moment(call.date_end).diff(moment(call.schedule_time))).format('MM:DD:HH:mm');
+        return call;
+      }
+
       if (/^\/queue/.test($location.path())) {
         UiService.setCurrentTab('current', 'Current Call');
         CallCenter.getMeCall($routeParams.queueid, $routeParams.qslug).then(function (call) {
-          call = peautifyCall(call);
+          call = parseCallDate(call);
           $scope.call = call;
           CurrentCall = call;
         },function(error){
@@ -80,7 +105,8 @@ angular.module('agentUiApp')
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');
         CallCenter.getCallDetail($routeParams.queueid, $routeParams.callid).then(function (call) {
-          call = peautifyCall(call);
+          call = formatCallDuration(call);
+          call = parseCallDate(call);
           $scope.call = call;
           CurrentCall = call;
         },function(error){

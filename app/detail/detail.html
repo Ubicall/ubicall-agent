@@ -18,13 +18,19 @@
         <div ng-if="key != 'call_data' && key != 'api_key' && key != 'uniqueid' &&  key != 'trunk' &&
             key != 'datetime_entry_queue' &&   key != 'id' && key != 'queue_id' && key != 'id_agent' &&
              key != 'failure_cause_txt' && key != 'dnc' && key != 'failure_cause' && key != 'longitude' &&
-             key != 'latitude' && key != 'time_init' && key != 'time_end' ">
-          <div class="col-md-2">{{key | peautifyKey }}</div>
-          <div class="col-md-10 details-fields">{{value || "N/A"}}</div>
+             key != 'latitude' && key != 'time_init' && key != 'time_end' && key != 'date_init' && key != 'date_end' ">
+          <div class="col-md-2" ng-if="value" >{{key | peautifyKey }}</div>
+          <div class="col-md-10 details-fields" ng-if="value && isDate(value)">
+            {{value | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
+          </div>
+          <div class="col-md-10 details-fields" ng-if="value && !isDate(value)">
+            {{value}}
+          </div>
         </div>
       </div>
     </tab>
-    <tab heading="Call Data">
+
+    <tab heading="Call Data" ng-if="!isEmptyObject(call.call_data)">
       <accordion close-others="oneAtATime">
         <div class="row" ng-repeat="(key, value) in call.call_data track by $index">
           <accordion-group heading="{{key}}" is-open="true">

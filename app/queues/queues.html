@@ -1,4 +1,5 @@
-<div ng-controller="QueuesController" ng-if="isAuthenticatedAndFS()">
+<div ng-controller="QueuesController"
+  ng-show="showQueues()" ng-if="isAuthenticatedAndFS()">
   <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize"
        current-page="queuesCurrentPage"
        pagination-id="queuesPaginator">
