@@ -20,16 +20,17 @@ angular.module('agentUiApp')
           Profile.updateUserImage(files[0]).then(function(result){
             UiService.ok(result.message);
           },function(err){
-            UiService.error(result.message);
+            UiService.error(err.message);
           });
       };
       $scope.updateUser = function () {
-        Profile.update($scope.formData).then(function(result){
+        Profile.updateUserInfo($scope.formData).then(function(result){
           UiService.ok(result.message);
+          $location.path('/logout');
         },function(err){
-          UiService.error(result.message);
+          UiService.error(err.message);
+          $location.path('/main');
         });
-        $location.path('/main');
       };
     }
   });
