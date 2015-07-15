@@ -22,7 +22,8 @@ angular
     'LocalStorageModule',
     'angularUtils.directives.dirPagination',
     'angularMoment',
-    'swfobject'
+    'swfobject',
+    'lr.upload'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api'); // TODO : standardized url for api in dev and prod (may use config file)
@@ -112,6 +113,18 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     }).when('/queue/:queueid/:qslug', {
       templateUrl: 'lib/agent/views/detail/detail.html',
       controller: 'DetailController',
+      resolve: {
+        factory: checkRouting
+      }
+    }).when('/me', {
+      templateUrl: 'lib/agent/views/profile/profile.html',
+      controller: 'ProfileController',
+      resolve: {
+        factory: checkRouting
+      }
+    }).when('/reports', {
+      templateUrl: 'lib/agent/views/reports/reports.html',
+      controller: 'ReportsController',
       resolve: {
         factory: checkRouting
       }

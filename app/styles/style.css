@@ -70,6 +70,11 @@ a:focus {
     margin-left: auto;
 }
 
+.space-01 {
+	clear: both;
+	height: 30px;
+}
+
 
 /**************************************** Header ****************************************/
 
@@ -152,12 +157,13 @@ a:focus {
 }
 
 
+
 .navbar-default .navbar-nav>span>a, .navbar-default .navbar-nav>span>a:focus {
   color: #fff;
   padding-top: 15px;
   padding-bottom: 15px;
   float: left;
- margin-right: 10px;
+  margin-right: 10px;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
@@ -439,13 +445,13 @@ ul.dashboard li {
 .call-01.cll-current {
 	padding: 0;
 	margin: 0;
-	background: url(https://agent.ubicall.com/lib/agent/images/call-current.png) no-repeat center center;
+	background: url('https://agent.ubicall.com/lib/agent/images/call-current.png') no-repeat center center;
 }
 
 .call-01.cll-priv {
 	padding: 0;
 	margin: 0;
-	background: url(https://agent.ubicall.com/lib/agent/images/call-priv.png) no-repeat center center;
+	background: url('https://agent.ubicall.com/lib/agent/images/call-priv.png') no-repeat center center;
 }
 
 .call-02 {
@@ -610,7 +616,7 @@ ul.dashboard li {
 
 #calls .signal-none {
     color: #fff000;
-	background: url(https://agent.ubicall.com/lib/agent/images/signal-none.png) no-repeat;
+	background: url('https://agent.ubicall.com/lib/agent/images/signal-none.png') no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -619,7 +625,7 @@ ul.dashboard li {
 
 #calls .signal-weak {
     color: #fff000;
-	background: url(https://agent.ubicall.com/lib/agent/images/signal-weak.png) no-repeat;
+	background: url('https://agent.ubicall.com/lib/agent/image/signal-weak.png') no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -628,7 +634,7 @@ ul.dashboard li {
 
 #calls .signal-medium {
     color: #fff000;
-	background: url(https://agent.ubicall.com/lib/agent/images/signal-medium.png) no-repeat;
+	background: url('https://agent.ubicall.com/lib/agent/images/signal-medium.png') no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -637,7 +643,7 @@ ul.dashboard li {
 
 #calls .signal-strong {
     color: #fff000;
-	background: url(https://agent.ubicall.com/lib/agent/images/signal-strong.png) no-repeat;
+	background: url('https://agent.ubicall.com/lib/agent/images/signal-strong.png') no-repeat;
 	width: 32px;
 	height: 25px;
 	display: inline-block;
@@ -828,6 +834,114 @@ ul.dashboard li {
   color: #fff;
   background-color: #039997;
   border-color: #018886;
+}
+
+
+/******************** Reports Page ********************/
+
+.nav-tabs>li.tablist-02 {
+  float: left;
+  margin-bottom: -1px;
+  width: auto;
+  min-width: inherit;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tab-content-02 {
+	background: #fff000;
+}
+
+.tab-bg-01 {
+	background: #039997;
+	color: #fff;
+}
+
+.tab-bg-01 li a {
+	color: #fff;
+	border-radius: 0;
+}
+
+.tab-bg-01 li a:hover {
+	background: #fff;
+	color: #039997;
+	border-bottom: none;
+}
+
+.tab-bg-02 {
+	background: #fff;
+	padding: 0 20px;
+}
+
+.tab-bg-02 h3 {
+	margin: 0 0 20px 0;
+	padding: 0;
+	width: 100%;
+	height: 46px;
+	line-height: 50px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	color: #777;
+	text-indent: 10px;
+}
+
+.tab-li-01 {
+    float: right;
+    position: absolute;
+    right: 35px;
+    top: 66px;
+    display: inline-flex;
+}
+
+.pic-01 {
+	width: 100%;
+	height: auto;
+}
+
+.boxs {
+	display: block;
+	clear: both;
+	width: 100%;
+}
+
+.box-01 {
+	border: 1px solid #f1f1f1;
+	border-radius: 4px;
+	margin: 0 15px;
+	padding: 10px;
+	text-align: center;
+	height: 80px;
+}
+
+.box-01 h2 {
+	font-size: 36px;
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+
+.box-01 h4 {
+	color: #555;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+.color-02 {
+	color: #b0cf6d;
+}
+
+.color-03 {
+	color: #e16a62;
+}
+
+.color-04 {
+	color: #bbb;
+}
+
+.color-05 {
+	color: #508bc9;
 }
 
 /**************************************** Footer ****************************************/

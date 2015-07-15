@@ -42,27 +42,32 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-icons">
             <li ng-class="{'active': current() == 'dash'}">
-              <a href="#/main" title="{{pageTitle()}}">
+              <a href="#/main" title="main page">
                 <img src="https://agent.ubicall.com/lib/agent/images/logo-header.png" class="logo-header" alt=""/>
               </a>
             </li>
             <li ng-class="{'active': current() == 'recent'}">
-              <a href="#/recent" title="{{pageTitle()}}">
+              <a href="#/recent" title="recent calls">
                 <i class="fa fa-history"></i>
               </a>
             </li>
             <li ng-class="{'active': current() == 'profile'}">
-              <a href="#/me" title=" {{pageTitle()}}">
+              <a href="#/me" title="profile">
                 <i class="glyphicon glyphicon-user"></i>
               </a>
             </li>
             <li ng-class="{'active': current() == 'current' || current() == 'detail'}">
-              <a href="#/current" title=" {{pageTitle()}}">
-                <i class="fa fa-envelope"></i><span class="badge">8</span>
+              <a href="#/current" title="call detail">
+                <i class="fa fa-envelope"></i>
+                <!--<span class="badge">8</span>-->
               </a>
             </li>
             <li ng-class="{'active': current() == 'settings'}">
-              <a href="#/settings" title=" {{pageTitle()}}"><i class="fa fa-cog"></i>
+              <a href="#/settings" title="settings"><i class="fa fa-cog"></i>
+              </a>
+            </li>
+            <li ng-class="{'active': current() == 'reports'}">
+              <a href="#/reports" title="reports"><i class="fa fa-flag"></i>
               </a>
             </li>
           </ul>
@@ -172,12 +177,14 @@
 <script src="lib/angular-moment/angular-moment.min.js"></script>
 <script src="lib/swfobject/swfobject.js"></script>
 <script src="lib/angular-swfobject/angular-swfobject.js"></script>
+<script src="lib/angular-upload/angular-upload.min.js"></script>
 
-<!-- Production Mode-->
+<!-- Production Mode
 <script src="lib/agent/js/agent.min.js"></script>
 <!-- End Production Mode-->
-<!-- Development Mode
+<!-- Development Mode-->
 <script src="lib/agent/dev/js/app.js"></script>
+<script src="lib/agent/dev/js/common/services/helpers.js"></script>
 <script src="lib/agent/dev/js/common/services/authtoken.js"></script>
 <script src="lib/agent/dev/js/common/services/authinterceptor.js"></script>
 <script src="lib/agent/dev/js/common/services/rtmp.js"></script>
@@ -189,11 +196,17 @@
 <script src="lib/agent/dev/js/common/controllers/ui.js"></script>
 <script src="lib/agent/dev/js/recent/recent.js"></script>
 <script src="lib/agent/dev/js/login/login.js"></script>
+<script src="lib/agent/dev/js/login/directives/shakeThat.js"></script>
 <script src="lib/agent/dev/js/detail/detail.js"></script>
 <script src="lib/agent/dev/js/detail/filters/peautifyKey.js"></script>
 <script src="lib/agent/dev/js/queues/queues.js"></script>
 <script src="lib/agent/dev/js/queues/filters/callalert.js"></script>
 <script src="lib/agent/dev/js/profile/profile.js"></script>
+<script src="lib/agent/dev/js/profile/directives/pwCheck.js"></script>
+<script src="lib/agent/dev/js/profile/directives/fileRead.js"></script>
+<script src="lib/agent/dev/js/profile/services/profile.js"></script>
+<script src="lib/agent/dev/js/reports/reports.js"></script>
+<script src="lib/agent/dev/js/reports/services/reports.js"></script>
 <script src="lib/agent/dev/js/main/main.js"></script>
 <script src="lib/agent/dev/js/phone/phone.js"></script>
 <!-- End Development Mode-->

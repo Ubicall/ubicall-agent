@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('DetailController', function ($scope, $location, $routeParams, $log , $filter , MOMENT_DATE_FORMAT, UiService, Auth, CallCenter) {
+  .controller('DetailController', function ($scope, $location, $routeParams, $log , $filter , helpers ,MOMENT_DATE_FORMAT, UiService, Auth, CallCenter) {
     if (!Auth.currentUser()) {
       Auth.logout();
     } else {
@@ -16,57 +16,11 @@ angular.module('agentUiApp')
       var user = Auth.currentUser().user;
       $scope.user = user;
 
-      var _queues, _totalQueues;
-      $scope.queues = _queues = [];
-      $scope.totalQueues = _totalQueues = 0;
+      $scope.isDate = helpers.isDate;
 
+      $scope.isJson = helpers.isJson;
 
-      $scope.queuesCurrentPage = 1;
-      $scope.queuesPageSize = 10;
-
-
-      CallCenter.getQueues().then(function (queues) {
-        $scope.queues = queues;
-      });
-
-      $scope.isDate = function (value){
-        // see http://stackoverflow.com/a/1353710
-        // not use angular.isDate https://github.com/angular/angular.js/blob/master/src/Angular.js#L583
-        return !isNaN( Date.parse(value) );
-      }
-
-      $scope.isJson = function (str) {
-        if (!str || isNumber(str)) {
-          return false;
-        }
-        if (typeof str == 'object') {
-          return true;
-        }
-        try {
-          JSON.parse(str);
-        } catch (e) {
-          return false;
-        }
-        return true;
-      };
-
-      var isNumber = function (n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-      };
-
-      $scope.$on('queues:updated', function (event, queues) {
-        $scope.totalQueues = _totalQueues = queues.length;
-        $scope.queues = _queues = queues;
-        UiService.ok("new queues available");
-      });
-
-      $scope.isEmptyObject = function(obj){
-          if(obj){
-            return Object.keys(obj).length === 0 ? true : false;
-          }else {
-            return true;
-          }
-      }
+      $scope.isEmptyObject = helpers.isEmptyObject;
 
       var parseCallDate = function(call){
         if(call.call_data instanceof Object){
@@ -88,8 +42,8 @@ angular.module('agentUiApp')
       }
 
       var formatCallDuration = function (call){
-        call.duration = moment.utc(moment(call.end_time).diff(moment(call.start_time))).format('HH:mm:ss');
-        call.duration_wait = moment.utc(moment(call.date_end).diff(moment(call.schedule_time))).format('MM:DD:HH:mm');
+        call.duration = helpers.diffDates(call.end_time , call.start_time , 'HH:mm:ss');
+        call.duration_wait = helpers.diffDates(call.date_end , call.schedule_time , 'MM:DD:HH:mm');
         return call;
       }
 

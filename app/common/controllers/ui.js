@@ -23,7 +23,7 @@ angular.module('agentUiApp')
     };
 
     $scope.showQueues = function(){ //show queues only in recent , queue , call pages
-      var re = /^\/recent|\/queue|\/call/;
+      var re = /^\/recent|\/queue|\/call|\/reports|\/me/;
       return re.test($location.path());
     }
 
