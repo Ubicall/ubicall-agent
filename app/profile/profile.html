@@ -1,14 +1,7 @@
 <div class="col-md-9 right-line-pages" ng-if="isAuthenticated()">
 
   <div id="profile">
-    <div ng-if="user.image">
-      <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
-    </div>
-
-    <div ng-if="!user.image">
-      <img src="https://agent.ubicall.com/lib/agent/images/default-user-image-small_16x16.png" class="pro-img" alt="{{user.name}}" />
-    </div>
-
+    <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
     <div class="pro-name">{{user.name}}</div>
     <div class="pro-title">{{user.title || 'Call Cente'}}</div>
   </div>

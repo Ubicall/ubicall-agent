@@ -8,7 +8,7 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('AuthToken', function (localStorageService, $window) {
+  .factory('AuthToken', function ($window ,localStorageService, AGENT_DEFAULT_AVATAR) {
     var tokenKey = 'access_token';
     var cachedToken;
     var cachedPayload;
@@ -18,12 +18,14 @@ angular.module('agentUiApp')
       getToken: getToken,
       clearToken: clearToken,
       payload: atobPayLoad,
-      getCurrentUser: currentUser
+      getCurrentUser: currentUser,
+      setAvatar: setAvatar
     };
     function setToken(token) {
       cachedToken = token;
       cachedPayload = null;
       localStorageService.set(tokenKey, token);
+      setAvatar(atobPayLoad().image);
     }
 
     function getToken() {
@@ -50,6 +52,14 @@ angular.module('agentUiApp')
       return cachedPayload;
     }
 
+    function setAvatar(avatar){
+      localStorageService.set('avatar', avatar);
+    }
+
+    function _getAvatar(payload){
+      return  localStorageService.get('avatar') || payload.image || AGENT_DEFAULT_AVATAR ;
+    }
+
     function currentUser() {
       var payload = atobPayLoad();
       if (!payload) {
@@ -58,7 +68,7 @@ angular.module('agentUiApp')
       return {
         email: payload.email || '',
         name: payload.email || '',
-        image: payload.img || ''
+        image: _getAvatar(payload)
       }
     }
   });

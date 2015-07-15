@@ -22,9 +22,10 @@ angular.module('agentUiApp')
           transformRequest: angular.identity
         })
         .then(function(response) {
-          deferred.resolve(response.data.url);
+          AuthToken.setAvatar(response.data.url);
+          deferred.resolve({message : "Your Image Uploaded"});
         }, function(err) {
-          deferred.reject(err);
+          deferred.reject({message : 'Unable to Update Your Image'});
         });
       return deferred.promise;
     }

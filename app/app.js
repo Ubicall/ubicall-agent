@@ -22,8 +22,7 @@ angular
     'LocalStorageModule',
     'angularUtils.directives.dirPagination',
     'angularMoment',
-    'swfobject',
-    'lr.upload'
+    'swfobject'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api'); // TODO : standardized url for api in dev and prod (may use config file)
@@ -41,6 +40,9 @@ angular
 angular
     // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
     .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 11);
+angular
+    // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
+    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://agent.ubicall.com/lib/agent/images/default-user-image-small_64x64.png');
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
