@@ -17,17 +17,19 @@ angular.module('agentUiApp')
       $scope.user = Profile.get();
       $scope.formData = {};
       $scope.setImage = function(files) {
-          $scope.formData.image = files[0];
+          Profile.updateUserImage(files[0]).then(function(result){
+            UiService.ok(result.message);
+          },function(err){
+            UiService.error(result.message);
+          });
       };
       $scope.updateUser = function () {
-        $log.info('in profile updateUser ');
-        Profile.update($scope.formData).then(function(done){
-          $location.path('/main');
+        Profile.update($scope.formData).then(function(result){
+          UiService.ok(result.message);
         },function(err){
-          $log.info('in profile ');
-          $log.error(err);
-          $location.path('/main');
-        })
+          UiService.error(result.message);
+        });
+        $location.path('/main');
       };
     }
   });
