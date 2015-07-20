@@ -17,11 +17,7 @@ angular.module('agentUiApp')
       $scope.user = Profile.get();
       $scope.formData = {};
       $scope.setImage = function(files) {
-          Profile.updateUserImage(files[0]).then(function(result){
-            UiService.ok(result.message);
-          },function(err){
-            UiService.error(err.message);
-          });
+          $scope.formData.image = files[0];
       };
       $scope.updateUser = function () {
         Profile.updateUserInfo($scope.formData).then(function(result){

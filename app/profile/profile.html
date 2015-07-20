@@ -8,16 +8,18 @@
 
   <div class="space-01"></div>
 
-  <form class="form-horizontal" name="registerForm" role="form" ng-submit="updateUser()">
+  <form class="form-horizontal" name="registerForm" role="form" ng-submit="updateUser()" novalidate>
     <div class="form-group">
       <label for="cpassword">Current Password</label>
-      <input type="password" class="form-control input-medium" placeholder="Current Password" ng-model="formData.credentials.currentPassword" required>
+      <input type="password" name="cpassword" class="form-control input-medium" placeholder="Current Password" ng-model="formData.credentials.currentPassword" required>
+      <span class="alert-danger" ng-show="(registerForm.cpassword.$dirty || registerForm.password.$dirty ) && registerForm.cpassword.$error.required">The Current Password is Mandatory</span>
     </div>
 
     <!-- Password -->
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" class="form-control input-medium" ng-model="formData.credentials.password" placeholder="Password" />
+      <input type="password" id="password" name="password" class="form-control input-medium" ng-model="formData.credentials.password" placeholder="Password" pw-check="passwordConfirmation"/>
+      <span class="alert-danger" ng-show="registerForm.password.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
 
     </div>
 
@@ -25,6 +27,7 @@
     <div class="form-group">
       <label for="passwordConfirmation">Confirm Password</label>
       <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="form-control input-medium" ng-model="formData.credentials.passwordConfirmation" placeholder="Password" pw-check="password" />
+      <span class="alert-danger" ng-show="registerForm.passwordConfirmation.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
     </div>
 
     <div class="form-group">
@@ -33,7 +36,7 @@
         onchange="angular.element(this).scope().setImage(this.files)" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit"ng-disabled="!registerForm.$valid" class="btn btn-primary">Save</button>
 
   </form>
 
