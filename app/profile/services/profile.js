@@ -17,7 +17,7 @@ angular.module('agentUiApp')
       var deferred = $q.defer();
       if (!options.credentials.currentPassword) {
         deferred.reject({message : "must add your current password"});
-      } else if(!options.credentials.password || !options.image) {
+      } else if(!options.credentials.password && !options.image) {
         deferred.reject({message : "no changes to modify"});
       }else {
         var changes = new FormData();
@@ -26,7 +26,7 @@ angular.module('agentUiApp')
           changes.append('newPass' , options.credentials.password);
         }
         if(options.image){
-          changes.append('image', image , get().name + ".png");
+          changes.append('image', options.image , get().name + ".png");
         }
 
         $http.post(API_BASE + "/users/me", changes, {
