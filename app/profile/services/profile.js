@@ -26,7 +26,7 @@ angular.module('agentUiApp')
           changes.append('newPass' , options.credentials.password);
         }
         if(options.image){
-          changes.append('image', options.image , get().name + ".png");
+          changes.append('image', options.image);
         }
 
         $http.post(API_BASE + "/users/me", changes, {
