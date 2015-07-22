@@ -7,14 +7,14 @@
   <a class="list-group-item call-end" href="" ng-click="hangup()" ng-show="isCall && answered && !hanguped" data-toggle="collapse">Hangup</a>
 
   <swf-object
-    swf-url="lib/agent/freeswitch/freeswitch.swf"
+    swf-url="https://cdn.ubicall.com/agent/freeswitch/freeswitch.swf"
     swf-id="{{flashPhoneId}}"
     swf-width="250"
     swf-height="300"
     swf-version="9.0.0"
     swf-params="swfObjParams"
     swf-vars= "rtmpConfig"
-    xi-swf-url-str="lib/swfobject/swfobject/expressInstall.swf"
+    xi-swf-url-str="swfExpressInstall"
     swf-load="fsFlashLoaded(evt)"/>
 
 </div>

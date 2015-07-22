@@ -31,7 +31,9 @@ angular
 angular
     .module('agentUiApp').constant('FLASH_PHONE_ID', 'flashPhone');
 angular
-        .module('agentUiApp').constant('FLASH_OBJ_PARAMS', {allowScriptAccess: 'always'});
+      .module('agentUiApp').constant('FLASH_OBJ_PARAMS', {allowScriptAccess: 'always'});
+angular
+      .module('agentUiApp').constant('FLASH_EXPRESS_INSTALL', 'https://cdn.ubicall.com/static/swfobject/swfobject/expressInstall.swf');
 angular
         .module('agentUiApp').constant('MOMENT_DATE_FORMAT', 'dddd, MMMM Do YYYY, h:mm:ss a');
 angular
@@ -42,7 +44,7 @@ angular
     .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 11);
 angular
     // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
-    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://agent.ubicall.com/lib/agent/images/default-user-image-small_64x64.png');
+    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://cdn.ubicall.com/agent/images/default-user-image-small_64x64.png');
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
@@ -62,9 +64,9 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
 angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'lib/agent/views/login/login.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'lib/agent/css/login.min.css',
+      css: 'https://cdn.ubicall.com/agent/css/login.min.css',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
           // don't load login if user already login 'logout first'
@@ -77,9 +79,9 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/logout', {
-      templateUrl: 'lib/agent/views/login/login.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'lib/agent/css/login.min.css',
+      css: 'https://cdn.ubicall.com/agent/css/login.min.css',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {
@@ -90,42 +92,42 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/main', {
-      templateUrl: 'lib/agent/views/main/main.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/main/main.html',
       resolve: {
         factory: checkRouting
       }
     }).when('/current', {
-      templateUrl: 'lib/agent/views/detail/detail.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/recent', {
-      templateUrl: 'lib/agent/views/recent/recent.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/recent/recent.html',
       controller: 'RecentController',
       resolve: {
         factory: checkRouting
       }
     }).when('/call/:queueid/:callid', {
-      templateUrl: 'lib/agent/views/detail/detail.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/queue/:queueid/:qslug', {
-      templateUrl: 'lib/agent/views/detail/detail.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/me', {
-      templateUrl: 'lib/agent/views/profile/profile.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/profile/profile.html',
       controller: 'ProfileController',
       resolve: {
         factory: checkRouting
       }
     }).when('/reports', {
-      templateUrl: 'lib/agent/views/reports/reports.html',
+      templateUrl: 'https://cdn.ubicall.com/agent/views/reports/reports.html',
       controller: 'ReportsController',
       resolve: {
         factory: checkRouting
@@ -149,4 +151,13 @@ var checkRouting = function ($q, $location, UiService, Auth, rtmp) {
 angular.module('agentUiApp').config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
   $httpProvider.interceptors.push('callInterceptor');
+});
+
+angular.module('agentUiApp').config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    // Allow same origin resource loads.
+    'self',
+    // Allow loading from our cdn.
+    'https://cdn.ubicall.com/agent/**'
+  ]);
 });

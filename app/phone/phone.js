@@ -9,7 +9,7 @@
  */
 angular.module('agentUiApp')
   .controller('PhoneController', function ($scope , $timeout, $window , $log,
-    rtmp ,FLASH_OBJ_VARS ,FLASH_PHONE_ID ,FLASH_OBJ_PARAMS , AGENT_ANSWER_TIMEOUT) {
+    rtmp ,FLASH_OBJ_VARS ,FLASH_PHONE_ID ,FLASH_OBJ_PARAMS ,FLASH_EXPRESS_INSTALL , AGENT_ANSWER_TIMEOUT) {
 
     // ["signal-none" ,"signal-weak" ,"signal-medium"]
 
@@ -20,6 +20,7 @@ angular.module('agentUiApp')
     $scope.rtmpConfig = FLASH_OBJ_VARS;
     $scope.flashPhoneId = FLASH_PHONE_ID;
     $scope.swfObjParams = FLASH_OBJ_PARAMS;
+    $scope.swfExpressInstall= FLASH_EXPRESS_INSTALL;
 
 
     $scope.$on("rtmp:call", function (event, callInfo) {

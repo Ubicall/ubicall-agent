@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <title>Ubicall Agent</title>
   <meta name="description" content="">
-  <link rel="icon" href="lib/agent/images/favicon.ico"/>
+  <link rel="icon" href="https://cdn.ubicall.com/agent/images/favicon.ico"/>
   <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/components-font-awesome/css/font-awesome.min.css"/>
 
-  <link rel="stylesheet" href="lib/agent/css/style.w.min.css">
-  <link rel="stylesheet" href="lib/agent/css/style.min.css">
+  <link rel="stylesheet" href="https://cdn.ubicall.com/agent/css/style.w.min.css">
+  <link rel="stylesheet" href="https://cdn.ubicall.com/agent/css/style.min.css">
 
 
 </head>
@@ -43,7 +43,7 @@
           <ul class="nav navbar-nav navbar-icons">
             <li ng-class="{'active': current() == 'dash'}">
               <a href="#/main" title="main page">
-                <img src="https://agent.ubicall.com/lib/agent/images/logo-header.png" class="logo-header" alt=""/>
+                <img src="https://cdn.ubicall.com/agent/images/logo-header.png" class="logo-header" alt=""/>
               </a>
             </li>
             <li ng-class="{'active': current() == 'recent'}">
@@ -120,14 +120,14 @@
 
           <!-- Queues -->
 
-          <div ng-include=" 'lib/agent/views/queues/queues.html' "></div>
+          <div ng-include=" 'https://cdn.ubicall.com/agent/views/queues/queues.html' "></div>
 
           <!-- Queues End -->
 
 
           <!-- Phone -->
 
-          <div ng-include=" 'lib/agent/views/phone/phone.html' "></div>
+          <div ng-include=" 'https://cdn.ubicall.com/agent/views/phone/phone.html' "></div>
 
 
           <!-- Phone End -->
@@ -157,56 +157,56 @@
 </div>
 
 
-<script src="lib/jquery/dist/jquery.min.js"></script>
-<script src="lib/lodash/lodash.min.js"></script>
-<script src="lib/angular/angular.min.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="lib/angular-animate/angular-animate.min.js"></script>
-<script src="lib/angular-cookies/angular-cookies.min.js"></script>
-<script src="lib/angular-messages/angular-messages.min.js"></script>
-<script src="lib/angular-resource/angular-resource.min.js"></script>
-<script src="lib/angular-route/angular-route.min.js"></script>
-<script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="lib/angular-touch/angular-touch.min.js"></script>
-<script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
-<script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="lib/angular-css/angular-css.min.js"></script>
-<script src="lib/angular-blocks/dist/angular-blocks.min.js"></script>
-<script src="lib/angular-utils-pagination/dirPagination.js"></script>
-<script src="lib/moment/min/moment.min.js"></script>
-<script src="lib/angular-moment/angular-moment.min.js"></script>
-<script src="lib/swfobject/swfobject.js"></script>
-<script src="lib/angular-swfobject/angular-swfobject.js"></script>
+<script src="https://cdn.ubicall.com/static/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.ubicall.com/static/lodash/lodash.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular/angular.min.js"></script>
+<script src="https://cdn.ubicall.com/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-animate/angular-animate.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-cookies/angular-cookies.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-messages/angular-messages.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-resource/angular-resource.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-route/angular-route.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-touch/angular-touch.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-css/angular-css.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-blocks/dist/angular-blocks.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-utils-pagination/dirPagination.js"></script>
+<script src="https://cdn.ubicall.com/static/moment/min/moment.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-moment/angular-moment.min.js"></script>
+<script src="https://cdn.ubicall.com/static/swfobject/swfobject.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-swfobject/angular-swfobject.js"></script>
 
 <!-- Production Mode-->
-<script src="lib/agent/js/agent.min.js"></script>
+<script src="https://cdn.ubicall.com/agent/js/agent.min.js"></script>
 <!-- End Production Mode-->
 <!-- Development Mode
-<script src="lib/agent/dev/js/app.js"></script>
-<script src="lib/agent/dev/js/common/services/helpers.js"></script>
-<script src="lib/agent/dev/js/common/services/authtoken.js"></script>
-<script src="lib/agent/dev/js/common/services/authinterceptor.js"></script>
-<script src="lib/agent/dev/js/common/services/rtmp.js"></script>
-<script src="lib/agent/dev/js/common/services/callinterceptor.js"></script>
-<script src="lib/agent/dev/js/login/services/auth.js"></script>
-<script src="lib/agent/dev/js/common/services/callcenter.js"></script>
-<script src="lib/agent/dev/js/common/services/comms.js"></script>
-<script src="lib/agent/dev/js/common/services/UiService.js"></script>
-<script src="lib/agent/dev/js/common/controllers/ui.js"></script>
-<script src="lib/agent/dev/js/recent/recent.js"></script>
-<script src="lib/agent/dev/js/login/login.js"></script>
-<script src="lib/agent/dev/js/login/directives/shakeThat.js"></script>
-<script src="lib/agent/dev/js/detail/detail.js"></script>
-<script src="lib/agent/dev/js/detail/filters/peautifyKey.js"></script>
-<script src="lib/agent/dev/js/queues/queues.js"></script>
-<script src="lib/agent/dev/js/queues/filters/callalert.js"></script>
-<script src="lib/agent/dev/js/profile/profile.js"></script>
-<script src="lib/agent/dev/js/profile/directives/pwCheck.js"></script>
-<script src="lib/agent/dev/js/profile/services/profile.js"></script>
-<script src="lib/agent/dev/js/reports/reports.js"></script>
-<script src="lib/agent/dev/js/reports/services/reports.js"></script>
-<script src="lib/agent/dev/js/main/main.js"></script>
-<script src="lib/agent/dev/js/phone/phone.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/app.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/helpers.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/authtoken.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/authinterceptor.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/rtmp.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/callinterceptor.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/login/services/auth.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/callcenter.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/comms.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/services/UiService.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/common/controllers/ui.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/recent/recent.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/login/login.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/login/directives/shakeThat.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/detail/detail.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/detail/filters/peautifyKey.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/queues/queues.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/queues/filters/callalert.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/profile/profile.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/profile/directives/pwCheck.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/profile/services/profile.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/reports/reports.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/reports/services/reports.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/main/main.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/phone/phone.js"></script>
 <!-- End Development Mode-->
 </body>
 </html>
