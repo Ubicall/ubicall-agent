@@ -66,7 +66,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     .when('/', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'https://cdn.ubicall.com/agent/css/login.min.css',
+      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
           // don't load login if user already login 'logout first'
@@ -81,7 +81,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     }).when('/logout', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'https://cdn.ubicall.com/agent/css/login.min.css',
+      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {
@@ -157,7 +157,9 @@ angular.module('agentUiApp').config(function($sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     // Allow same origin resource loads.
     'self',
-    // Allow loading from our cdn.
-    'https://cdn.ubicall.com/agent/**'
+    // Allow loading from our agent cdn.
+    'https://cdn.ubicall.com/agent/**',
+    // Allow loading from our generic cdn.
+    'https://cdn.ubicall.com/static/**',
   ]);
 });
