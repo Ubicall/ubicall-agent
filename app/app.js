@@ -44,7 +44,7 @@ angular
     .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 11);
 angular
     // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
-    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://cdn.ubicall.com/agent/images/default-user-image-small_64x64.png');
+    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://cdn.ubicall.com/static/ubicall/images/default-user-image-small_64x64.png');
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
