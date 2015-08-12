@@ -1,18 +1,19 @@
-<div ng-controller="QueuesController"
-  ng-show="showQueues()" ng-if="isAuthenticatedAndFS()">
-  <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize"
-       current-page="queuesCurrentPage"
-       pagination-id="queuesPaginator">
-    <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}"
-       ng-class="{disabled: queue.calls <= 0}"
-       title="{{{true: 'has ' + queue.calls + ' call waiting ' , false: 'has no calls now'}[queue.calls > 0]}}"
-       class="list-group-item frist-item {{queue.calls | callAlert}}">
-      {{queue.queue_name}}
-    </a>
-  </div>
+<div ng-controller="QueuesController" ng-show="showQueues()" ng-if="isAuthenticatedAndFS()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Your Queues</h4>
+    </div>
+    <div class="panel-body">
+      <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize" current-page="queuesCurrentPage" pagination-id="queuesPaginator">
+        <a href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}" ng-class="{disabled: queue.calls <= 0}" title="{{{true: 'has ' + queue.calls + ' call waiting ' , false: 'has no calls now'}[queue.calls > 0]}}" class="list-group-item frist-item {{queue.calls | callAlert}}">
+          {{queue.queue_name}}
+          <span class="badge">{{queue.calls}}</span>
+        </a>
+      </div>
 
-  <div class="text-center">
-    <dir-pagination-controls
-      boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+      <div class="text-center">
+        <dir-pagination-controls boundary-links="true" pagination-id="queuesPaginator"></dir-pagination-controls>
+      </div>
+    </div>
   </div>
 </div>
