@@ -35,7 +35,7 @@ angular.module('agentUiApp')
       var call;
       angular.forEach(calls, function (_call) {
         if (_call.id == callid && _call.queue_id == queueid && !done) {
-          call = _call;
+          call = _getCallQueueName(_call);
           done = true;
         }
       });
@@ -45,6 +45,15 @@ angular.module('agentUiApp')
         deferred.resolve(call );
       }
       return deferred.promise;
+    }
+
+    function _getCallQueueName(call) {
+      angular.forEach(queues,function(queue){
+        if (!call.queue && queue.queue_id == call.queue_id) {
+          call.queue = queue.queue_name;
+        }
+      });
+      return call;
     }
 
     CallCenter.init = function(){
@@ -85,7 +94,8 @@ angular.module('agentUiApp')
       var deferred = $q.defer();
       $http.get(API_BASE + "/call/" + qid + "/" + qslug)
         .then(function success(res) {
-          return deferred.resolve(res.data);
+          var call = _getCallQueueName(res.data);
+          return deferred.resolve(call);
         }, function error(err) {
           rtmp.hangup();
           deferred.reject(err.data);

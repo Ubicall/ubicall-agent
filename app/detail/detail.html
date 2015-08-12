@@ -18,7 +18,8 @@
         <div ng-if="key != 'call_data' && key != 'api_key' && key != 'uniqueid' &&  key != 'trunk' &&
             key != 'datetime_entry_queue' &&   key != 'id' && key != 'queue_id' && key != 'id_agent' &&
              key != 'failure_cause_txt' && key != 'dnc' && key != 'failure_cause' && key != 'longitude' &&
-             key != 'latitude' && key != 'time_init' && key != 'time_end' && key != 'date_init' && key != 'date_end' ">
+             key != 'latitude' && key != 'time_init' && key != 'time_end' && key != 'date_init' && key != 'date_end'
+             && key != 'vdomain' && key != 'caller_type' ">
           <div class="col-md-2" ng-if="value" >{{key | peautifyKey }}</div>
           <div class="col-md-10 details-fields" ng-if="value && isDate(value)">
             {{value | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
