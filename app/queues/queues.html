@@ -1,7 +1,7 @@
 <div ng-controller="QueuesController" ng-show="showQueues()" ng-if="isAuthenticatedAndFS()">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Your Queues</h4>
+      <h4>Queues</h4>
     </div>
     <div class="panel-body">
       <div dir-paginate="queue in queues | itemsPerPage: queuesPageSize" current-page="queuesCurrentPage" pagination-id="queuesPaginator">
