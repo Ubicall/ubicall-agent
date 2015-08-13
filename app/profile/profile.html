@@ -3,7 +3,7 @@
   <div id="profile">
     <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
     <div class="pro-name">{{user.name}}</div>
-    <div class="pro-title">{{user.title || 'Call Cente'}}</div>
+    <div class="pro-title">{{user.title || 'Call Center Agent'}}</div>
   </div>
 
   <div class="space-01"></div>
@@ -17,7 +17,7 @@
 
     <!-- Password -->
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">New Password</label>
       <input type="password" id="password" name="password" class="form-control input-medium" ng-model="formData.credentials.password" placeholder="Password" pw-check="passwordConfirmation"/>
       <span class="alert-danger" ng-show="registerForm.password.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
 
@@ -25,7 +25,7 @@
 
     <!-- Confirm Password -->
     <div class="form-group">
-      <label for="passwordConfirmation">Confirm Password</label>
+      <label for="passwordConfirmation">Confirm New Password</label>
       <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="form-control input-medium" ng-model="formData.credentials.passwordConfirmation" placeholder="Password" pw-check="password" />
       <span class="alert-danger" ng-show="registerForm.passwordConfirmation.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
     </div>
