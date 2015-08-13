@@ -12,7 +12,7 @@
 
     <div id="dashboard">
 
-      <h3><span>Welcome </span> {{user.email}} <span>, What would you like to go?</span></h3>
+      <h3><span>Welcome </span> {{user.name || user.email }}</h3>
 
       <ul class="dashboard">
         <li><a class="dash-icon" href="#/recent" title="Recent Calls"><i class="fa fa-history"></i>Recent Calls</a>
