@@ -17,7 +17,7 @@
   <div class="recent-title">
     <div class="recent-title-01"></div>
     <div class="recent-title-02">Contact</div>
-    <div class="recent-title-03">Via</div>
+    <div class="recent-title-03">Channel</div>
     <div class="recent-title-04">When</div>
     <div class="recent-title-05">Duration</div>
     <div class="recent-title-06"></div>
@@ -33,7 +33,7 @@
 
         <div class="call-02-name">{{call.address || 'N/A'}}</div>
       </div>
-      <div class="call-03">{{call.phone}}</div>
+      <div class="call-03"><span class="label label-{{call.caller_type | beautifyCallType | styleCallType}}">{{call.caller_type | beautifyCallType}}</span>{{call.phone}}</div>
       <div class="call-04">{{call.start_time | amDateFormat:'MMM Do , h:mm:ss a'}}</div>
       <div class="call-05">{{diffDates(call.end_time,call.start_time)}}</div>
       <div class="call-06">
