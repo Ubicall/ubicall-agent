@@ -93,6 +93,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       }
     }).when('/main', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/main/main.html',
+      controller: 'MainController',
       resolve: {
         factory: checkRouting
       }

@@ -12,7 +12,6 @@ angular.module('agentUiApp')
     if (!Auth.currentUser()) {
       Auth.logout();
     } else {
-      $scope.current = "main";
       UiService.setCurrentTab('main', 'Main Page');
     }
   });
