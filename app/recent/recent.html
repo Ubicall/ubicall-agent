@@ -3,49 +3,45 @@
   <div id="custom-search-input">
     <div class="input-group col-md-12">
       <form>
-        <input ng-disabled="!calls.length" ng-model="qcalls"
-               id="search" type="text" class="form-control" placeholder="Search...">
+        <input ng-disabled="!calls.length" ng-model="qcalls" id="search" type="text" class="form-control" placeholder="Search...">
       </form>
-              <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" type="button">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
-              </span>
+      <span class="input-group-btn">
+        <button class="btn btn-info btn-lg" type="button">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </span>
     </div>
   </div>
 
-  <div class="recent-title">
-    <div class="recent-title-01"></div>
-    <div class="recent-title-02">Contact</div>
-    <div class="recent-title-03">Channel</div>
-    <div class="recent-title-04">When</div>
-    <div class="recent-title-05">Duration</div>
-    <div class="recent-title-06"></div>
+  <div class="recent-header">
+    <div class="col-md-1 bold">&nbsp;</div>
+    <div class="col-md-4">Via</div>
+    <div class="col-md-3">When</div>
+    <div class="col-md-3">Duration</div>
+    <div class="col-md-1">&nbsp;</div>
   </div>
 
   <div class="row">
-    <div dir-paginate="call in calls | orderBy:'-start_time' | filter:qcalls | itemsPerPage: callsPageSize"
-         current-page="callsCurrentPage" pagination-id="callsPaginator"
-         ng-class="{recent01 : $index%2==0, recent02 : !($index%2==0)}">
-      <div class="call-01 cll-current"></div>
-      <div class="call-02">
-        <img src="https://cdn.ubicall.com/static/ubicall/images/default-user-image-small_16x16.png"/>
-
-        <div class="call-02-name">{{call.address || 'N/A'}}</div>
-      </div>
-      <div class="call-03"><span class="label label-{{call.caller_type | beautifyCallType | styleCallType}}">{{call.caller_type | beautifyCallType}}</span>{{call.phone}}</div>
-      <div class="call-04">{{call.start_time | amDateFormat:'MMM Do , h:mm:ss a'}}</div>
-      <div class="call-05">{{diffDates(call.end_time,call.start_time)}}</div>
-      <div class="call-06">
-        <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
-          <i class="fa fa-play"></i>
-        </a>
+    <div dir-paginate="call in calls | orderBy:'-start_time' | filter:qcalls | itemsPerPage: callsPageSize" current-page="callsCurrentPage"
+      pagination-id="callsPaginator" class="recent-body" ng-class="{'recent-gray' : $index%2==0, 'recent-white' : !($index%2==0)}">
+      <div class="row">
+        <div class="col-md-1">
+          <div class="call-current"></div>
+        </div>
+        <div class="col-md-4">
+          <span class="label label-{{call.caller_type | beautifyCallType | styleCallType}}">{{call.caller_type | beautifyCallType}}</span>{{call.phone}}</div>
+        <div class="col-md-3">{{call.start_time | amDateFormat:'MMM Do , h:mm:ss a'}}</div>
+        <div class="col-md-3">{{diffDates(call.end_time,call.start_time)}}</div>
+        <div class="col-md-1">
+          <a ng-href="#/call/{{call.queue_id}}/{{call.id}}">
+            <i class="fa fa-play"></i>
+          </a>
+        </div>
       </div>
     </div>
 
     <div class="text-center">
-      <dir-pagination-controls
-        boundary-links="true" pagination-id="callsPaginator">
+      <dir-pagination-controls boundary-links="true" pagination-id="callsPaginator">
       </dir-pagination-controls>
     </div>
   </div>
