@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/bootstrap/dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/components-font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/angular-notifications-extended/dist/css/notification.css"/>
 
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/agent/custom.css">
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/agent/agent.css">
@@ -18,11 +19,7 @@
 <body ng-app="agentUiApp">
 
 <div id="wrapper" ng-controller="UIController">
-  <div class="alerts-container">
-    <alert ng-repeat="alert in alerts track by $index" type="{{alert.type}}" close="closeAlert($index)">
-      {{alert.msg}}
-    </alert>
-  </div>
+  <div notifications="bottom right"></div>
 
   <!-- Header -->
 
@@ -169,6 +166,7 @@
 <script src="https://cdn.ubicall.com/static/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="https://cdn.ubicall.com/static/angular-touch/angular-touch.min.js"></script>
 <script src="https://cdn.ubicall.com/static/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="https://cdn.ubicall.com/static/angular-notifications-extended/dist/js/notification.min.js"></script>
 <script src="https://cdn.ubicall.com/static/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="https://cdn.ubicall.com/static/angular-css/angular-css.min.js"></script>
 <script src="https://cdn.ubicall.com/static/angular-blocks/dist/angular-blocks.min.js"></script>

@@ -22,7 +22,8 @@ angular
     'LocalStorageModule',
     'angularUtils.directives.dirPagination',
     'angularMoment',
-    'swfobject'
+    'swfobject',
+    'notifications'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api/v1'); // TODO : standardized url for api in dev and prod (may use config file)
