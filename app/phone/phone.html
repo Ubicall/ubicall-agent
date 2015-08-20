@@ -1,4 +1,4 @@
-<div id="calls" ng-controller="PhoneController" ng-if="isAuthenticated()">
+<div id="calls" ng-controller="PhoneController" ng-if="isAuthenticated()" ng-cloak>
 
   <span class="{{signal.class}}" title="{{signal.title}}" ng-if="isCall && !hanguped"></span>
 

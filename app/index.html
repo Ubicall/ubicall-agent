@@ -23,7 +23,7 @@
 
   <!-- Header -->
 
-  <div id="header" ng-if="isAuthenticated()">
+  <div id="header" ng-if="isAuthenticated()" ng-cloak>
 
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -68,8 +68,8 @@
               </a>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <span class="dropdown" dropdown on-toggle="toggled(open)">
+          <ul class="nav navbar-nav navbar-right" ng-cloak>
+            <span class="dropdown" dropdown on-toggle="toggled(open)" >
               <a href class="dropdown-toggle" dropdown-toggle>
                 <i class="fa fa-circle available"></i>
                 {{user.name}}
@@ -94,7 +94,7 @@
 
   <div id="pages">
 
-    <div class="pages-title" ng-if="isAuthenticated()">
+    <div class="pages-title" ng-if="isAuthenticated()" ng-cloak>
       <div class="container">
         {{pageTitle()}}
       </div>
