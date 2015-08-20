@@ -51,11 +51,26 @@ angular.module('agentUiApp')
       return deferred.promise;
     }
 
+    function forgetPassword(email){
+        var deferred = $q.defer();
+        if(!email){
+          deferred.reject("email is required");
+        }
+        $http.post(API_BASE + "/forget", {
+          email: email
+        }).then(function (result) {
+          deferred.resolve(result);
+        }, function (error) {
+          deferred.reject(error);
+        });
+        return deferred.promise;
+    }
 
     return {
       login: login,
       logout: logout,
       isLoggedIn: isLoggedIn,
+      forgetPassword: forgetPassword,
       currentUser: AuthToken.getCurrentUser
     };
   });

@@ -144,7 +144,7 @@
 
   <!-- Footer -->
 
-  <div id="footer">
+  <div id="footer" ng-if="isAuthenticated()">
     <div class="container">
       <p>Ubicall &copy; All Rights Reserved.</p>
     </div>
@@ -192,6 +192,7 @@
 <script src="https://cdn.ubicall.com/agent/dev/js/common/services/UiService.js"></script>
 <script src="https://cdn.ubicall.com/agent/dev/js/common/controllers/ui.js"></script>
 <script src="https://cdn.ubicall.com/agent/dev/js/recent/recent.js"></script>
+<script src="https://cdn.ubicall.com/agent/dev/js/recent/filters/calltype.js"></script>
 <script src="https://cdn.ubicall.com/agent/dev/js/login/login.js"></script>
 <script src="https://cdn.ubicall.com/agent/dev/js/login/directives/shakeThat.js"></script>
 <script src="https://cdn.ubicall.com/agent/dev/js/detail/detail.js"></script>

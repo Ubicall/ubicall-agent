@@ -1,37 +1,38 @@
-<div class="col-md-4 col-md-offset-4 mar-login" >
-  <form name="form" autocomplete="off" novalidate shake-that submitted="submitted" submit="submit()">
-    <div class="panel panel-default box-shadow">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          Login
-        </h3>
-      </div>
-      <div class="panel-body">
+<div id="login">
+
+  <div class="login-header">
+    <img src="https://cdn.ubicall.com/static/ubicall/images/ubicall-logo-login.png" alt="Ubicall logo" />
+  </div>
+
+  <div class="login-body">
+    <div class="login-content">
+
+      <h3>Welcome Back To Ubicall</h3>
+
+      <form name="form" autocomplete="off" novalidate shake-that submitted="submitted" submit="submit()">
+
         <div class="form-group" ng-class="{'has-error': form.email.$invalid && submitted}">
-          <label for="email" class="control-label">Email</label>
-          <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          placeholder="Email"
-          ng-model="email"
-          ng-model-options="{updateOn: 'blur'}"
-          required>
+          <input type="email" class="form-control" name="email" id="email" ng-model="email" ng-model-options="{updateOn: 'blur'}" placeholder="Email" required />
         </div>
+
         <div class="form-group" ng-class="{'has-error': form.password.$invalid && submitted}">
-          <label for="password" class="control-label">Password</label>
-          <input
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          placeholder="Password"
-          ng-model="password"
-          required>
+          <input type="password" class="form-control" name="password" id="password" ng-model="password" placeholder="Password" required />
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-login btn-primary-login">Login</button>
-      </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">stay signed in</label>
+        </div>
+
+        <button type="submit" name="send" class="btn btn-default login-btn">Login</button>
+
+      </form>
+
+      <a href="#/forget_password">Forgot your password?</a>
+
     </div>
-  </form>
+  </div>
+
+  <div class="footer">Ubicall.com &copy; All Rights Reserved. <a href="http://ubicall.com/contact.php" target="_blank">Contact Us</a> | <a href="http://ubicall.com/faq.php" target="_blank">FAQ's</a> | <a href="http://ubicall.com/policy.php" target="_blank">Privacy Policy</a></div>
+
 </div>

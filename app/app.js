@@ -92,6 +92,10 @@ angular.module('agentUiApp').config(function ($routeProvider) {
           });
         }
       }
+    }).when('/forget_password', {
+      templateUrl: 'https://cdn.ubicall.com/agent/views/login/forget.html',
+      controller: 'LoginController',
+      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css'
     }).when('/main', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/main/main.html',
       controller: 'MainController',

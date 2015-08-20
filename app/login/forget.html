@@ -1,0 +1,33 @@
+<div id="login">
+
+  <div class="login-header">
+    <img src="https://cdn.ubicall.com/static/ubicall/images/ubicall-logo-login.png" alt="Ubicall logo" />
+  </div>
+
+
+  <div class="login-body">
+    <div class="login-content">
+
+      <h3>Reset Your Ubicall Password</h3>
+
+      <p>To reset your password for https://agent.ubicall.com, enter your email address and we'll send you an email with instructions.</p>
+
+      <form name="form" autocomplete="off" novalidate submitted="forgetSubmitted" submit="reset()">
+
+        <div class="form-group" ng-class="{'has-error': form.email.$invalid && forgetSubmitted}">
+          <input type="email" class="form-control" name="email" id="email" ng-model="email"
+          ng-model-options="{updateOn: 'blur'}" placeholder="Email" required />
+        </div>
+
+        <button type="submit" name="send" class="btn btn-default login-btn">Reset your password</button>
+
+      </form>
+
+      <a href="#/">Cancel &amp; Back</a>
+
+    </div>
+  </div>
+
+  <div class="footer">Ubicall.com &copy; All Rights Reserved. <a href="http://ubicall.com/contact.php" target="_blank">Contact Us</a> | <a href="http://ubicall.com/faq.php" target="_blank">FAQ's</a> | <a href="http://ubicall.com/policy.php" target="_blank">Privacy Policy</a></div>
+
+</div>

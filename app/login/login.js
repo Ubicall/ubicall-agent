@@ -5,6 +5,7 @@ angular.module('agentUiApp')
 
     // hide error messages until 'submit' event
     $scope.submitted = false;
+    $scope.forgetSubmitted = false;
 
     // method called from shakeThat directive
     $scope.submit = function () {
@@ -16,5 +17,13 @@ angular.module('agentUiApp')
         UiService.error("credentials problem found");
       });
     };
+
+    $scope.reset = function(){
+      Auth.forgetPassword($scope.email).then(function scucces(){
+        $location.path('/login');
+      },function error(){
+        $location.path('/login');
+      });
+    }
 
   });
