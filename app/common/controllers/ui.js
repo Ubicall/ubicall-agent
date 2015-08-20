@@ -105,14 +105,4 @@ angular.module('agentUiApp')
       $location.path('/login');
     });
 
-    $scope.closeAlert = function (index) {
-      UiService.closeAlertIdx(index);
-    };
-
-    $scope.$on('alert:notify', function (event, alerts) {
-      $timeout(function(){
-        $scope.alerts = alerts;
-      });
-    });
-
   });

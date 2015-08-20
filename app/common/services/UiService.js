@@ -8,11 +8,13 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('UiService', function ($timeout, $rootScope) {
+  .factory('UiService', function ($timeout, $rootScope , $notification) {
     var previousTab;
     var currentTab;
     var currentTitle;
-    var alerts = [];
+
+    // will fall back to old notifications if browser not support html5 notification api
+    $notification.enableHtml5Mode()
 
     function setCurrentTab(tab, pageTitle) {
       previousTab = currentTab;
@@ -28,57 +30,19 @@ angular.module('agentUiApp')
       return currentTitle;
     }
 
-    function add(type, msg, timeout) {
-      var that = this;
-      $timeout(function () {
-        closeAlert(that);
-      }, timeout || 2000);
-      alerts.push({
-        type: type,
-        msg: msg,
-        closeable: true,
-        close: function () {
-          return closeAlert(that);
-        }
-      });
-      $rootScope.$broadcast("alert:notify", alerts);
-    }
-
-    function closeAlert(alert) {
-      var re = closeAlertIdx(alerts.indexOf(alert));
-      $rootScope.$broadcast("alert:notify", alerts);
-      return re;
-    }
-
-    function closeAlertIdx(index) {
-      return alerts.splice(index, 1);
-    }
-
-    function clear() {
-      alerts = [];
-    }
-
-    function get() {
-      return alerts;
-    }
-
     return {
       info: function (msg, timout) {
-        add("info", msg, timout);
+        $notification.info('Info', msg, timout);
       },
       ok: function (msg, timout) {
-        add("success", msg, timout);
+        $notification.success('Done', msg, timout);
       },
       error: function (msg, timout) {
-        add("danger", msg, 8000);
+        $notification.error('Error', msg, timout);
       },
       warn: function (msg, timout) {
-        add("warning", msg, timout);
+        $notification.warning('Warning', msg, timout);
       },
-      closeAlert: closeAlert,
-      closeAlertIdx: closeAlertIdx,
-      clear: clear,
-      get: get,
       setCurrentTab: setCurrentTab,
       currentTab: getCurrentTab,
       pageTitle: getPageTitle
