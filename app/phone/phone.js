@@ -8,19 +8,10 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope , $timeout, $window , $log,
-    rtmp ,FLASH_OBJ_VARS ,FLASH_PHONE_ID ,FLASH_OBJ_PARAMS ,FLASH_EXPRESS_INSTALL , AGENT_ANSWER_TIMEOUT) {
+  .controller('PhoneController', function ($scope , $timeout, $window , $log, rtmp , AGENT_ANSWER_TIMEOUT) {
 
-    // ["signal-none" ,"signal-weak" ,"signal-medium"]
-
-    $scope.signal = {class: 'signal-strong', title: 'strong signal'};
-    $scope.fsFlashLoaded = rtmp.onFSLoaded;
     $scope.answered = false ;
     $scope.hanguped = false;
-    $scope.rtmpConfig = FLASH_OBJ_VARS;
-    $scope.flashPhoneId = FLASH_PHONE_ID;
-    $scope.swfObjParams = FLASH_OBJ_PARAMS;
-    $scope.swfExpressInstall= FLASH_EXPRESS_INSTALL;
 
 
     $scope.$on("rtmp:call", function (event, callInfo) {
@@ -59,9 +50,9 @@ angular.module('agentUiApp')
       $timeout(function(){
         if (state.status == "disconnected" || state.status == 'connecting') {
           $scope.isCall = false;
-          $scope.signal = {class: 'signal-none', title: 'no signal'};
+
         }else if (state.status == "connected") {
-          $scope.signal = {class: 'signal-strong', title: 'strong signal'};
+
         }
       });
     });

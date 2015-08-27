@@ -8,13 +8,22 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('UIController', function ($scope, $location , $timeout , $log , UiService, Auth, AuthToken , CallCenter , rtmp,
-    AGENT_ANSWER_TIMEOUT) {
+  .controller('UIController', function ($scope, $location , $timeout , $log , UiService, Auth, AuthToken , CallCenter , rtmp, _swfobject,
+    FLASH_OBJ_VARS ,FLASH_PHONE_ID ,FLASH_OBJ_PARAMS ,FLASH_EXPRESS_INSTALL ,AGENT_ANSWER_TIMEOUT) {
     $scope.userRTMPSession;
     $scope.current = UiService.currentTab;
     $scope.pageTitle = UiService.pageTitle;
     $scope.isAuthenticated = AuthToken.isAuthenticated;
     $scope.user = Auth.currentUser();
+
+    // dim screen to disconnection issues
+    $scope.dimScreen = false;
+
+    $scope.fsFlashLoaded = rtmp.onFSLoaded;
+    $scope.rtmpConfig = FLASH_OBJ_VARS;
+    $scope.flashPhoneId = FLASH_PHONE_ID;
+    $scope.swfObjParams = FLASH_OBJ_PARAMS;
+    $scope.swfExpressInstall= FLASH_EXPRESS_INSTALL;
 
     $scope.isAuthenticatedAndFS = function () {
       $timeout(function(){
@@ -26,6 +35,35 @@ angular.module('agentUiApp')
       var re = /^\/recent|\/queue|\/call|\/reports|\/me/;
       return re.test($location.path());
     }
+
+    // hide header and pages-title in login and forget password pages
+    $scope.hideHeader = function(){
+      var re = /\/login|\/forget_password|\/logout/;
+      return re.test($location.path());
+    }
+
+    // resize Main View from col-md-9 ubi-md-9 ==> col-md-12 if hideHeader or in main or profile page
+    // make col-md-3 ubi-md-3 ==> col-md-3 ubi-md-3 hide
+    $scope.resizeMainView = function(){
+      var re = /\/main|\/me/;
+      return $scope.hideHeader() || re.test($location.path());
+    }
+
+    // global event to watch if client disconnected to backend;
+    $scope.$on('system:disconnected', function (event, cause) {
+      $timeout(function() {
+        $scope.dimScreen = true;
+        $log.info(cause.message);
+      });
+    });
+
+    // global event to watch if client connected to backend;
+    $scope.$on('system:connected', function (event, cause) {
+      $timeout(function() {
+        $scope.dimScreen = false;
+        $log.info(cause.message);
+      });
+    });
 
     $scope.$on('rtmp:state:login', function (event, message) {
       $timeout(function() {
@@ -81,7 +119,7 @@ angular.module('agentUiApp')
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
         if(state.status == 'connected'){
-          UiService.ok("successfully connected to communication server");
+          // UiService.ok("successfully connected to communication server");
         } else {
           $scope.isAuthenticatedAndFS = function () {
             return false;

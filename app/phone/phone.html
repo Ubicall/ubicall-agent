@@ -1,20 +1,70 @@
-<div id="calls" ng-controller="PhoneController" ng-if="isAuthenticated()" ng-cloak>
+<!-- Phone 01 -->
 
-  <span class="{{signal.class}}" title="{{signal.title}}" ng-if="isCall && !hanguped"></span>
+<div id="phone" ng-controller="PhoneController" ng-if="isAuthenticated()" ng-cloak>
 
-  <a class="list-group-item call-call" href="" ng-click="answer()" ng-show="isCall && !answered" data-toggle="collapse">Answer</a>
+  <div class="panel panel-default" ng-if="isCall">
+    <div class="panel-heading" ng-switch on="answered">
+      <h3 class="panel-title" ng-switch-when="true" >Receiving call</h3>
+      <h3 class="panel-title" ng-switch-when="false" >Incoming call</h3>
+    </div>
 
-  <a class="list-group-item call-end" href="" ng-click="hangup()" ng-show="isCall && answered && !hanguped" data-toggle="collapse">Hangup</a>
+    <div class="panel-body">
 
-  <swf-object
-    swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
-    swf-id="{{flashPhoneId}}"
-    swf-width="250"
-    swf-height="300"
-    swf-version="9.0.0"
-    swf-params="swfObjParams"
-    swf-vars= "rtmpConfig"
-    xi-swf-url-str="swfExpressInstall"
-    swf-load="fsFlashLoaded(evt)"/>
+      <img src="https://cdn.ubicall.com/static/ubicall/images/user.png" class="user-img" alt="" />
+      <h2>{{call.caller || '+14156323764'}}</h2>
+      <div class="phone-line"></div>
+      <h4 ng-if="answered">
+        <img src="https://cdn.ubicall.com/static/ubicall/images/phone-02.gif" class="ani-img-02" alt="" /> {{call.period || '00:00:06'}}
+      </h4>
+      <h4 ng-if="!answered">
+        <img src="https://cdn.ubicall.com/static/ubicall/images/phone-01.gif" class="ani-img-01" alt="" /> Incoming call...
+      </h4>
+      <div class="row">
+        <div class="col-md-3">
+          <h3>From</h3>
+        </div>
+        <div class="col-md-9">
+          <p>{{call.caller || '+14156323764'}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <h3>To</h3>
+        </div>
+        <div class="col-md-9">
+          <p>{{call.receiver || '+1 415-632-3764'}}</p>
+        </div>
+      </div>
+      <div class="phone-line"></div>
+      <div class="col-md-6 ubi-pad-01" ng-if="!answered">
+        <button type="button" class="btn btn-primary ubi-btn-phone-01" ng-click="answer()" id="accept">Accept</button>
+      </div>
+      <div class="col-md-6 ubi-pad-02" ng-if="!answered">
+        <button type="button" class="btn btn-primary ubi-btn-phone-02" ng-click="hangup()">Reject</button>
+      </div>
+      <div class="col-md-6 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn ubi-btn-phone-03" disabled="true" title="not avialable">Mute</button>
+      </div>
+      <div class="col-md-6 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn ubi-btn-phone-03"  disabled="true" title="not avialable">Hold</button>
+      </div>
+      <div class="col-md-4 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn ubi-btn-phone-04"  disabled="true" title="not avialable">Transfer</button>
+      </div>
+      <div class="col-md-4 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn ubi-btn-phone-04"  disabled="true" title="not avialable">Add Guest</button>
+      </div>
+      <div class="col-md-4 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn ubi-btn-phone-04"  disabled="true" title="not avialable">Keypad</button>
+      </div>
+
+      <div class="col-md-12 ubi-pad-03" ng-if="answered">
+        <button type="button" class="btn btn-primary ubi-btn-phone-02" id="end-call" ng-click="hangup()">End Call</button>
+      </div>
+
+    </div>
+  </div>
+
+  
 
 </div>

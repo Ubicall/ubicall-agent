@@ -11,7 +11,7 @@
  * Service in the agentUiApp as socket connection between frontend and client and backend one
  */
 angular.module('agentUiApp')
-  .service('comms', function ($q, $location, Auth, AuthToken, UiService) {
+  .service('comms', function ($q, $location , $rootScope , Auth, AuthToken) {
     var subscriptions = {};
     var ws;
     var pendingAuth = true;
@@ -44,6 +44,7 @@ angular.module('agentUiApp')
           } else {
             completeConnection();
           }
+          $rootScope.$broadcast("system:connected",{message : "connected back to server"});
         };
         ws.onmessage = function (event) {
           var msg = JSON.parse(event.data);
@@ -68,7 +69,9 @@ angular.module('agentUiApp')
         };
         ws.onclose = function (event) {
           //TODO: check event code and reason , if has no privilege then forward to login
-          UiService.error("Lost connection to server");
+          $rootScope.$broadcast("system:disconnected",{message : "Lost connection to server"});
+          // should re Re-authenticate again
+          pendingAuth = true;
           setTimeout(connectWS, 1000);
         };
 

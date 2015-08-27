@@ -1,211 +1,261 @@
-<!doctype html>
-<html class="no-js">
+<!DOCTYPE html>
+<html>
+
 <head>
-  <meta charset="utf-8">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Ubicall" />
+  <meta name="robots" content="index, follow" />
+
   <title>Ubicall Agent</title>
-  <meta name="description" content="">
-  <link rel="icon" href="https://cdn.ubicall.com/static/ubicall/images/favicon.ico"/>
-  <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/bootstrap/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/components-font-awesome/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/angular-notifications-extended/dist/notification.css"/>
+  <meta name="description" content="Ubicall" />
 
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/agent/custom.css">
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/agent/agent.css">
+  <meta name="keywords" content="Ubicall" />
 
+  <link rel="icon" href="https://cdn.ubicall.com/static/ubicall/images/favicon.ico" />
+  <link rel="icon" href="https://cdn.ubicall.com/static/angular/angular-csp.css" />
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/components-font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/demo/agent/agent.css" />
 
 </head>
+
 <body ng-app="agentUiApp">
 
-<div id="wrapper" ng-controller="UIController">
-  <div notifications="bottom right"></div>
 
-  <!-- Header -->
+  <div id="wrapper" ng-controller="UIController">
 
-  <div id="header" ng-if="isAuthenticated()" ng-cloak>
+    <!-- Loading Screen -->
+    <div id="loading-page" ng-class="dimScreen? '' : 'hide'">
+      <img src="https://cdn.ubicall.com/static/ubicall/images/logo-min.png" class="logo-min" alt="">
+      <h1>
+        <img src="https://cdn.ubicall.com/static/ubicall/images/loading.gif" class="load-img" alt=""> Connecting ...</h1>
+      <h2>( This may take a few seconds , depending on your internet connection)</h2>
+    </div>
+    <!-- End Loading Screen -->
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <!-- Header -->
+
+    <div id="header" ng-class="hideHeader() ? 'hide' : ''">
+
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <!-- anchor target="_self" is selver bullet to hard integration of bootstrap and angularjs-->
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-icons">
+              <li ng-class="{'active': current() == 'main'}">
+                <a href="#/main" data-toggle="tooltip" data-placement="bottom" title="Dashboard">
+                  <img src="https://cdn.ubicall.com/static/ubicall/images/logo-header.png" class="logo-header" alt="" />
+                </a>
+              </li>
+              <li ng-class="{'active': current() == 'recent'}"><a href="#/recent" data-toggle="tooltip" data-placement="bottom" title="Recent Calls"><i class="fa fa-history"></i></a></li>
+              <li><a href="#" target="_self" data-toggle="tooltip" data-placement="bottom" title="Contacts (Coming Soon)"><i class="glyphicon glyphicon-user"></i></a></li>
+              <li><a href="#" target="_self" data-toggle="tooltip" data-placement="bottom" title="Messages (Coming Soon)"><i class="fa fa-envelope"></i><!--<span class="badge">8</span>--></a></li>
+              <li><a href="#" target="_self" data-toggle="tooltip" data-placement="bottom" title="Reports (Coming Soon)"><i class="fa fa-flag"></i></a></li>
+              <li><a href="#" target="_self" data-toggle="tooltip" data-placement="bottom" title="Settings (Coming Soon)"><i class="fa fa-cog"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+              <li class="dropdown"><a href="#" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-circle available"></i> Available <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" target="_self"><i class="fa fa-circle available"></i> Available</a></li>
+                  <li><a href="#" target="_self"><i class="fa fa-circle away"></i> Away</a></li>
+                  <li><a href="#" target="_self"><i class="fa fa-circle offline"></i> Offline</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a href="#" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{user.name}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#/me">Profile</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#" data-toggle="tooltip" data-placement="left" title="Notifications (Coming Soon)">Notifications</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#/logout">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Header End -->
+
+
+    <div class="clear"></div>
+
+
+    <!-- Page -->
+
+    <div id="pages">
+
+      <div class="pages-title" ng-class="hideHeader() ? 'hide' : ''">
+        <div class="container">
+          <h1>{{pageTitle()}}</h1>
+        </div>
+      </div>
+
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                  aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-icons">
-            <li ng-class="{'active': current() == 'main'}">
-              <a href="#/main" title="main page">
-                <img src="https://cdn.ubicall.com/static/ubicall/images/logo-header.png" class="logo-header" alt=""/>
-              </a>
-            </li>
-            <li ng-class="{'active': current() == 'recent'}">
-              <a href="#/recent" title="recent calls">
-                <i class="fa fa-history"></i>
-              </a>
-            </li>
-            <li ng-class="{'active': current() == 'profile'}">
-              <a href="#/me" title="profile">
-                <i class="glyphicon glyphicon-user"></i>
-              </a>
-            </li>
-            <li ng-class="{'active': current() == 'current' || current() == 'detail'}">
-              <a href="#/current" title="call detail">
-                <i class="fa fa-envelope"></i>
-                <!--<span class="badge">8</span>-->
-              </a>
-            </li>
-            <li ng-class="{'active': current() == 'settings'}">
-              <a href="#/settings" title="settings"><i class="fa fa-cog"></i>
-              </a>
-            </li>
-            <li ng-class="{'active': current() == 'reports'}">
-              <a href="#/reports" title="reports"><i class="fa fa-flag"></i>
-              </a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right" ng-cloak>
-            <span class="dropdown" dropdown on-toggle="toggled(open)" >
-              <a href class="dropdown-toggle" dropdown-toggle>
-                <i class="fa fa-circle available"></i>
-                {{user.name}}
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="#" ng-click="status(available)"><i class="fa fa-circle available"></i> Available</a></li>
-                <li><a href="#" ng-click="status(away)"><i class="fa fa-circle after"></i> Away</a></li>
-                <li class="divider" role="presentation"></li>
-                <li><a href="#/logout">logout</a></li>
-                <li><a href="#/me">profile</a></li>
-              </ul>
-          </span>
-          </ul>
+        <div class="page-main">
+
+          <div class="row">
+
+            <div ng-class="resizeMainView() ? 'col-md-12' : 'col-md-9 col-ubi-9'">
+
+              <div ng-view=""></div>
+
+            </div>
+
+            <div ng-class="resizeMainView()? 'hide' : 'col-md-3 col-ubi-3'">
+
+              <!-- Queues -->
+
+              <div ng-include=" 'https://cdn.ubicall.com/agent/views/queues/queues.html' "></div>
+
+              <!-- Queues End -->
+
+              <!-- Phone -->
+
+              <div ng-include=" 'https://cdn.ubicall.com/agent/views/phone/phone.html' "></div>
+
+              <!-- Phone End -->
+
+            </div>
+
+          </div>
+
         </div>
       </div>
-    </nav>
 
-  </div>
+    </div>
 
-  <!--Header End-->
-  <div class="clear"></div>
+    <!-- Page End -->
 
-  <div id="pages">
+    <div class="clear"></div>
 
-    <div class="pages-title" ng-if="isAuthenticated()" ng-cloak>
+    <!--flash modal-->
+
+    <div id="ubi-flash">
+      <swf-object swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
+        swf-id="{{flashPhoneId}}"
+        swf-width="565"
+        swf-height="300"
+        swf-version="9.0.0"
+        swf-params="swfObjParams"
+        swf-vars="rtmpConfig"
+        xi-swf-url-str="swfExpressInstall"
+        swf-load="fsFlashLoaded(evt)"/>
+    </div>
+
+    <div class="modal fade" id="flashModal" backdrop="static" keyboard="false" tabindex="-1" role="dialog" aria-labelledby="flashModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="flashModalLabel">Permession Needed</h4>
+          </div>
+          <div class="modal-body">
+            <p>You must accept to use your microphone on this site in order to be able to make phone calls</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--End flash modal -->
+
+
+    <!-- Footer -->
+
+    <div id="footer">
       <div class="container">
-        {{pageTitle()}}
+        <p>Ubicall &copy; All Rights Reserved. <a href="http://ubicall.com/contact.php" target="_blank">Contact Us</a> | <a href="http://ubicall.com/faq.php" target="_blank">FAQ's</a> | <a href="http://ubicall.com/policy.php" target="_blank">Privacy Policy</a></p>
       </div>
     </div>
 
-
-    <div class="container page-main">
-
-      <div class="row">
-        <!-- Right Page -->
-
-        <div ng-view=""></div>
-
-        <!-- Right Page End -->
-
-
-        <!-- Left Page -->
-
-        <div class="col-md-3" ng-if="isAuthenticated()">
-
-          <!-- Queues -->
-
-          <div ng-include=" 'https://cdn.ubicall.com/agent/views/queues/queues.html' "></div>
-
-          <!-- Queues End -->
-
-
-          <!-- Phone -->
-
-          <div ng-include=" 'https://cdn.ubicall.com/agent/views/phone/phone.html' "></div>
-
-
-          <!-- Phone End -->
-
-        </div>
-
-        <!-- Left Page End -->
-
-      </div>
-
-    </div>
+    <!-- Footer End -->
 
   </div>
 
-  <div class="clear"></div>
+  <!-- js -->
+  <script src="https://cdn.ubicall.com/static/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/lodash/lodash.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular/angular.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-animate/angular-animate.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-cookies/angular-cookies.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-messages/angular-messages.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-resource/angular-resource.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-route/angular-route.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-touch/angular-touch.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-notifications-extended/dist/notification.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-css/angular-css.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-blocks/dist/angular-blocks.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-utils-pagination/dirPagination.js"></script>
+  <script src="https://cdn.ubicall.com/static/moment/min/moment.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-moment/angular-moment.min.js"></script>
+  <script src="https://cdn.ubicall.com/static/swfobject/swfobject/swfobject.js"></script>
+  <script src="https://cdn.ubicall.com/static/angular-swfobject/angular-swfobject.js"></script>
+
+  <!-- Production Mode
+  <script src="https://cdn.ubicall.com/agent/js/agent.min.js"></script>
+  <!-- End Production Mode-->
+  <!-- Development Mode-->
+  <script src="https://cdn.ubicall.com/agent/dev/js/app.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/helpers.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/authtoken.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/authinterceptor.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/rtmp.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/callinterceptor.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/login/services/auth.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/callcenter.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/comms.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/services/UiService.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/common/controllers/ui.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/recent/recent.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/recent/filters/calltype.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/login/login.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/login/directives/shakeThat.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/detail/detail.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/detail/filters/peautifyKey.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/queues/queues.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/queues/filters/callalert.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/profile/profile.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/profile/directives/pwCheck.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/profile/services/profile.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/reports/reports.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/reports/services/reports.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/main/main.js"></script>
+  <script src="https://cdn.ubicall.com/agent/dev/js/phone/phone.js"></script>
+  <!-- End Development Mode-->
+
+  <script>
+    $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
 
 
-  <!-- Footer -->
+  <!-- js End -->
 
-  <div id="footer" ng-if="isAuthenticated()">
-    <div class="container">
-      <p>Ubicall &copy; All Rights Reserved.</p>
-    </div>
-  </div>
-
-  <!-- Footer End -->
-</div>
-
-
-<script src="https://cdn.ubicall.com/static/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.ubicall.com/static/lodash/lodash.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular/angular.min.js"></script>
-<script src="https://cdn.ubicall.com/static/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-animate/angular-animate.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-cookies/angular-cookies.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-messages/angular-messages.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-resource/angular-resource.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-route/angular-route.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-sanitize/angular-sanitize.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-touch/angular-touch.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-local-storage/dist/angular-local-storage.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-notifications-extended/dist/notification.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-css/angular-css.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-blocks/dist/angular-blocks.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-utils-pagination/dirPagination.js"></script>
-<script src="https://cdn.ubicall.com/static/moment/min/moment.min.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-moment/angular-moment.min.js"></script>
-<script src="https://cdn.ubicall.com/static/swfobject/swfobject/swfobject.js"></script>
-<script src="https://cdn.ubicall.com/static/angular-swfobject/angular-swfobject.js"></script>
-
-<!-- Production Mode-->
-<script src="https://cdn.ubicall.com/agent/js/agent.min.js"></script>
-<!-- End Production Mode-->
-<!-- Development Mode
-<script src="https://cdn.ubicall.com/agent/dev/js/app.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/helpers.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/authtoken.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/authinterceptor.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/rtmp.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/callinterceptor.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/login/services/auth.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/callcenter.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/comms.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/services/UiService.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/common/controllers/ui.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/recent/recent.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/recent/filters/calltype.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/login/login.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/login/directives/shakeThat.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/detail/detail.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/detail/filters/peautifyKey.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/queues/queues.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/queues/filters/callalert.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/profile/profile.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/profile/directives/pwCheck.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/profile/services/profile.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/reports/reports.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/reports/services/reports.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/main/main.js"></script>
-<script src="https://cdn.ubicall.com/agent/dev/js/phone/phone.js"></script>
-<!-- End Development Mode-->
 </body>
+
 </html>

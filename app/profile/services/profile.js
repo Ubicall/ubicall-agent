@@ -13,6 +13,26 @@ angular.module('agentUiApp')
       return AuthToken.getCurrentUser();
     }
 
+    function updateImage(image){
+      var deferred = $q.defer();
+      if(image){
+        var changes = new FormData();
+        changes.append('image', options.image);
+        $http.post(API_BASE + "/users/me", changes, {
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+          }).then(function(result) {
+          deferred.resolve({message : "Your Image Updated Successfully"});
+        }, function(error) {
+          deferred.reject({message : "Error Occurred While Updating Your Image"});
+        });
+      }else {
+        deferred.resolve({message : "No Image To Update"});
+      }
+
+      return deferred.promise;
+    }
+
     function updateUserInfo(options) {
       var deferred = $q.defer();
       if (!options.credentials.currentPassword) {

@@ -1,43 +1,54 @@
-<div class="col-md-9 right-line-pages" ng-if="isAuthenticated()" ng-cloak>
+<div id="profile" ng-if="isAuthenticated()" ng-cloak>
 
-  <div id="profile">
-    <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
-    <div class="pro-name">{{user.name}}</div>
-    <div class="pro-title">{{user.title || 'Call Center Agent'}}</div>
+  <div class="col-md-4">
+    <div class="custom-wrapper">
+      <i class="fa fa-camera ico-pro"></i>
+      <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
+      <div class="custom-wrapper_box">
+        <p>Update Profile Picture</p>
+        <input class="form-control input-medium" type="file" accept="image/*"
+          onchange="angular.element(this).scope().setImage(this.files)" />
+      </div>
+    </div>
   </div>
 
-  <div class="space-01"></div>
+  <div class="col-md-8">
 
-  <form class="form-horizontal" name="registerForm" role="form" ng-submit="updateUser()" novalidate>
-    <div class="form-group">
-      <label for="cpassword">Current Password</label>
-      <input type="password" name="cpassword" class="form-control input-medium" placeholder="Current Password" ng-model="formData.credentials.currentPassword" required>
-      <span class="alert-danger" ng-show="(registerForm.cpassword.$dirty || registerForm.password.$dirty ) && registerForm.cpassword.$error.required">The Current Password is Mandatory</span>
+    <div class="pro-name">{{user.name}}</div>
+    <div class="pro-title">{{user.title || 'Call Center Agent'}}</div>
+
+    <div class="space-01"></div>
+
+    <div class="col-md-6">
+
+      <form class="form-horizontal" name="registerForm" role="form" ng-submit="updateUser()" novalidate>
+        <div class="form-group">
+          <label for="cpassword">Current Password</label>
+          <input type="password" name="cpassword" class="form-control input-medium" placeholder="Current Password" ng-model="formData.credentials.currentPassword" required>
+          <span class="alert-danger" ng-show="(registerForm.cpassword.$dirty || registerForm.password.$dirty ) && registerForm.cpassword.$error.required">The Current Password is Mandatory</span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">New Password</label>
+          <input type="password" id="password" name="password" class="form-control input-medium" ng-model="formData.credentials.password" placeholder="Password" pw-check="passwordConfirmation"/>
+          <span class="alert-danger" ng-show="registerForm.password.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
+
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="passwordConfirmation">Confirm New Password</label>
+          <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="form-control input-medium" ng-model="formData.credentials.passwordConfirmation" placeholder="Password" pw-check="password" />
+          <span class="alert-danger" ng-show="registerForm.passwordConfirmation.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
+        </div>
+
+        <button type="submit"ng-disabled="!registerForm.$valid" class="btn btn-primary">Save</button>
+
+      </form>
+
     </div>
 
-    <!-- Password -->
-    <div class="form-group">
-      <label for="password">New Password</label>
-      <input type="password" id="password" name="password" class="form-control input-medium" ng-model="formData.credentials.password" placeholder="Password" pw-check="passwordConfirmation"/>
-      <span class="alert-danger" ng-show="registerForm.password.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
-
-    </div>
-
-    <!-- Confirm Password -->
-    <div class="form-group">
-      <label for="passwordConfirmation">Confirm New Password</label>
-      <input type="password" id="passwordConfirmation" name="passwordConfirmation" class="form-control input-medium" ng-model="formData.credentials.passwordConfirmation" placeholder="Password" pw-check="password" />
-      <span class="alert-danger" ng-show="registerForm.passwordConfirmation.$dirty && registerForm.passwordConfirmation.$error.pwcheck">confirmation password and new password not match</span>
-    </div>
-
-    <div class="form-group">
-      <label>Change your image</label>
-      <input class="form-control input-medium" type="file" accept="image/*"
-        onchange="angular.element(this).scope().setImage(this.files)" />
-    </div>
-
-    <button type="submit"ng-disabled="!registerForm.$valid" class="btn btn-primary">Save</button>
-
-  </form>
+  </div>
 
 </div>
