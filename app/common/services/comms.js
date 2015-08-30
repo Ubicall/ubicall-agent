@@ -69,7 +69,7 @@ angular.module('agentUiApp')
         };
         ws.onclose = function (event) {
           //TODO: check event code and reason , if has no privilege then forward to login
-          $rootScope.$broadcast("system:disconnected",{message : "Lost connection to server"});
+          $rootScope.$broadcast("system:error:disconnected",{message : "Lost connection to server"});
           // should re Re-authenticate again
           pendingAuth = true;
           setTimeout(connectWS, 1000);

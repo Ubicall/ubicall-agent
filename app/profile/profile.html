@@ -3,7 +3,7 @@
   <div class="col-md-4">
     <div class="custom-wrapper">
       <i class="fa fa-camera ico-pro"></i>
-      <img src="{{user.image}}" class="pro-img" alt="{{user.name}}" />
+      <img src="{{user.image || 'https://cdn.ubicall.com/static/ubicall/images/user.png'}}" class="pro-img" alt="{{user.name}}" />
       <div class="custom-wrapper_box">
         <p>Update Profile Picture</p>
         <input class="form-control input-medium" type="file" accept="image/*"

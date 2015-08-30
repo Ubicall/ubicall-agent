@@ -50,7 +50,7 @@ angular.module('agentUiApp')
     }
 
     // global event to watch if client disconnected to backend;
-    $scope.$on('system:disconnected', function (event, cause) {
+    $scope.$on('system:error:disconnected', function (event, cause) {
       $timeout(function() {
         $scope.dimScreen = true;
         $log.info(cause.message);
@@ -62,6 +62,15 @@ angular.module('agentUiApp')
       $timeout(function() {
         $scope.dimScreen = false;
         $log.info(cause.message);
+      });
+    });
+
+    // flash is disabled (should check webRTC ) dem screen
+    $scope.$on('system:error:flash', function (event, cause) {
+      $timeout(function() {
+        $scope.dimScreen = true;
+        $log.info(cause.message);
+        UiService.error(cause.message);
       });
     });
 

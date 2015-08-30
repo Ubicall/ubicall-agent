@@ -96,6 +96,7 @@ angular.module('agentUiApp')
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
+      $window.fsFlashRequiredPermission();
       if (AuthToken.isAuthenticated()) {
         fsLogin();
       }
@@ -159,7 +160,14 @@ angular.module('agentUiApp')
       } else {
         $window.onConnected = null;
         $window.onDisconnected = null;
-        $rootScope.$broadcast("rtmp:problem", {message: "flash fail in loading , please reload page", level: 1});
+        $rootScope.$broadcast("system:error:flash",{message : "flash may be disable , please enable it and reload the page."});
+      }
+    };
+
+    $window.fsFlashRequiredPermission = function(){
+      $log.debug("fsFlashRequiredPermession");
+      if(fsrtmp.isMuted()){
+        $('#flashModal').modal('show');
       }
     };
 

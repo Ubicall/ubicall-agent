@@ -13,12 +13,12 @@ angular.module('agentUiApp')
       return AuthToken.getCurrentUser();
     }
 
-    function updateImage(image){
+    function updateUserImage(image){
       var deferred = $q.defer();
       if(image){
         var changes = new FormData();
-        changes.append('image', options.image);
-        $http.post(API_BASE + "/users/me", changes, {
+        changes.append('image', image);
+        $http.post(API_BASE + "/users/me/image", changes, {
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
           }).then(function(result) {
@@ -29,7 +29,6 @@ angular.module('agentUiApp')
       }else {
         deferred.resolve({message : "No Image To Update"});
       }
-
       return deferred.promise;
     }
 
@@ -63,6 +62,7 @@ angular.module('agentUiApp')
 
     return {
       get: get,
+      updateUserImage: updateUserImage,
       updateUserInfo: updateUserInfo
     };
   });

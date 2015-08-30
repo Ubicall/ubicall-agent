@@ -145,20 +145,19 @@
 
     <!--flash modal-->
 
-    <div id="ubi-flash">
-      <swf-object swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
+    <div id="ubi-flash" style="z-index:-99999">
+      <swf-object
+        swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
         swf-id="{{flashPhoneId}}"
-        swf-width="565"
-        swf-height="300"
+        swf-width="215" swf-height="140"
         swf-version="9.0.0"
         swf-params="swfObjParams"
-        swf-vars="rtmpConfig"
-        xi-swf-url-str="swfExpressInstall"
+        swf-vars="rtmpConfig" xi-swf-url-str="swfExpressInstall"
         swf-load="fsFlashLoaded(evt)"/>
     </div>
 
-    <div class="modal fade" id="flashModal" backdrop="static" keyboard="false" tabindex="-1" role="dialog" aria-labelledby="flashModalLabel">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="flashModal" tabindex="-1" role="dialog" aria-labelledby="flashModalLabel" data-backdrop="static">
+      <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -167,11 +166,12 @@
             <h4 class="modal-title" id="flashModalLabel">Permession Needed</h4>
           </div>
           <div class="modal-body">
-            <p>You must accept to use your microphone on this site in order to be able to make phone calls</p>
-
+            <p>You must accept to use your microphone in order to be able to make phone calls</p>
+            <div class="ubi-flash-modal">
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default ubi-btn-left" data-dismiss="modal">accept</button>
           </div>
         </div>
       </div>
@@ -249,6 +249,18 @@
 
   <script>
     $(document).ready(function() {
+      $('#flashModal').on('shown.bs.modal', function(e) {
+        $('#ubi-flash').css("z-index", "99999");
+      });
+      $('#flashModal').on('show.bs.modal', function(e) {
+        $('#ubi-flash').css("z-index", "99999");
+      });
+      $('#flashModal').on('hide.bs.modal', function(e) {
+        $('#ubi-flash').css("z-index", "-99999");
+      });
+      $('#myModal').on('hidden.bs.modal', function(e) {
+        $('#ubi-flash').css("z-index", "-99999");
+      });
       $('[data-toggle="tooltip"]').tooltip();
     });
   </script>
