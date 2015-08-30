@@ -45,7 +45,7 @@ angular
     .module('agentUiApp').constant('AGENT_ANSWER_TIMEOUT', 11);
 angular
     // if agent to answer in less than next value 'in seconds' , will hangup this call (so it will be retried)
-    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://cdn.ubicall.com/static/ubicall/images/default-user-image-small_64x64.png');
+    .module('agentUiApp').constant('AGENT_DEFAULT_AVATAR', 'https://cdn.ubicall.com/static/ubicall/images/user.png');
 angular
   .module('agentUiApp').constant('angularMomentConfig', {
     preprocess: 'utc'
@@ -53,6 +53,9 @@ angular
 angular.module('agentUiApp')
     // lodash support
     .constant('_', window._);
+angular.module('agentUiApp')
+    // lodash support
+    .constant('_swfobject', window.swfobject);
 
 
 angular.module('agentUiApp').config(function (localStorageServiceProvider) {
@@ -64,16 +67,29 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
 
 angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
-    .when('/', {
+  .when('/', {
+    templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
+    controller: 'LoginController',
+    resolve: {
+      factory: function ($q, $location, Auth, UiService) {
+        // don't load login if user already login 'logout first'
+        Auth.isLoggedIn().then(function () {
+          $q.defer().reject();
+          $location.path("/main");
+        }, function () {
+          $location.path("/login");
+        });
+      }
+    }
+  }).when('/login', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
           // don't load login if user already login 'logout first'
           Auth.isLoggedIn().then(function () {
             $q.defer().reject();
-            $location.path("/recent");
+            $location.path("/main");
           }, function () {
             return true;
           });
@@ -82,7 +98,6 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     }).when('/logout', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
       controller: 'LoginController',
-      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
           Auth.logout().then(function () {
@@ -95,7 +110,6 @@ angular.module('agentUiApp').config(function ($routeProvider) {
     }).when('/forget_password', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/login/forget.html',
       controller: 'LoginController',
-      css: 'https://cdn.ubicall.com/static/ubicall/css/agent/login.css'
     }).when('/main', {
       templateUrl: 'https://cdn.ubicall.com/agent/views/main/main.html',
       controller: 'MainController',

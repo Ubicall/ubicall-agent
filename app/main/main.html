@@ -1,35 +1,18 @@
-<!-- Page -->
+<div id="dashboard">
 
-<div id="pages" ng-cloak>
+  <h3>Welcome {{user.name}},
+    <span>What would you like to do?</span>
+  </h3>
 
-  <div class="pages-title">
-    <div class="container">
-      Dashboard
-    </div>
+  <div class="col-md-12">
+    <ul class="dashboard">
+      <li><a class="dash-icon" href="#/recent" title="Recent Calls"><i class="fa fa-history"></i>Recent Calls</a></li>
+      <li><a class="dash-icon" href="#" title="Contacts"><i class="glyphicon glyphicon-user"></i>Contacts (Coming Soon)</a></li>
+      <li><a class="dash-icon" href="#" title="Messages"><i class="fa fa-envelope"></i>Messages (Coming Soon)</a></li>
+      <li><a class="dash-icon" href="#" title="Reports"><i class="fa fa-flag"></i>Reports (Coming Soon)</a></li>
+      <li><a class="dash-icon" href="#" title="Settings"><i class="fa fa-cog"></i>Settings (Coming Soon)</a></li>
+      <li><a class="dash-icon" href="#/me" title="Profile"><i class="fa fa-user"></i>Profile</a></li>
+    </ul>
   </div>
 
-  <div class="container page-main">
-
-    <div id="dashboard">
-
-      <h3><span>Welcome </span> {{user.name || user.email }}</h3>
-
-      <ul class="dashboard">
-        <li><a class="dash-icon" href="#/recent" title="Recent Calls"><i class="fa fa-history"></i>Recent Calls</a>
-        </li>
-        <li><a class="dash-icon" href="#/contacts" title="Contacts"><i class="glyphicon glyphicon-user"></i>Contacts</a></li>
-        <li><a class="dash-icon" href="#/messages" title="Messages"><i class="fa fa-envelope"></i>Messages</a></li>
-        <li><a class="dash-icon" href="#/reports" title="Reports"><i class="fa fa-flag"></i>Reports</a></li>
-        <li><a class="dash-icon" href="#/settings" title="Settings"><i class="fa fa-cog"></i>Settings</a></li>
-        <li><a class="dash-icon" href="#/me" title="Profile"><i class="fa fa-user"></i>Profile</a></li>
-      </ul>
-
-    </div>
-
-  </div>
 </div>
-
-<!-- Page End -->
-
-
-<div class="clear"></div>

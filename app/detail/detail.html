@@ -1,61 +1,82 @@
-<div class="col-md-9 right-line-pages" ng-if="isAuthenticated()" ng-cloak>
+<div id="details" ng-if="isAuthenticated()" ng-cloak>
 
-  <div id="details-calls">
-    <img src="https://cdn.ubicall.com/static/ubicall/images/default-user-image-small_48x48.png" class="det-img" alt=""/>
+  <div class="col-md-2">
+    <img src="https://cdn.ubicall.com/static/ubicall/images/user.png" class="det-img" alt="" />
+  </div>
 
-    <div class="det-num">{{call.phone}}</div>
-    <div class="det-name">{{call.phone}}</div>
-    <div class="det-title">Call center manager at Ubicall</div>
+  <div class="col-md-10">
+    <div class="det-phone">{{call.phone}}</div>
+    <div class="det-name">{{call.caller || 'Unknown'}}</div>
+    <div class="det-title">{{call.caller_title || 'Unknown'}}</div>
   </div>
 
   <div class="space-01"></div>
 
-  <!-- Tabs -->
+  <div class="row">
+    <div class="col-md-12">
 
-  <tabset justified="true">
-    <tab heading="General">
-      <div class="row" ng-repeat="(key, value) in call">
-        <div ng-if="key != 'call_data' && key != 'api_key' && key != 'uniqueid' &&  key != 'trunk' &&
-            key != 'datetime_entry_queue' &&   key != 'id' && key != 'queue_id' && key != 'id_agent' &&
-             key != 'failure_cause_txt' && key != 'dnc' && key != 'failure_cause' && key != 'longitude' &&
-             key != 'latitude' && key != 'time_init' && key != 'time_end' && key != 'date_init' && key != 'date_end'
-             && key != 'vdomain' && key != 'caller_type' ">
-          <div class="col-md-2" ng-if="value" >{{key | peautifyKey }}</div>
-          <div class="col-md-10 details-fields" ng-if="value && isDate(value)">
-            {{value | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
+      <!-- Tabs -->
+      <div role="tabpanel">
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a target="_self" href="#General" aria-controls="General" role="tab" data-toggle="tab">General</a></li>
+          <li role="presentation" ng-if="call.call_data"><a target="_self" href="#Call-Data" aria-controls="profile" role="tab" data-toggle="tab">Call Data</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="General">
+
+            <div class="ubi-det">
+              <div class="col-md-3">Phone </div>
+              <div class="col-md-9 det-field">{{call.phone}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.status">
+              <div class="col-md-3">Status </div>
+              <div class="col-md-9 det-field">{{call.status}}</div>
+            </div>
+            <div class="ubi-det">
+              <div class="col-md-3">Agent </div>
+              <div class="col-md-9 det-field">{{call.agent}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.schedule_time">
+              <div class="col-md-3">Schedule Time </div>
+              <div class="col-md-9 det-field">{{call.schedule_time}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.duration">
+              <div class="col-md-3">Duration</div>
+              <div class="col-md-9 det-field">{{call.duration}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.duration_wait">
+              <div class="col-md-3">Duration Wait</div>
+              <div class="col-md-9 det-field">{{call.duration_wait}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.queue_name">
+              <div class="col-md-3">Queue</div>
+              <div class="col-md-9 det-field">{{call.queue_name}}</div>
+            </div>
+            <div class="ubi-det" ng-if="call.address">
+              <div class="col-md-3">Address</div>
+              <div class="col-md-9 det-field">{{call.address}}</div>
+            </div>
+
           </div>
-          <div class="col-md-10 details-fields" ng-if="value && !isDate(value)">
-            {{value}}
+
+          <div role="tabpanel" class="tab-pane" id="Call-Data" ng-if="call.call_data">
+
+            <div class="ubi-det" ng-repeat="(nnkey, nnvalue) in call.call_data track by $index">
+              <div class="col-md-3">{{nnkey}}</div>
+              <div class="col-md-9 det-field">{{nnvalue}}</div>
+            </div>
+
           </div>
+
         </div>
+
+
+        <!-- Tabs End -->
+
       </div>
-    </tab>
 
-    <tab heading="Call Data" ng-if="!isEmptyObject(call.call_data)">
-      <accordion close-others="oneAtATime">
-        <div class="row" ng-repeat="(key, value) in call.call_data track by $index">
-          <accordion-group heading="{{key}}" is-open="true">
-            <div ng-if="isJson(value)">
-              <ul ng-repeat="(nkey, nvalue) in value track by $index">
-                <div ng-if="isJson(nvalue)">
-                  <ul ng-repeat="(nnkey, nnvalue) in nvalue track by $index">
-                    <li>{{nnkey}} : {{nnvalue}}</li>
-                  </ul>
-                </div>
-                <div ng-if="!isJson(nvalue)">
-                  <li>{{nkey}} : {{nvalue}}</li>
-                </div>
-              </ul>
-            </div>
-            <div ng-if="!isJson(value)">
-              {{value}}
-            </div>
-          </accordion-group>
-        </div>
-      </accordion>
-    </tab>
-  </tabset>
+    </div>
 
-  <!-- Tabs End -->
-
-</div>
+  </div>

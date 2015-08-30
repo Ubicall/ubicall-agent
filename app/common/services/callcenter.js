@@ -155,16 +155,16 @@ angular.module('agentUiApp')
                 $rootScope.$broadcast("call:ringing");
               }
               if (item == "call:complete") {
-                UiService.ok(result.message);
+                // UiService.ok(result.message);
                 $rootScope.$broadcast("call:complete");
               }
               if (item == "call:problem") {
-                UiService.error(result.message);
+                // UiService.error(result.message);
                 $rootScope.$broadcast("call:problem");
               }
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
-                UiService.ok(result.message);
+                // UiService.ok(result.message);
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
@@ -183,7 +183,7 @@ angular.module('agentUiApp')
                   var buildQueue = {queue_id : result.queue_id ,queue_slug : result.queue_slug ,
                     queue_name : result.queue_name || result.queue_slug , calls : result.calls || 1 };
                   queues.push(buildQueue);
-                } else if (/^(\-|\+)?[1-9][0-9]$/.test(result.operation)) {
+                } else if (/^-?(\d){1,2}$/.test(result.operation)) {
                   var done = false;
                   angular.forEach(queues, function(value, key){
                     if((value.queue_id == result.queue_id) && !done){
@@ -192,7 +192,7 @@ angular.module('agentUiApp')
                     }
                   });
                 }
-                UiService.ok(result.message);
+                // UiService.ok(result.message);
                 $rootScope.$broadcast("queues:updated", queues);
               }
             });

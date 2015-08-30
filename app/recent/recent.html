@@ -1,29 +1,31 @@
-<div class="col-md-9 right-line-pages" ng-if="isAuthenticated()" ng-cloak>
+<div id="recent-calls" ng-if="isAuthenticated()" ng-cloak>
 
-  <div id="custom-search-input">
-    <div class="input-group col-md-12">
-      <form>
-        <input ng-disabled="!calls.length" ng-model="qcalls" id="search" type="text" class="form-control" placeholder="Search...">
-      </form>
-      <span class="input-group-btn">
-        <button class="btn btn-info btn-lg" type="button">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </span>
+  <!-- Search -->
+
+  <form role="search" method="get" class="input-group" action="">
+    <label for="s" class="sr-only">Search for:</label>
+    <input type="search" ng-disabled="!calls.length" ng-model="qcalls" class="form-control s" placeholder="Search…">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+    </span>
+  </form>
+
+  <!-- Search End -->
+
+  <div class="line-01"></div>
+
+  <div class="recent-header">
+    <div class="row">
+      <div class="col-md-1">&nbsp;</div>
+      <div class="col-md-4">Via</div>
+      <div class="col-md-3">When</div>
+      <div class="col-md-3">Duration</div>
+      <div class="col-md-1">&nbsp;</div>
     </div>
   </div>
 
-  <div class="recent-header">
-    <div class="col-md-1 bold">&nbsp;</div>
-    <div class="col-md-4">Via</div>
-    <div class="col-md-3">When</div>
-    <div class="col-md-3">Duration</div>
-    <div class="col-md-1">&nbsp;</div>
-  </div>
-
   <div class="row">
-    <div dir-paginate="call in calls | orderBy:'-start_time' | filter:qcalls | itemsPerPage: callsPageSize" current-page="callsCurrentPage"
-      pagination-id="callsPaginator" class="recent-body" ng-class="{'recent-gray' : $index%2==0, 'recent-white' : !($index%2==0)}">
+    <div dir-paginate="call in calls | orderBy:'-start_time' | filter:qcalls | itemsPerPage: callsPageSize" current-page="callsCurrentPage" pagination-id="callsPaginator" class="recent-body" ng-class="{'recent-gray' : $index%2==0, 'recent-white' : !($index%2==0)}">
       <div class="row">
         <div class="col-md-1">
           <div class="call-current"></div>
