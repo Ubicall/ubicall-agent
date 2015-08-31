@@ -13,7 +13,7 @@
       <img src="https://cdn.ubicall.com/static/ubicall/images/user.png" class="user-img" alt="" />
       <h2>{{call.caller || '+14156323764'}}</h2>
       <div class="phone-line"></div>
-      <h4 ng-if="answered">
+      <h4 ng-if="false"><!--moved to https://github.com/Ubicall/CallCenterAgentApp/issues/31-->
         <img src="https://cdn.ubicall.com/static/ubicall/images/phone-02.gif" class="ani-img-02" alt="" /> {{call.period || '00:00:06'}}
       </h4>
       <h4 ng-if="!answered">
@@ -65,6 +65,6 @@
     </div>
   </div>
 
-  
+
 
 </div>
