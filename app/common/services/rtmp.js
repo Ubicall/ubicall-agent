@@ -27,6 +27,7 @@ angular.module('agentUiApp')
         $log.debug("hack to get fsrtmp and it is" + fsrtmp);
       }
       if (fsrtmp && payload && payload.sip && payload.sip.num && payload.sip.cred) {
+        $log.info("try to authenticate with communication server using credentials " + payload.sip.num +"/"+ payload.sip.cred )
         fsrtmp.login(payload.sip.num, payload.sip.cred);
       } else {
         $rootScope.$broadcast("rtmp:problem", {
@@ -92,13 +93,20 @@ angular.module('agentUiApp')
     }
 
     $window.onConnected = function (sessionid) {
-      $log.debug("rtmp connect with sessionid " + sessionid);
+      $log.info("rtmp connect with sessionid " + sessionid);
       rtmpSession = sessionid;
       rtmpSessionStatus = "connected";
+      if (!fsrtmp) {
+        fsrtmp = angular.element(document.querySelector("#"+FLASH_PHONE_ID))[0];
+        $log.debug("hack to get fsrtmp and it is" + fsrtmp);
+      }
       $rootScope.$broadcast("rtmp:state", {session: rtmpSession, status: rtmpSessionStatus, level: 3});
       $window.fsFlashRequiredPermission();
       if (AuthToken.isAuthenticated()) {
         fsLogin();
+      }else {
+        $log.error("will not log in comm server beacuse your are not logged in yet");
+        // TODO should logout now !
       }
     };
 
@@ -115,14 +123,17 @@ angular.module('agentUiApp')
 
 
     $window.onLogin = function (status, user, domain) {
-      $rootScope.$broadcast("rtmp:state:login", {
-        session: rtmpSession, status: status,
-        user: user, domain: domain
-      });
       if (status == "success") {
+        $rootScope.$broadcast("rtmp:state:login", {
+          session: rtmpSession, status: status,
+          user: user, domain: domain
+        });
         sessionUser = user + '@' + domain;
         fsRegister();
         // what to broadcast here ?
+      }else {
+        $log.error("unable to authenticate with communication server");
+        // TODO should logout now !
       }
     };
 
@@ -152,7 +163,7 @@ angular.module('agentUiApp')
       }
     };
 
-    $window.fsFlashLoaded = function (evt) {
+    var fsFlashLoaded = function (evt) {
       $log.debug("fsFlashLoaded");
       if (evt.success) {
         fsrtmp = angular.element(document.querySelector("#" + evt.id))[0];
@@ -166,13 +177,18 @@ angular.module('agentUiApp')
 
     $window.fsFlashRequiredPermission = function(){
       $log.debug("fsFlashRequiredPermession");
-      if(fsrtmp.isMuted()){
+      if( !fsrtmp ){
+        $log.error("why fsrtmp is null");
+        fsrtmp = angular.element(document.querySelector("#"+FLASH_PHONE_ID))[0];
+      }
+      if(fsrtmp && fsrtmp.isMuted()){
+        $log.debug("fsrtmp.isMuted()" + fsrtmp.isMuted());
         $('#flashModal').modal('show');
       }
     };
 
     return {
-      onFSLoaded: $window.fsFlashLoaded,
+      onFSLoaded: fsFlashLoaded,
       logout: fsLogout,
       answer: fsAnswer,
       hangup: fsHangup,

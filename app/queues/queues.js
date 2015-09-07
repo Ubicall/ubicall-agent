@@ -23,13 +23,13 @@ angular.module('agentUiApp')
       $scope.queues = _queues = [];
       $scope.totalQueues = _totalQueues = 0;
 
+      $log.info("should call getQueues");
       CallCenter.getQueues().then(function (queues) {
-        $timeout(function(){
-          _totalQueues = queues.length;
-          $scope.totalQueues = _totalQueues;
-          _queues = queues;
-          $scope.queues = _queues;
-        })
+        $log.info("queues in then now " + queues);
+        _totalQueues = queues.length;
+        $scope.totalQueues = _totalQueues;
+        _queues = queues;
+        $scope.queues = _queues;
       });
 
 
