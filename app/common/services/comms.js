@@ -76,7 +76,7 @@ angular.module('agentUiApp')
         };
 
 
-      }, function error(error) { //user not logged in
+      }, function error(err) { //user not logged in
           Auth.logout();
       });
     })();
