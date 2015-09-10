@@ -93,7 +93,7 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
-        UiService.info('you got a new call ....');
+        UiService.ring('you got a new call ....');
       });
     });
 
@@ -128,13 +128,13 @@ angular.module('agentUiApp')
     $scope.$on("rtmp:state", function (event, state) {
       $timeout(function(){
         if(state.status == 'connected'){
-          // UiService.ok("successfully connected to communication server");
+          UiService.ok("successfully connected to communication server");
           $log.info('successfully connected to communication server');
         } else {
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };
-          $log.info('take a rest , we try to connect you back to server , you will not able to send or recieve calls');
+          UiService.ok("take a rest , we try to connect you back to server , you will not able to send or recieve calls");
         }
       });
     });

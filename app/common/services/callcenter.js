@@ -151,20 +151,20 @@ angular.module('agentUiApp')
             var topicLayout = AuthToken.payload().api_key + ":" + AuthToken.payload().email + ":" + item ;
             comms.subscribe(topicLayout, function (topic, result) {
               if (item == "call:ringing") {
-                UiService.info(result.message);
+                UiService.ring(result.message);
                 $rootScope.$broadcast("call:ringing");
               }
               if (item == "call:complete") {
-                // UiService.ok(result.message);
+                UiService.ok(result.message);
                 $rootScope.$broadcast("call:complete");
               }
               if (item == "call:problem") {
-                // UiService.error(result.message);
+                UiService.error(result.message);
                 $rootScope.$broadcast("call:problem");
               }
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
-                // UiService.ok(result.message);
+                UiService.info(result.message);
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
@@ -192,7 +192,7 @@ angular.module('agentUiApp')
                     }
                   });
                 }
-                // UiService.ok(result.message);
+                UiService.info(result.message);
                 $rootScope.$broadcast("queues:updated", queues);
               }
             });

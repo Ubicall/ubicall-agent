@@ -8,6 +8,9 @@
  *
  * Main module of the application.
  */
+var AgentStaticHost = "https://cdn.ubicall.com/agent/" ;
+var TemplateMainUrl = AgentStaticHost + "views/" ;
+var CDNStaticHost = "https://cdn.ubicall.com/static/" ;
 angular
   .module('agentUiApp', [
     'ngAnimate',
@@ -23,7 +26,8 @@ angular
     'angularUtils.directives.dirPagination',
     'angularMoment',
     'swfobject',
-    'notifications'
+    'notifications',
+    'ngNotify'
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api/v1'); // TODO : standardized url for api in dev and prod (may use config file)
@@ -68,7 +72,7 @@ angular.module('agentUiApp').config(function (localStorageServiceProvider) {
 angular.module('agentUiApp').config(function ($routeProvider) {
   $routeProvider
   .when('/', {
-    templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
+    templateUrl: TemplateMainUrl + 'login/login.html',
     controller: 'LoginController',
     resolve: {
       factory: function ($q, $location, Auth, UiService) {
@@ -82,7 +86,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
       }
     }
   }).when('/login', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
+      templateUrl: TemplateMainUrl + 'login/login.html',
       controller: 'LoginController',
       resolve: {
         factory: function ($q, $location, Auth, UiService) {
@@ -96,7 +100,7 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/logout', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/login/login.html',
+      templateUrl: TemplateMainUrl + 'login/login.html',
       controller: 'LoginController',
       resolve: {
         factory: function ($q, $location, Auth, rtmp) {
@@ -108,46 +112,46 @@ angular.module('agentUiApp').config(function ($routeProvider) {
         }
       }
     }).when('/forget_password', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/login/forget.html',
+      templateUrl: TemplateMainUrl + 'login/forget.html',
       controller: 'LoginController',
     }).when('/main', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/main/main.html',
+      templateUrl: TemplateMainUrl + 'main/main.html',
       controller: 'MainController',
       resolve: {
         factory: checkRouting
       }
     }).when('/current', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
+      templateUrl: TemplateMainUrl + 'detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/recent', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/recent/recent.html',
+      templateUrl: TemplateMainUrl + 'recent/recent.html',
       controller: 'RecentController',
       resolve: {
         factory: checkRouting
       }
     }).when('/call/:queueid/:callid', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
+      templateUrl: TemplateMainUrl + 'detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/queue/:queueid/:qslug', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/detail/detail.html',
+      templateUrl: TemplateMainUrl + 'detail/detail.html',
       controller: 'DetailController',
       resolve: {
         factory: checkRouting
       }
     }).when('/me', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/profile/profile.html',
+      templateUrl: TemplateMainUrl + 'profile/profile.html',
       controller: 'ProfileController',
       resolve: {
         factory: checkRouting
       }
     }).when('/reports', {
-      templateUrl: 'https://cdn.ubicall.com/agent/views/reports/reports.html',
+      templateUrl: TemplateMainUrl + 'reports/reports.html',
       controller: 'ReportsController',
       resolve: {
         factory: checkRouting
@@ -178,8 +182,8 @@ angular.module('agentUiApp').config(function($sceDelegateProvider) {
     // Allow same origin resource loads.
     'self',
     // Allow loading from our agent cdn.
-    'https://cdn.ubicall.com/agent/**',
+    AgentStaticHost + '**',
     // Allow loading from our generic cdn.
-    'https://cdn.ubicall.com/static/**',
+    CDNStaticHost + "**",
   ]);
 });
