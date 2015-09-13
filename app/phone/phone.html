@@ -13,8 +13,9 @@
       <img src="https://cdn.ubicall.com/static/ubicall/images/user.png" class="user-img" alt="" />
       <h2>{{call.caller || '+14156323764'}}</h2>
       <div class="phone-line"></div>
-      <h4 ng-if="false"><!--moved to https://github.com/Ubicall/CallCenterAgentApp/issues/31-->
-        <img src="https://cdn.ubicall.com/static/ubicall/images/phone-02.gif" class="ani-img-02" alt="" /> {{call.period || '00:00:06'}}
+      <h4 ng-if="clientAnswered">
+        <img src="https://cdn.ubicall.com/static/ubicall/images/phone-02.gif" class="ani-img-02" alt="" />
+          <timer interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
       </h4>
       <h4 ng-if="!answered">
         <img src="https://cdn.ubicall.com/static/ubicall/images/phone-01.gif" class="ani-img-01" alt="" /> Incoming call...
@@ -32,7 +33,7 @@
           <h3>To</h3>
         </div>
         <div class="col-md-9">
-          <p>{{call.receiver || '+1 415-632-3764'}}</p>
+          <p>{{call.receiver || '+88584321565'}}</p>
         </div>
       </div>
       <div class="phone-line"></div>

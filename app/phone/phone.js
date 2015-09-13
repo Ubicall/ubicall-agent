@@ -8,20 +8,22 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope , $timeout, $window , $log, rtmp , AGENT_ANSWER_TIMEOUT) {
+  .controller('PhoneController', function ($rootScope ,$scope , $timeout, $window , $log, rtmp , UiService , AGENT_ANSWER_TIMEOUT) {
 
     $scope.answered = false ;
+    $scope.clientAnswered = false ;
     $scope.hanguped = false;
 
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
         $scope.answered = false;
+        $scope.clientAnswered = false ;
         $scope.isCall = true;
         $scope.hanguped = false;
         // wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
         $scope.whatIfAgnetNotAnswer = function(){
-           $log.info("agent not answered , so we hangup !");
+           UiService.grimace("Not answered the call, so we hangup !");
            $scope.hangup();
         }
         $scope.agentAnswerTimeout = $timeout(function(){ $scope.whatIfAgnetNotAnswer(); }, AGENT_ANSWER_TIMEOUT * 1000);
@@ -34,6 +36,14 @@ angular.module('agentUiApp')
       });
     });
 
+    $rootScope.$on('rtmp:call:client:answer', function (event, message) {
+      $timeout(function () {
+        UiService.info("Client answered your call....");
+        // showing and starting the timer
+        $scope.clientAnswered = true ;
+      });
+    });
+
     $scope.$on('call:complete',function(event,msg){
       $timeout(function () {
         $scope.isCall = false;
@@ -43,6 +53,7 @@ angular.module('agentUiApp')
     $scope.$on('call:problem',function(event,msg){
       $timeout(function(){
         $scope.isCall = false;
+        UiService.error("Problem occurred while receiving call....");
       });
     });
 
@@ -71,8 +82,10 @@ angular.module('agentUiApp')
     $scope.hangup = function(){
       rtmp.hangup();
       $timeout(function () {
+        $timeout.cancel($scope.agentAnswerTimeout);
         $scope.isCall = false;
         $scope.answered = false;
+        $scope.clientAnswered = false ;
         $scope.hanguped = true;
       });
     };
