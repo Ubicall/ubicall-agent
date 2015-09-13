@@ -8,7 +8,7 @@
  * Controller of the agentUiApp
  */
 angular.module('agentUiApp')
-  .controller('PhoneController', function ($scope , $timeout, $window , $log, rtmp , UiService , AGENT_ANSWER_TIMEOUT) {
+  .controller('PhoneController', function ($rootScope ,$scope , $timeout, $window , $log, rtmp , UiService , AGENT_ANSWER_TIMEOUT) {
 
     $scope.answered = false ;
     $scope.clientAnswered = false ;
@@ -36,7 +36,7 @@ angular.module('agentUiApp')
       });
     });
 
-    $scope.$on('rtmp:call:client:answer', function (event, message) {
+    $rootScope.$on('rtmp:call:client:answer', function (event, message) {
       $timeout(function () {
         UiService.info("Client answered your call....");
         // showing and starting the timer
@@ -82,6 +82,7 @@ angular.module('agentUiApp')
     $scope.hangup = function(){
       rtmp.hangup();
       $timeout(function () {
+        $timeout.cancel($scope.agentAnswerTimeout);
         $scope.isCall = false;
         $scope.answered = false;
         $scope.clientAnswered = false ;

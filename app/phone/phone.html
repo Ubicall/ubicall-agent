@@ -13,7 +13,7 @@
       <img src="https://cdn.ubicall.com/static/ubicall/images/user.png" class="user-img" alt="" />
       <h2>{{call.caller || '+14156323764'}}</h2>
       <div class="phone-line"></div>
-      <h4 ng-if="answered && clientAnswered">
+      <h4 ng-if="clientAnswered">
         <img src="https://cdn.ubicall.com/static/ubicall/images/phone-02.gif" class="ani-img-02" alt="" />
           <timer interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
       </h4>

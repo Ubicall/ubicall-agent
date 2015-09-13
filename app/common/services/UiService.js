@@ -8,12 +8,12 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('UiService', function ($timeout, $rootScope , $notification , ngNotify) {
+  .factory('UiService', function ($timeout, $rootScope , $notification , ngNotify , AGENT_ANSWER_TIMEOUT) {
     var previousTab;
     var currentTab;
     var currentTitle;
 
-    // used for any notifications but call
+    // used for any notifications but phone ring
     ngNotify.config({
       theme: 'pure',
       position: 'bottom',
@@ -45,7 +45,7 @@ angular.module('agentUiApp')
             lang: 'en',
             tag: 'coming-call',
             icon: 'https://cdn.ubicall.com/static/ubicall/images/incoming-call.png',
-            delay :"8000", // close issue after 8 seconds , call cacncel if agent not answered in 10 seconds
+            delay : ((AGENT_ANSWER_TIMEOUT * 1000) - 2), // close notification , call cancel if agent not answered in AGENT_ANSWER_TIMEOUT seconds
             focusWindowOnClick: true // focus the window on click
         });
         ngNotify.set(msg, {type: 'info' , duration: '8000'});
