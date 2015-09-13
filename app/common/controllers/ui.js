@@ -19,7 +19,12 @@ angular.module('agentUiApp')
     // dim screen to disconnection issues
     $scope.dimScreen = false;
 
-    $scope.fsFlashLoaded = rtmp.onFSLoaded;
+    // @deprecated
+    // TODO will be removed in next release
+    $scope.fsFlashLoaded = function(evt){
+        // $log.info("in fsFlashLoaded but nothing will hapen");
+        //rtmp.onFSLoaded(evt);
+    }
     $scope.rtmpConfig = FLASH_OBJ_VARS;
     $scope.flashPhoneId = FLASH_PHONE_ID;
     $scope.swfObjParams = FLASH_OBJ_PARAMS;
@@ -79,9 +84,10 @@ angular.module('agentUiApp')
         if (message.status == "success") {
           $scope.userRTMPSession = message.session + "/" + message.user + "@" + message.domain;
           $scope.isAuthenticatedAndFS = function () {
+            // $log.info("AuthToken.isAuthenticated() " + AuthToken.isAuthenticated());
             return AuthToken.isAuthenticated();
           };
-          UiService.ok("connected successfully  to communication server");
+           // UiService.ok("Successfully authenticate with communication server");
         } else {
           UiService.error("agent credential do not match in communication server");
           $scope.isAuthenticatedAndFS = function () {
