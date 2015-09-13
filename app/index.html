@@ -146,7 +146,7 @@
 
     <!--flash modal-->
 
-    <div id="ubi-flash" style="z-index:-99999">
+    <div id="ubi-flash" style="z-index:-99999" ng-class="hideFlash() ? 'hide' : ''">
       <swf-object
         swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
         swf-id="{{flashPhoneId}}"
