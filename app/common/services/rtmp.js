@@ -156,6 +156,7 @@ angular.module('agentUiApp')
       if( message == 'netStatus: NetStream.Buffer.Full' && !currentCall.started ){
         currentCall.start = moment();
         currentCall.started = true;
+        $rootScope.$broadcast("rtmp:call:client:answer", {uuid: uuid, name: name, number: number, account: account, level: 3});
       }
       if (message == "Closing media streams") {
         currentCall.end = moment();

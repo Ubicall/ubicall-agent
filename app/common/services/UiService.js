@@ -58,6 +58,9 @@ angular.module('agentUiApp')
       warn: function (msg, timout) {
         ngNotify.set(msg, {type: 'warn'});
       },
+      grimace: function (msg, timout) {
+        ngNotify.set(msg, {type: 'grimace'});
+      },
       error: function (msg) {
         ngNotify.set(msg, {type: 'error' , sticky: true});
       },

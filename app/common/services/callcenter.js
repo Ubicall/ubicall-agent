@@ -150,9 +150,10 @@ angular.module('agentUiApp')
           angular.forEach(payload.per.notify["agent"], function (item) {
             var topicLayout = AuthToken.payload().api_key + ":" + AuthToken.payload().email + ":" + item ;
             comms.subscribe(topicLayout, function (topic, result) {
+              // @deprecated event should not used any more
               if (item == "call:ringing") {
-                UiService.ring(result.message);
-                $rootScope.$broadcast("call:ringing");
+                // UiService.ring(result.message);
+                // $rootScope.$broadcast("call:ringing");
               }
               if (item == "call:complete") {
                 UiService.ok(result.message);

@@ -21,7 +21,7 @@ angular.module('agentUiApp')
         $scope.hanguped = false;
         // wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
         $scope.whatIfAgnetNotAnswer = function(){
-           $log.info("agent not answered , so we hangup !");
+           UiService.grimace("Not answered the call, so we hangup !");
            $scope.hangup();
         }
         $scope.agentAnswerTimeout = $timeout(function(){ $scope.whatIfAgnetNotAnswer(); }, AGENT_ANSWER_TIMEOUT * 1000);
@@ -34,6 +34,12 @@ angular.module('agentUiApp')
       });
     });
 
+    $scope.$on('rtmp:call:client:answer', function (event, message) {
+      $timeout(function () {
+        UiService.info("Client answered your call....");
+      });
+    });
+
     $scope.$on('call:complete',function(event,msg){
       $timeout(function () {
         $scope.isCall = false;
@@ -43,6 +49,7 @@ angular.module('agentUiApp')
     $scope.$on('call:problem',function(event,msg){
       $timeout(function(){
         $scope.isCall = false;
+        UiService.error("Problem occurred while receiving call....");
       });
     });
 

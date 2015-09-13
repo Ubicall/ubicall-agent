@@ -87,9 +87,9 @@ angular.module('agentUiApp')
             // $log.info("AuthToken.isAuthenticated() " + AuthToken.isAuthenticated());
             return AuthToken.isAuthenticated();
           };
-           // UiService.ok("Successfully authenticate with communication server");
+           UiService.ok("Successfully authenticate with communication server");
         } else {
-          UiService.error("agent credential do not match in communication server");
+          UiService.error("Agent credential do not match in communication server");
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };
@@ -99,7 +99,7 @@ angular.module('agentUiApp')
 
     $scope.$on("rtmp:call", function (event, callInfo) {
       $timeout(function(){
-        UiService.ring('you got a new call ....');
+        UiService.ring('Recieving a call.......');
       });
     });
 
@@ -108,6 +108,8 @@ angular.module('agentUiApp')
         if(message.uuid && (message.status == 'done' || message.status == 'retry')){
           CallCenter.hangup({status : message.status ,
             error : message.error , duration : message.duration});
+          message.status == "done" ? UiService.ok('Successfully complete current call....') :
+            UiService.info('Mark current call to be retried...');
         }
         $location.path('/recent');
       });
@@ -127,7 +129,8 @@ angular.module('agentUiApp')
 
     $scope.$on('rtmp:problem',function(event,msg){
       $timeout(function () {
-        UiService.error(msg.message);
+        UiService.error("Problem occurred while connecting to communication servers....");
+        $log.error(msg.message);
       });
     });
 
@@ -140,7 +143,7 @@ angular.module('agentUiApp')
           $scope.isAuthenticatedAndFS = function () {
             return false;
           };
-          UiService.ok("take a rest , we try to connect you back to server , you will not able to send or recieve calls");
+          UiService.ok("Take a rest , we try to connect you back to communication server , you will not able to send or recieve calls");
         }
       });
     });
