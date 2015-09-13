@@ -45,6 +45,7 @@ angular.module('agentUiApp')
             lang: 'en',
             tag: 'coming-call',
             icon: 'https://cdn.ubicall.com/static/ubicall/images/incoming-call.png',
+            delay :"8000", // close issue after 8 seconds , call cacncel if agent not answered in 10 seconds
             focusWindowOnClick: true // focus the window on click
         });
         ngNotify.set(msg, {type: 'info' , duration: '8000'});

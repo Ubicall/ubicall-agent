@@ -26,6 +26,7 @@ angular
     'angularUtils.directives.dirPagination',
     'angularMoment',
     'swfobject',
+    'timer',
     'notification', // html5 notification
     'ngNotify' // usual notification
   ]);
