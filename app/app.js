@@ -26,8 +26,8 @@ angular
     'angularUtils.directives.dirPagination',
     'angularMoment',
     'swfobject',
-    'notifications',
-    'ngNotify'
+    'notification', // html5 notification
+    'ngNotify' // usual notification
   ]);
 angular
   .module('agentUiApp').constant('API_BASE', 'https://agent.ubicall.com/api/v1'); // TODO : standardized url for api in dev and prod (may use config file)

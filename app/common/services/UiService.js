@@ -13,9 +13,6 @@ angular.module('agentUiApp')
     var currentTab;
     var currentTitle;
 
-    // will fall back to old notifications if browser not support html5 notification api
-    $notification.enableHtml5Mode()
-
     // used for any notifications but call
     ngNotify.config({
       theme: 'pure',
@@ -41,8 +38,16 @@ angular.module('agentUiApp')
     }
 
     return {
-      ring: function (msg, timout) {
-        $notification.info('Info', msg, timout);
+      ring: function (msg) {
+        $notification("Incoming Call", {
+            body: msg,
+            dir: 'auto',
+            lang: 'en',
+            tag: 'coming-call',
+            icon: 'https://cdn.ubicall.com/static/ubicall/images/incoming-call.png',
+            focusWindowOnClick: true // focus the window on click
+        });
+        ngNotify.set(msg, {type: 'info' , duration: '8000'});
       },
       ok: function (msg) {
         ngNotify.set(msg, {type: 'success'});
