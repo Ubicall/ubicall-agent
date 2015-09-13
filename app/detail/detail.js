@@ -54,7 +54,8 @@ angular.module('agentUiApp')
           $scope.call = call;
           CurrentCall = call;
         },function(error){
-          UiService.error(error.message);
+          UiService.error("Unable to get you a call from " + $routeParams.qslug + ". try again later.");
+          $location.path('/recent');
         });
       } else if (/^\/call/.test($location.path())) {
         UiService.setCurrentTab('detail', 'Call Detail');
@@ -64,7 +65,7 @@ angular.module('agentUiApp')
           $scope.call = call;
           CurrentCall = call;
         },function(error){
-          UiService.error(error.message || "unable to get call detail !")
+          UiService.error("Unable to get call details. try again later.");
           $location.path('/recent');
         });
       }
