@@ -42,7 +42,7 @@ angular.module('agentUiApp')
     }
 
     // hide header and pages-title in login and forget password pages
-    $scope.hideHeader = function(){
+    $scope.hideHeader = $scope.hideFlash = function(){
       var re = /\/login|\/forget_password|\/logout/;
       return re.test($location.path());
     }
