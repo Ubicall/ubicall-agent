@@ -184,6 +184,7 @@ angular.module('agentUiApp')
       if(fsrtmp && fsrtmp.isMuted()){
         $log.debug("fsrtmp.isMuted()" + fsrtmp.isMuted());
         $('#flashModal').modal('show');
+        fsrtmp.showPrivacy();
       }
     };
 
