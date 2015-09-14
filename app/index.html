@@ -19,7 +19,13 @@
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/ng-notify/dist/ng-notify.min.css" />
   <link rel="stylesheet" href="https://cdn.ubicall.com/static/components-font-awesome/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/demo/agent/agent.css" />
+  <link rel="stylesheet" href="https://cdn.ubicall.com/static/ubicall/css/agent/agent.css" />
+
+  <style>
+    .loadingPageShowZ {z-index: 99999}
+    .fsFlashShowZ  {z-index:99988}
+    .fsFlashHideZ     {z-index:-99988}
+</style>
 
 </head>
 
@@ -29,7 +35,7 @@
   <div id="wrapper" ng-controller="UIController">
 
     <!-- Loading Screen -->
-    <div id="loading-page" ng-class="dimScreen? '' : 'hide'">
+    <div id="loading-page" ng-class="dimScreen? 'loadingPageShowZ' : 'hide'">
       <img src="https://cdn.ubicall.com/static/ubicall/images/logo-min.png" class="logo-min" alt="">
       <h1>
         <img src="https://cdn.ubicall.com/static/ubicall/images/loading.gif" class="load-img" alt=""> Connecting ...</h1>
@@ -146,7 +152,7 @@
 
     <!--flash modal-->
 
-    <div id="ubi-flash" style="z-index:-99999" ng-class="hideFlash() ? 'hide' : ''">
+    <div id="ubi-flash" class="fsFlashHideZ" ng-class="hideFlash() ? 'hide' : ''">
       <swf-object
         swf-url="https://cdn.ubicall.com/static/ubicall/other/flex/freeswitch.swf"
         swf-id="{{flashPhoneId}}"
@@ -254,16 +260,13 @@
   <script>
     $(document).ready(function() {
       $('#flashModal').on('shown.bs.modal', function(e) {
-        $('#ubi-flash').css("z-index", "99999");
+        $('#ubi-flash').removeClass().addClass('fsFlashShowZ')
       });
       $('#flashModal').on('show.bs.modal', function(e) {
-        $('#ubi-flash').css("z-index", "99999");
+        $('#ubi-flash').removeClass().addClass('fsFlashShowZ')
       });
       $('#flashModal').on('hide.bs.modal', function(e) {
-        $('#ubi-flash').css("z-index", "-99999");
-      });
-      $('#myModal').on('hidden.bs.modal', function(e) {
-        $('#ubi-flash').css("z-index", "-99999");
+        $('#ubi-flash').removeClass().addClass('fsFlashHideZ')
       });
       $('[data-toggle="tooltip"]').tooltip();
     });
