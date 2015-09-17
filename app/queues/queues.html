@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <div class="list-group">
-      <a ng-repeat="queue in queues" href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}" ng-class="{disabled: queue.calls <= 0}" title="{{{true: 'has ' + queue.calls + ' call waiting ' , false: 'has no calls now'}[queue.calls > 0]}}" class="list-group-item {{queue.calls | callAlert}}">
+      <a ng-repeat="queue in queues track by $index" href="#/queue/{{queue.queue_id}}/{{queue.queue_slug}}" ng-class="{disabled: queue.calls <= 0}" title="{{{true: 'has ' + queue.calls + ' call waiting ' , false: 'has no calls now'}[queue.calls > 0]}}" class="list-group-item {{queue.calls | callAlert}}">
         {{queue.queue_name}}
         <span class="badge">{{queue.calls}}</span>
       </a>

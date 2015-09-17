@@ -12,40 +12,17 @@ angular.module('agentUiApp')
     if (!Auth.currentUser()) {
       Auth.logout();
     } else {
-      var _user = Auth.currentUser().user;
-      var _queues, _totalQueues;
 
-      $scope.queuesCurrentPage = 1;
-      $scope.queuesPageSize = 10;
-
-      $scope.user = _user;
-
-      $scope.queues = _queues = [];
-      $scope.totalQueues = _totalQueues = 0;
-
-      CallCenter.getQueues().then(function (queues) {
-        $log.info("available queues : " + JSON.stringify(queues));
-        _totalQueues = queues.length;
-        $scope.totalQueues = _totalQueues;
-        _queues = queues;
-        $scope.queues = _queues;
+      CallCenter.getQueues().then(function(queues){
+        $log.info("available queues is " + JSON.stringify(queues));
+        $scope.queues = queues;
       });
-
-
-      $scope.fromNow = function (utcend, utcstart) {
-        return moment.utc(moment(utcend, "DD/MM/YYYY HH:mm:ss").
-          diff(moment(utcstart, "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss");
-      };
 
       $scope.$on('queues:updated', function (event, queues) {
-        $timeout(function(){
-          $scope.totalQueues = _totalQueues = queues.length;
-          $scope.queues = _queues = queues;
+        CallCenter.getQueues().then(function(queues){
+          $log.info("queues updated : " + JSON.stringify(queues));
+          $scope.queues = queues;
         });
-      });
-
-      $scope.$on("rtmp:login", function (event, loginInfo) {
-        $log.info("loginInfo is " + loginInfo);
       });
     }
   });

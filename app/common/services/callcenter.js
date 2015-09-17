@@ -172,7 +172,7 @@ angular.module('agentUiApp')
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
-                queues = result.
+                queues = result.queues;
                 UiService.info(result.message);
                 $rootScope.$broadcast("queues:updated", queues);
               }
