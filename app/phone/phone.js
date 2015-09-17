@@ -23,7 +23,7 @@ angular.module('agentUiApp')
         $scope.hanguped = false;
         // wait AGENT_ANSWER_TIMEOUT then call hangup , if agent answer then cancle this timeout
         $scope.whatIfAgnetNotAnswer = function(){
-           UiService.grimace("Not answered the call, so we hangup !");
+           UiService.grimace("Not answered the call, so we hangup !",{duration : 8000 , sticky : true});
            $scope.hangup();
         }
         $scope.agentAnswerTimeout = $timeout(function(){ $scope.whatIfAgnetNotAnswer(); }, AGENT_ANSWER_TIMEOUT * 1000);
