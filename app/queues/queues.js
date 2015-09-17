@@ -23,9 +23,8 @@ angular.module('agentUiApp')
       $scope.queues = _queues = [];
       $scope.totalQueues = _totalQueues = 0;
 
-      $log.info("should call getQueues");
       CallCenter.getQueues().then(function (queues) {
-        $log.info("queues in then now " + queues);
+        $log.info("available queues : " + JSON.stringify(queues));
         _totalQueues = queues.length;
         $scope.totalQueues = _totalQueues;
         _queues = queues;

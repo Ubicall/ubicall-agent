@@ -163,36 +163,16 @@ angular.module('agentUiApp')
                 UiService.error(result.message);
                 $rootScope.$broadcast("call:problem");
               }
+              if (item == "call:warning") {
+                UiService.grimace(result.message , {duration : 8000 , sticky : true});
+              }
               if (item == "calls:updated") {
                 Array.prototype.unshift.apply(calls, result.calls);
                 UiService.info(result.message);
                 $rootScope.$broadcast("calls:updated", calls);
               }
               if (item == "queues:updated") {
-                // valid queue message operations [hide , show , +NUM , -NUM]
-                //NUM is max 2 digit number of calls added to this queue
-                if ( result.operation == 'hide' ){
-                  var done = false;
-                  angular.forEach(queues, function(value, key){
-                    if((value.queue_id == result.queue_id) && !done){
-                      value.calls = 0;
-                      done = true;
-                    }
-                  });
-                }else if(result.operation == 'show'){
-                  //TODO : what if queue hide then show again , in this case we not add any we just show
-                  var buildQueue = {queue_id : result.queue_id ,queue_slug : result.queue_slug ,
-                    queue_name : result.queue_name || result.queue_slug , calls : result.calls || 1 };
-                  queues.push(buildQueue);
-                } else if (/^-?(\d){1,2}$/.test(result.operation)) {
-                  var done = false;
-                  angular.forEach(queues, function(value, key){
-                    if((value.queue_id == result.queue_id) && !done){
-                      value.calls = value.calls + Number(result.operation);
-                      done = true;
-                    }
-                  });
-                }
+                queues = result.
                 UiService.info(result.message);
                 $rootScope.$broadcast("queues:updated", queues);
               }
