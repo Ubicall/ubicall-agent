@@ -12,14 +12,14 @@ angular.module('agentUiApp')
                                    UiService, AuthToken, API_BASE, comms , rtmp) {
     var CallCenter = {};
 //TODO :Use https://github.com/jmdobry/angular-cache instead
-    var calls, queues;
+    var calls, queues, current_call;
 
     function _getCalls() {
       var deferred = $q.defer();
       if (calls) {
         deferred.resolve(calls);
       } else {
-        $http.get(API_BASE + "/calls").then(function (result) {
+        $http.get(API_BASE + "/agent/calls").then(function (result) {
           calls = result.data;
           deferred.resolve(result.data);
         }, function (error) {
@@ -80,7 +80,7 @@ angular.module('agentUiApp')
       if (queues) {
         deferred.resolve(queues);
       } else {
-        $http.get(API_BASE + "/queues").then(function (result) {
+        $http.get(API_BASE + "/agent/queues").then(function (result) {
           queues = result.data;
           deferred.resolve(result.data);
         }, function (error) {
@@ -92,10 +92,10 @@ angular.module('agentUiApp')
 
     CallCenter.getMeCall = function (qid, qslug) {
       var deferred = $q.defer();
-      $http.get(API_BASE + "/call/" + qid + "/" + qslug)
+      $http.get(API_BASE + "/call/queue/" + qid + "/" + qslug)
         .then(function success(res) {
-          var call = _getCallQueueName(res.data);
-          return deferred.resolve(call);
+          current_call = _getCallQueueName(res.data);
+          return deferred.resolve(current_call);
         }, function error(err) {
           rtmp.hangup();
           deferred.reject(err.data);
@@ -108,7 +108,7 @@ angular.module('agentUiApp')
       meta = meta || {};
       meta.status = meta.status || '';
       $http({
-        url: API_BASE + "/call/done",
+        url: meta.status == 'done' ? API_BASE + "/call/" + current_call.id + "/done" : API_BASE + "/call/" + current_call.id + "/failed" ,
         method: "POST",
         headers: {
           'x-call-action': meta.status == 'done' ? 'done' : 'retry' ,
@@ -117,9 +117,11 @@ angular.module('agentUiApp')
         }
       }).then(function success(res) {
           UiService.info(res.message);
+          current_call = {};
           deferred.resolve({});
         }, function error(err) {
           //silent err
+          current_call = {};
           deferred.resolve({});
         });
       return deferred.promise;

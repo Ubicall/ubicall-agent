@@ -11,8 +11,9 @@ angular.module('agentUiApp')
   .factory('Auth', function ($http, $rootScope, $log, $q, localStorageService, AuthToken, API_BASE) {
     function login(userName, password) {
       var deferred = $q.defer();
-      $http.post(API_BASE + "/login", {
-        username: userName,
+      $http.post(API_BASE + "/auth/token", {
+        client_id: 'ubicall-agent',
+        email: userName,
         password: password
       }).then(function (result) {
         AuthToken.setToken(result.data.access_token);
@@ -30,7 +31,7 @@ angular.module('agentUiApp')
       $rootScope.$broadcast("Auth:logout");
       var token = AuthToken.getToken();
       if(token){
-        $http.post(API_BASE + "/logout", {
+        $http.delete(API_BASE + "/auth/revoke", {
           access_token: token
         }).error(function (error) {
           $log.debug(error);
@@ -56,7 +57,7 @@ angular.module('agentUiApp')
         if(!email){
           deferred.reject("email is required");
         }
-        $http.post(API_BASE + "/forget", {
+        $http.post(API_BASE + "/agent/forget", {
           email: email
         }).then(function (result) {
           deferred.resolve(result);
