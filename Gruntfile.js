@@ -10,7 +10,8 @@ module.exports = function (grunt) {
 
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
-        dist: 'dist'
+        dist: 'dist',
+        nginx: 'conf/nginx'
     };
 
     grunt.initConfig({
@@ -217,6 +218,12 @@ module.exports = function (grunt) {
               src : ['**/*.*'],
               dest: '/var/www/agent/'
             },
+            nginx: {
+              expand: true,
+              cwd: appConfig.nginx,
+              src:  ['**/*.conf'],
+              dest: '/etc/nginx/conf.d/'
+            },
         },
 
         ngAnnotate: {
@@ -309,6 +316,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-purifycss');
     grunt.loadNpmTasks('grunt-text-replace');
+    grunt.loadNpmTasks('grunt-nginx');
 
 
     grunt.registerTask('preserve', 'Compile then start a connect web server', [
@@ -318,6 +326,8 @@ module.exports = function (grunt) {
         'copy:devlibs',
         'copy:views',
         'replace:agentDevResourcesHost',
+        'copy:nginx',
+        'nginx:restart',
         'copy:deployAgentForProduction'
     ]);
 
@@ -342,6 +352,8 @@ module.exports = function (grunt) {
         'clean:agent',
         'copy:views',
         'replace:agentProdResourcesHost',
+        'copy:nginx',
+        'nginx:restart',
         'copy:deployAgentForProduction'
     ]);
     grunt.registerTask('build', 'Clean then build to dist', [
