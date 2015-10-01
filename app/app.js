@@ -33,6 +33,8 @@ angular
 angular
   .module('agentUiApp').constant('API_BASE', 'https://api.ubicall.com/v1');
 angular
+  .module('agentUiApp').constant('OAUTH_BASE', 'https://api.ubicall.com/auth');
+angular
   .module('agentUiApp').constant('FLASH_OBJ_VARS', {rtmp_url : 'rtmp://104.239.164.247/phone'});
 angular
     .module('agentUiApp').constant('FLASH_PHONE_ID', 'flashPhone');

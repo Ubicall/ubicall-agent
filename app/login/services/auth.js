@@ -8,10 +8,10 @@
  * Factory in the agentUiApp.
  */
 angular.module('agentUiApp')
-  .factory('Auth', function ($http, $rootScope, $log, $q, localStorageService, AuthToken, API_BASE) {
+  .factory('Auth', function ($http, $rootScope, $log, $q, localStorageService, AuthToken, API_BASE, OAUTH_BASE) {
     function login(userName, password) {
       var deferred = $q.defer();
-      $http.post(API_BASE + "/auth/token", {
+      $http.post(OAUTH_BASE + "/token", {
         client_id: 'ubicall-agent',
         email: userName,
         password: password
@@ -31,7 +31,7 @@ angular.module('agentUiApp')
       $rootScope.$broadcast("Auth:logout");
       var token = AuthToken.getToken();
       if(token){
-        $http.delete(API_BASE + "/auth/revoke", {
+        $http.delete(OAUTH_BASE + "/revoke", {
           access_token: token
         }).error(function (error) {
           $log.debug(error);
