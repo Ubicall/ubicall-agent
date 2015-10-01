@@ -8,8 +8,8 @@
  *
  * Main module of the application.
  */
-var AgentStaticHost = "https://cdn.ubicall.com/agent/" ;
-var TemplateMainUrl = AgentStaticHost + "views/" ;
+var AgentStaticHost = "https://agent.ubicall.com/" ;
+var TemplateMainUrl = AgentStaticHost ;
 var CDNStaticHost = "https://cdn.ubicall.com/static/" ;
 angular
   .module('agentUiApp', [
