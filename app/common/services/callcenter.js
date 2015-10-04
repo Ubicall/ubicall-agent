@@ -109,7 +109,7 @@ angular.module('agentUiApp')
       meta.status = meta.status || '';
       $http({
         url: meta.status == 'done' ? API_BASE + "/call/" + current_call.id + "/done" : API_BASE + "/call/" + current_call.id + "/failed" ,
-        method: "POST",
+        method: "PUT",
         headers: {
           'x-call-action': meta.status == 'done' ? 'done' : 'retry' ,
           'x-call-error': meta.error ? meta.error : '',
