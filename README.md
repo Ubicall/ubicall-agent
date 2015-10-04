@@ -4,7 +4,7 @@ Angular Js Call Center Application
 **preinstall:**
 
   ```bash
-   sudo mkdir -p /var/www/agent/{js,dev,views,avater}
+   sudo mkdir -p /var/www/agent/{js,dev,views,avatar}
    sudo chown -R :nginx /var/www/agent/
   ```
 
