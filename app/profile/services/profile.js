@@ -18,7 +18,7 @@ angular.module('agentUiApp')
       if(image){
         var changes = new FormData();
         changes.append('image', image);
-        $http.post(API_BASE + "/users/me/image", changes, {
+        $http.post(API_BASE + "/agent/image", changes, {
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
           }).then(function(result) {
@@ -48,7 +48,7 @@ angular.module('agentUiApp')
           changes.append('image', options.image);
         }
 
-        $http.post(API_BASE + "/users/me", changes, {
+        $http.post(API_BASE + "/agent", changes, {
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
           }).then(function(result) {
