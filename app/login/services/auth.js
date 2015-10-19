@@ -15,9 +15,10 @@ angular.module('agentUiApp')
         method: 'post',
         url: OAUTH_BASE + "/token",
         data: JSON.stringify({
-          client_id: 'ubicall-agent',
-          email: userName,
-          password: password
+          "client_id": "ubicall-agent",
+          "username": userName,
+          "password": password,
+          "grant_type": "password"
         }),
         headers: {
           'Content-Type': 'application/json'
