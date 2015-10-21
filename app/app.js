@@ -11,6 +11,7 @@
 var AgentStaticHost = "https://agent.ubicall.com/" ;
 var TemplateMainUrl = AgentStaticHost ;
 var CDNStaticHost = "https://cdn.ubicall.com/static/" ;
+var API = "https://api.ubicall.com";
 angular
   .module('agentUiApp', [
     'ngAnimate',
@@ -31,9 +32,9 @@ angular
     'ngNotify' // usual notification
   ]);
 angular
-  .module('agentUiApp').constant('API_BASE', 'https://api.ubicall.com/v1');
+  .module('agentUiApp').constant('API_BASE', API + '/v1');
 angular
-  .module('agentUiApp').constant('OAUTH_BASE', 'https://api.ubicall.com/auth');
+  .module('agentUiApp').constant('OAUTH_BASE', API + '/auth');
 angular
   .module('agentUiApp').constant('FLASH_OBJ_VARS', {rtmp_url : 'rtmp://104.239.164.247/phone'});
 angular

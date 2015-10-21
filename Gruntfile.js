@@ -279,8 +279,8 @@ module.exports = function (grunt) {
                 from: "https://agent.ubicall.com/",
                 to: "https://agent.dev.ubicall.com/"
               },{
-                from: "https://api.ubicall.com/v1",
-                to: "https://api.dev.ubicall.com/v1"
+                from: "https://api.ubicall.com",
+                to: "https://api.dev.ubicall.com"
               },{
                 from: "<!-- Production Mode-->",
                 to: "<!-- Production Mode"
