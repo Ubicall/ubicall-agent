@@ -271,16 +271,16 @@ module.exports = function (grunt) {
               overwrite: true,                 // overwrite matched source files
               replacements: [{
                 from: "https://cdn.ubicall.com/static/",
-                to: "https://cdn.dev.ubicall.com/static/"
+                to: "https://cdn-dev.ubicall.com/static/"
               },{
                 from: "https://cdn.ubicall.com/agent/",
-                to: "https://cdn.dev.ubicall.com/agent/"
+                to: "https://cdn-dev.ubicall.com/agent/"
               },{
                 from: "https://agent.ubicall.com/",
-                to: "https://agent.dev.ubicall.com/"
+                to: "https://agent-dev.ubicall.com/"
               },{
                 from: "https://api.ubicall.com",
-                to: "https://api.dev.ubicall.com"
+                to: "https://api-dev.ubicall.com"
               },{
                 from: "<!-- Production Mode-->",
                 to: "<!-- Production Mode"
